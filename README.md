@@ -1,4 +1,4 @@
-# firstGitRepo
+# <font color='red'>firstGitRepo</font>
 This is the first git repository.
 
 ##文本格式
@@ -118,3 +118,12 @@ HTML 语法：`<sub>subscript</sub>`
 
 **示例：**
 H~2~O = H<sub>2</sub>O is a liquid.
+
+##块引用（blockquote）
+HTML 中的 `<blockquote>` 标签定义摘自另一个源的块引用。  
+`<blockquote>` 与 `</blockquote>` 之间的所有文本都会从常规文本中分离出来，经常会在左右两边进行**缩进**，而且有时会使用**斜体**。
+也就是说，块引用拥有它们自己的<u>空间</u>。
+Markdown 标记区块引用是使用类似 email 的引用方式，在断好的行前加上 `>` ：
+> 爱上一个人  
+> 恋上一座城
+

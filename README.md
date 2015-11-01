@@ -28,6 +28,13 @@ href_id和title相同，`[title][]`。也可省掉href_id，进一步简写为`[
 [classeur-url-id]:http://classeur.io/
 [classeur]:http://classeur.io/
 
+###autolink
+http://daringfireball.net/projects/markdown/  
+<http://pad.haroopress.com/>
+
+###imglink
+[![](http://pad.haroopress.com/assets/images/logo-small.png "haroopad")](http://pad.haroopress.com/)
+
 ##测试代码块（Code Block）
 ###标准Preformatted Code Block
 

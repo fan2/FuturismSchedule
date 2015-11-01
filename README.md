@@ -102,4 +102,19 @@ $$
 \Gamma(z) = \int_0^\infty t^{z-1}e^{-t}dt\,.
 $$
 
+## 脚标
+标准 Markdown 不支持脚标，只能通过内嵌 HTML 的`<sup>`和`<sub>`标签实现。
 
+### 上脚标：
+Haroopad 语法：`^Superscript^`  
+HTML 语法：`<sup>superscript</sup>`
+
+**示例：**
+2^10^ = 2<sup>10</sup> = 1024;
+
+### 下脚标：
+Haroopad 语法：`~Subscript~`  
+HTML 语法：`<sub>subscript</sub>`
+
+**示例：**
+H~2~O = H<sub>2</sub>O is a liquid.

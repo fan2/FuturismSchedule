@@ -35,6 +35,8 @@ http://daringfireball.net/projects/markdown/
 ###imglink
 [![](http://pad.haroopress.com/assets/images/logo-small.png "haroopad")](http://pad.haroopress.com/)
 
+<img src="http://my.csdn.net/uploads/avatar/9/D/B/1_phunxm.jpg" align="middle"  alt="程序猿-弦苦" />
+
 ##测试代码块（Code Block）
 ###标准Preformatted Code Block
 
@@ -77,3 +79,12 @@ int main(int argc, char * argv[]) {
 &ensp;&ensp;&ensp;&ensp;该行行首添加了4个半方大的空白：en space（`&ensp;`或`&#8194;`）  
 &emsp;&emsp;&#8195;&#8195;该行行首添加了4个全方大的空白：em space（`&emsp;`或`&#8195;`） 
 ___
+
+## MathJax（不支持）
+
+You can render *LaTeX* mathematical expressions using **MathJax**, as on [math.stackexchange.com][1]:
+The *Gamma function* satisfying $\Gamma(n) = (n-1)!\quad\forall n\in\mathbb N$ is via the Euler integral
+
+$$
+\Gamma(z) = \int_0^\infty t^{z-1}e^{-t}dt\,.
+$$

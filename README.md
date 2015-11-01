@@ -1,6 +1,19 @@
 # firstGitRepo
 This is the first git repository.
 
+##文本格式
+###强调
+```Markdown
+Some of these words *are emphasized*.
+Some of these words _are emphasized also_.
+```
+
+###加粗
+```Markdown
+Use two asterisks for **strong emphasis**.
+Or, if you prefer, __use two underscores instead__.
+```
+
 测试markdown中混用`<kbd>`标签
 ---
 退出vim:
@@ -88,3 +101,5 @@ The *Gamma function* satisfying $\Gamma(n) = (n-1)!\quad\forall n\in\mathbb N$ i
 $$
 \Gamma(z) = \int_0^\infty t^{z-1}e^{-t}dt\,.
 $$
+
+

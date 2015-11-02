@@ -128,14 +128,13 @@ Markdown 标记区块引用是使用类似 email 的引用方式，在断好的�
 > 恋上一座城
 
 ##列表（List）
-###无序列表
+###无序列表（Unordered）
 示例效果：
 -   Red
 -   Green
 -   Blue
 
 - - -
-
 - 链接（Hyperlink）
  - 自动链接
  - 文字（text href）
@@ -147,10 +146,21 @@ Markdown 标记区块引用是使用类似 email 的引用方式，在断好的�
  - 锚点（inner link）
 - 引用（Blockquote）
 
+### 有序列表（Ordered）
+
+[Step-by-step walkthrough for starting a blog](http://startbloggingonline.com/):
+
+1. GETTING STARTED  
+	Choosing Blogging Platform (WordPress)
+2. GETTING YOUR BLOG ONLINE  
+	Choosing Domain Name & Web Hosting
+3. DESIGNING AND TWEAKING YOUR BLOG  
+	Quick and easy ways to get your blog look the way you want
+4. WRITING BLOG POSTS AND PAGES  
+	Adding new content for your Blog (Posts, Pages, Images etc…)
+
 ### task list
 - [ ] task1 to do
 - [x] task2 done
 1. [ ] task3 to do
 2. [x] task4 done
-
-

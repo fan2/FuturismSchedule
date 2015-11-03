@@ -54,7 +54,21 @@ http://daringfireball.net/projects/markdown/
 ###标准Preformatted Code Block
 
 - Preformatted Code Block  
-将一段代码块整体向右缩进（<kbd>⌘</kbd> + <kbd>]</kbd>）即可测试。存在以下缺陷：
+将一段代码块整体向右缩进（<kbd>⌘</kbd> + <kbd>]</kbd>）即可测试。  
+
+（1）以tab开头：
+
+	these lines begin with tab will be show as pre code block.
+	these lines begin with tab will be show as pre code block.
+	these lines begin with tab will be show as pre code block.
+	
+（2）以四个空格开头：
+
+    these lines begin with 4 spaces will be show as pre code block.
+    these lines begin with 4 spaces will be show as pre code block.
+    these lines begin with 4 spaces will be show as pre code block.
+
+存在以下缺陷：
 
  - 对多tab及空格的缩进支持不完善！
  - 将宏符号#（#include、#import）误解为H1，可能会影响解析器的TOC！
@@ -134,16 +148,19 @@ Markdown 标记区块引用是使用类似 email 的引用方式，在断好的�
 -   Green
 -   Blue
 
+nested list
 - - -
 - 链接（Hyperlink）
- - 自动链接
- - 文字（text href）
-   - 行内式
-    - 参考式
- - 图片（image href）
-   - 插入图片
-    - 图片链接
- - 锚点（inner link）
+	- 自动链接（autolink）
+	- 文字（text href）
+		- 行内式（Inline）
+		- 参考式（Reference）
+	- 图片（image href）
+		- 插入图片
+		- 图片链接
+	- 锚点（inner link）
+		- 书签（Bookmark）
+		- 脚注（Footnote）
 - 引用（Blockquote）
 
 ### 有序列表（Ordered）

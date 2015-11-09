@@ -50,6 +50,9 @@ http://daringfireball.net/projects/markdown/
 
 <img src="http://my.csdn.net/uploads/avatar/9/D/B/1_phunxm.jpg" align="middle"  alt="程序猿-弦苦" />
 
+本站相对链接测试  
+![坳口](../../../github-pages/blob/master/source/_posts/images/col.dog/coltree.jpg)
+
 ##测试代码块（Code Block）
 ###标准Preformatted Code Block
 

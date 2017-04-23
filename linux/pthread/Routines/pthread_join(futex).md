@@ -1,5 +1,7 @@
 # [pthread_join实现原理](http://km.oa.com/articles/show/206566)
 
+[pthread_join()的阻塞性问题](http://bbs.chinaunix.net/thread-2096295-1-1.html)
+
 ## [futex和linux的线程同步机制](https://bg2bkk.github.io/post/futex%E5%92%8Clinux%E7%9A%84%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5%E6%9C%BA%E5%88%B6/)
 ### [走向 Linux 2.6 —— 走进下一个新内核的精彩之作](https://www.ibm.com/developerworks/cn/linux/l-inside/index.html)
 - Linux 2.6亮点  

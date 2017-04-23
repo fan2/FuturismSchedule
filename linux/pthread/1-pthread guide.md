@@ -50,6 +50,7 @@ Javadino CSDN 专栏
 ## 其他
 [[Pthread] Linux上获得线程Id的方法](http://blog.csdn.net/javadino/article/details/2891364)  
 [使用 C++11 编写 Linux 多线程程序](http://www.ibm.com/developerworks/cn/linux/1412_zhupx_thread/index.html)  
+[C++11 多线程初探](http://www.cnblogs.com/haippy/p/3235560.html)  
 
 ## KM
 [pthread线程使用小结](http://km.oa.com/articles/show/80841?kmref=search&from_page=1&no=1)
@@ -65,7 +66,7 @@ Javadino CSDN 专栏
 [一个所有安卓app都会发生的crash分析](http://km.oa.com/articles/show/287114)  
 [拯救安卓枯竭的资源pthread_key_t——正确使用C++运行时库](http://km.oa.com/group/18474/articles/show/290236)  
 
-《[多核编程基础：pthread、原子操作、锁无关数据结构](http://km.oa.com/group/2068/event/10645)》-SNG技术大讲堂总第50期
+《[多核编程基础：pthread、原子操作、锁无关数据结构](http://km.oa.com/group/2068/event/10645)》
 
 [类成员函数作为pthread_create函数参数](http://km.oa.com/articles/show/172235?kmref=search&from_page=1&no=10)
 

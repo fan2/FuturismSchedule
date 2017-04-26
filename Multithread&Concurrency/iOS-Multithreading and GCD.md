@@ -7,7 +7,8 @@
 [iOS 多线程编程之锁](https://tech.45eggs.com/ios/2013/ios-multithread-locker.html)  
 
 ## 参考
-[iOS 并发编程指南](http://www.cocoachina.com/bbs/read.php?tid=86050)
+我是一个线程：[jianshu](http://www.jianshu.com/p/c1be86e4cbe5)  [cnblogs](http://kb.cnblogs.com/page/542462/)
+[iOS 并发编程指南](http://www.cocoachina.com/bbs/read.php?tid=86050)  
 
 [并发编程：API 及挑战](http://objccn.io/issue-2-1/)  
 [OS X 和 iOS 中的多线程技术](http://www.infoq.com/cn/articles/os-x-ios-multithread-technology)  

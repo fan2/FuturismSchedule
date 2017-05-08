@@ -17,6 +17,7 @@
 [iOS学习笔记15-数据库SQLite](http://blog.csdn.net/xyz_lmn/article/details/8968203)  
 [iOS学习笔记15-序列化、偏好设置和归档](http://www.jianshu.com/p/b5b9628d8db7)  
 [iOS学习笔记16-数据库SQLite](http://www.jianshu.com/p/a23ce428180a)  
+[对比iOS中的四种数据存储](http://www.infoq.com/cn/articles/data-storage-in-ios)  
 
 【译】SQLite C/C++ 接口 [介绍](http://blog.cocoabit.com/sqlite-jie-kou-jie-shao/)  [简介](https://segmentfault.com/a/1190000002771737)  
 
@@ -26,6 +27,15 @@
 
 [SQLite 3的中文读写](http://www.cnblogs.com/junchu25/p/3425183.html)  
 [SQLite模糊查询](http://www.cnblogs.com/wendingding/p/3871577.html)  
+
+[谈数据库索引和Sqlite中索引的使用](http://www.uml.org.cn/sjjm/201301175.asp)  
+[SQLite优化(一)：了解SQLite数据库的锁](http://yanghao123.com/sqliteyou-hua-yi-liao-jie-sqliteshu-ju-ku-de-suo/)  
+[SQLite学习手册(锁和并发控制)](https://wizardforcel.gitbooks.io/sqlite-learning-manual/content/14.html)  
+
+[移动客户端中高效使用 SQLite](https://dev.qq.com/topic/57b57f2a0703f7d31b9a3932)  
+[微信iOS SQLite源码优化实践](https://dev.qq.com/topic/57b58022433221be01499480)  
+
+[iOS基于runtime实现的简单ORM](http://www.jianshu.com/p/802ef63ab1d7)  
 
 ### command line
 [Linux sqlite3基本命令](http://blog.csdn.net/cnbloger/article/details/11596569)

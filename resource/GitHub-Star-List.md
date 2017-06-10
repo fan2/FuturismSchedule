@@ -76,16 +76,7 @@ RestKit is a modern Objective-C framework for implementing RESTful web services 
 
 #### References
 [AFNetWorking的实现分析以及简单使用](http://www.cnblogs.com/xukunhenchouchang/p/4593586.html)  
-[AFNetWorking的实现原理](http://blog.csdn.net/lcg910978041/article/details/51485062)  
-[AFNetworking源码分析](http://www.jianshu.com/p/8eac5b1975de)  
-
-[较老版本 AFNetworking 使用心得](http://www.cnblogs.com/YouXianMing/p/3568947.html)  
-[AFNetworking 2.0](http://nshipster.cn/afnetworking-2/)  [使用心得](http://summertreee.github.io/blog/2015/05/13/afnetworking2-dot-0shi-yong-xin-de/)  
-[AFNetworking多线程分析](http://www.jianshu.com/p/efc094b1d49e)  
-
-[AFNetworking3.0版本之前和之后的一些变化](http://blog.csdn.net/hannibal_zj/article/details/52216213)  
-[AFNetworking 新版本3.0的迁移](http://www.cnblogs.com/fengmin/p/5507692.html)  
-[AFNetworking 3.0迁移指南](http://www.jianshu.com/p/047463a7ce9b)  
+[AFNetWorking 组成综述](http://blog.csdn.net/lcg910978041/article/details/51485062)  
 
 #### AFNetworking vs ASIHTTPRequest
 [对比iOS网络组件：AFNetworking VS ASIHTTPRequest](http://www.infoq.com/cn/articles/afn_vs_asi)  

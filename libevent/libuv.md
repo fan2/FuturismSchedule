@@ -24,3 +24,16 @@ libuv提供了一个跨平台的抽象，由平台决定使用libev或IOCP。在
 [libuv库学习笔记（1）](http://blog.csdn.net/paohui0134/article/details/51636618)
 
 [利用libuv编写异步多线程的addon实例](https://cnodejs.org/topic/519ceb5263e9f8a542c19764)
+
+[libuv移植到ios](http://www.aichengxu.com/ios/5415195.htm)
+
+[征服优雅、高效的Libuv库之初识篇](http://www.jianshu.com/p/98eb18ed6149)
+
+**Nodejs事件引擎libuv源码剖析**：
+
+	[高效队列（queue）的实现](http://www.cnblogs.com/chenyangyao/p/libuv.html)  
+	[高效线程池(threadpool)的实现](http://www.cnblogs.com/chenyangyao/p/libuv_threadpool.html)  
+	[句柄(handle)结构的设计剖析](http://www.cnblogs.com/chenyangyao/p/libuv_handle.html)  
+	[请求(request)结构的设计剖析](http://www.cnblogs.com/chenyangyao/p/libuv_req.html)  
+
+[使用 libevent 和 libev 提高网络应用性能——I/O模型演进变化史](http://blog.csdn.net/hguisu/article/details/38638183)

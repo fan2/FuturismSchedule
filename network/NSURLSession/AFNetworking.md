@@ -52,3 +52,8 @@
 [AFNetworking3.0版本之前和之后的一些变化](http://blog.csdn.net/hannibal_zj/article/details/52216213)  
 [AFNetworking 新版本3.0的迁移](http://www.cnblogs.com/fengmin/p/5507692.html)  
 [AFNetworking 3.0迁移指南](http://www.jianshu.com/p/047463a7ce9b)  
+[别说你会AFNetworking3.0/NSURLSession](http://www.cocoachina.com/ios/20160202/15211.html)  
+
+AFNetworking 从 3.0 版本开始移除了 NSURLConnection 目录，取消了旧的  NSURLConnection 支持，完全支持 NSURLSession 代替方案。
+
+![AFNetworking-2.6.3&3.1.0](AFNetworking-2.6.3&3.1.0.png)

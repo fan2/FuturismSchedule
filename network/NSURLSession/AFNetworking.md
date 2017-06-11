@@ -54,6 +54,14 @@
 [AFNetworking 3.0迁移指南](http://www.jianshu.com/p/047463a7ce9b)  
 [别说你会AFNetworking3.0/NSURLSession](http://www.cocoachina.com/ios/20160202/15211.html)  
 
-AFNetworking 从 3.0 版本开始移除了 NSURLConnection 目录，取消了旧的  NSURLConnection 支持，完全支持 NSURLSession 代替方案。
+AFNetworking 从 3.0 版本开始移除了 `NSURLConnection/` 目录，取消了旧的  NSURLConnection 支持，完全支持 NSURLSession 代替方案。
 
 ![AFNetworking-2.6.3&3.1.0](AFNetworking-2.6.3&3.1.0.png)
+
+`NSURLConnection/` 目录下的三个类已从 AFNetworking 3.0 废弃：
+
+- AFURLConnectionOperation  
+- AFHTTPRequestOperation  
+- AFHTTPRequestOperationManager  
+
+以往基于 AFHTTPRequestOperationManager(NSOperationQueue)/AFHTTPRequestOperation 的网络请求需要改造适配为基于 AFHTTPSessionManager/NSURLSessionTask 进行调度管理。

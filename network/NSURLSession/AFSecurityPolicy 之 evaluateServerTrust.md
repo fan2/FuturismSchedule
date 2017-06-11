@@ -1,6 +1,16 @@
 # [AFSecurityPolicy 之 evaluateServerTrust](http://blog.csdn.net/phunxm/article/details/73051902)
+iOS9 引入了新特性 [App Transport Security](http://www.jianshu.com/p/bc9792f86850) ([**ATS**](https://developer.apple.com/videos/play/wwdc2016/706/))，要求 App 内访问的网络必须使用 [HTTPS](http://blog.csdn.net/u012847940/article/details/52677838) 协议，App Store 中的所有应用都必须启用 [App Transport Security](http://www.cnblogs.com/YatHo/p/6118796.html) 安全功能。
 
-续 [TLS Handshake Flow（extracts from RFCs）](http://blog.csdn.net/phunxm/article/details/72852670) 和 [TLS握手协商流程解析](http://blog.csdn.net/phunxm/article/details/72853552)，本篇介绍实际访问 HTTPs 服务器的 TLS(SSL) 握手阶段需要客户端处理的  NSURLAuthenticationChallenge。
+1. 在 `Info.plist` 中添加 App Transport Security Settings (或 [NSAppTransportSecurity](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html)), 类型为 Dictionary。
+2. 在 App Transport Security Settings 下添加 Allow Arbitrary Loads (或NSAllowsArbitraryLoads)，类型为 Boolean，值设为 YES。
+
+> [ATS 对 HTTP 协议屏蔽引起的问题](http://www.cnblogs.com/Zev_Fung/p/5591241.html)  
+> [Transport security has blocked a cleartext HTTP](https://stackoverflow.com/questions/31254725/transport-security-has-blocked-a-cleartext-http)  
+> [IOS-关于App Transport Security相关说明及适配](http://blog.csdn.net/Maxdong24/article/details/53610127)  
+> [关于iOS9中的App Transport Security相关说明及适配](https://my.oschina.net/vimfung/blog/494687)  
+> [Xcode7.2与iOS9之坑 ](http://www.cnblogs.com/znios/p/4917704.html) [iOS 9之适配ATS](http://www.cocoachina.com/ios/20151012/13722.html)  
+
+续接 [TLS Handshake Flow（extracts from RFCs）](http://blog.csdn.net/phunxm/article/details/72852670) 和 [TLS握手协商流程解析](http://blog.csdn.net/phunxm/article/details/72853552)，本篇介绍实际访问 HTTPs 服务器的 TLS(SSL) 握手阶段需要客户端处理的  NSURLAuthenticationChallenge。
 
 ## NSURLAuthenticationChallenge.NSURLProtectionSpace
 iOS 中的 **NSURLAuthenticationChallenge** 是认证挑战类，也就是要求客户端进行挑战。
@@ -246,5 +256,3 @@ AFNetworking 源码分析之 [ （五）验证 HTTPS 请求的证书](https://gi
 [AFNetworking 3.0 源码解读（二）之 AFSecurityPolicy](http://www.cnblogs.com/machao/p/5704201.html)  
 
 [iOS https自建证书 请求服务器 和 WKWebView](http://www.jianshu.com/p/ff0c317fd1c7)  
-[iOS 9之适配ATS](http://www.cocoachina.com/ios/20151012/13722.html)  
-

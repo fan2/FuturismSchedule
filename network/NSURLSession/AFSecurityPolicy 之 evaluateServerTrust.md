@@ -1,8 +1,15 @@
 # [AFSecurityPolicy 之 evaluateServerTrust](http://blog.csdn.net/phunxm/article/details/73051902)
-iOS9 引入了新特性 [App Transport Security](http://www.jianshu.com/p/bc9792f86850) ([**ATS**](https://developer.apple.com/videos/play/wwdc2016/706/))，要求 App 内访问的网络必须使用 [HTTPS](http://blog.csdn.net/u012847940/article/details/52677838) 协议，App Store 中的所有应用都必须启用 [App Transport Security](http://www.cnblogs.com/YatHo/p/6118796.html) 安全功能。
+## App Transport Security(ATS)
+iOS9 引入了新特性 [App Transport Security](http://www.jianshu.com/p/bc9792f86850) ([**ATS**](https://developer.apple.com/videos/play/wwdc2016/706/))，要求 App 内访问的网络必须使用 HTTPs  协议。
 
-1. 在 `Info.plist` 中添加 App Transport Security Settings (或 [NSAppTransportSecurity](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html)), 类型为 Dictionary。
-2. 在 App Transport Security Settings 下添加 Allow Arbitrary Loads (或NSAllowsArbitraryLoads)，类型为 Boolean，值设为 YES。
+在 WWDC 2016 开发者大会上，苹果宣布了一个最后期限：到 2017年1月1日 App Store 中的[所有应用都必须启用 App Transport Security 安全功能](http://www.cnblogs.com/YatHo/p/6118796.html)。
+
+ATS 要求后台服务器必须支持最新的 TLS_V1.2 协议和 ECDH 加密算法。鉴于 HTTP 全面改造升级 HTTPs 的业务铺设尚需时日，苹果[延迟了 App 强制接入 ATS 的 deadline](http://blog.csdn.net/u012847940/article/details/52677838)。目前允许开发者设置 `NSAllowsArbitraryLoads=YES` 来暂时关闭 ATS，从而继续使用 HTTP 连接。
+
+1. 在 `Info.plist` 中添加 App Transport Security Settings (或 [NSAppTransportSecurity](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html)), 类型为 Dictionary。  
+2. 在 App Transport Security Settings 下添加 Allow Arbitrary Loads (或 NSAllowsArbitraryLoads)，类型为 Boolean，值设为 YES。  
+
+![NSAllowsArbitraryLoads](https://i.stack.imgur.com/LqXFE.png)
 
 > [ATS 对 HTTP 协议屏蔽引起的问题](http://www.cnblogs.com/Zev_Fung/p/5591241.html)  
 > [Transport security has blocked a cleartext HTTP](https://stackoverflow.com/questions/31254725/transport-security-has-blocked-a-cleartext-http)  
@@ -10,7 +17,8 @@ iOS9 引入了新特性 [App Transport Security](http://www.jianshu.com/p/bc9792
 > [关于iOS9中的App Transport Security相关说明及适配](https://my.oschina.net/vimfung/blog/494687)  
 > [Xcode7.2与iOS9之坑 ](http://www.cnblogs.com/znios/p/4917704.html) [iOS 9之适配ATS](http://www.cocoachina.com/ios/20151012/13722.html)  
 
-续接 [TLS Handshake Flow（extracts from RFCs）](http://blog.csdn.net/phunxm/article/details/72852670) 和 [TLS握手协商流程解析](http://blog.csdn.net/phunxm/article/details/72853552)，本篇介绍实际访问 HTTPs 服务器的 TLS(SSL) 握手阶段需要客户端处理的  NSURLAuthenticationChallenge。
+使用更安全的 HTTPs 替代 HTTP 是大势所趋，作为程序开发者必须了解 HTTPs 原理机制和 ATS 适配开发要点。  
+本篇续接 [TLS Handshake Flow（extracts from RFCs）](http://blog.csdn.net/phunxm/article/details/72852670) 和 [TLS握手协商流程解析](http://blog.csdn.net/phunxm/article/details/72853552)，介绍实际访问 HTTPs 服务器的 TLS(SSL) 握手阶段需要客户端处理的  NSURLAuthenticationChallenge。
 
 ## NSURLAuthenticationChallenge.NSURLProtectionSpace
 iOS 中的 **NSURLAuthenticationChallenge** 是认证挑战类，也就是要求客户端进行挑战。

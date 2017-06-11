@@ -91,3 +91,17 @@ POSIX 的定义是这样子的：
 non-blocking I/O 在执行 `recvfrom` 这个 system call 的时候，如果 kernel 的数据没有准备好，这时候不会 block 进程。但是，当 kernel 中数据准备好的时候，`recvfrom` 会将数据从 kernel 拷贝到用户内存中，这个时候进程是被 block 了，在这段时间内，进程是被 block 的。
 
 non-blocking I/O 仅仅要求处理的**第⼀阶段**不 block 即可，⽽ asynchronous I/O 要求**两个阶段**都不能 block 住。
+
+## 参考
+I/O多路复用之 [select](http://www.cnblogs.com/Anker/p/3258674.html)、[poll](http://www.cnblogs.com/Anker/p/3261006.html)、[epoll](http://www.cnblogs.com/Anker/p/3263780.html) 示例及 [总结](http://www.cnblogs.com/Anker/p/3265058.html)  
+[Linux I/O 模式及 select、poll、epoll 详解](https://segmentfault.com/a/1190000003063859)  
+[再谈 select,iocp,epoll,kqueue 及各种 I/O 复用机制](http://blog.csdn.net/shallwake/article/details/5265287)  
+
+[epoll模型详解](http://blog.chinaunix.net/xmlrpc.php?r=blog/article&uid=28541347&id=4232252)  
+彻底学会使用epoll [一](http://blog.chinaunix.net/xmlrpc.php?r=blog/article&uid=28541347&id=4273856)  [二](http://blog.chinaunix.net/xmlrpc.php?r=blog/article&uid=28541347&id=4285054)  [三](http://blog.chinaunix.net/xmlrpc.php?r=blog/article&uid=28541347&id=4288802) [四](http://blog.chinaunix.net/xmlrpc.php?r=blog/article&uid=28541347&id=4296180) [五](http://blog.chinaunix.net/xmlrpc.php?r=blog/article&uid=28541347&id=4308612) [六](http://blog.chinaunix.net/xmlrpc.php?r=blog/article&uid=28541347&id=4324338)  
+
+[linux 内核 poll/select/epoll 源码实现剖析](http://blog.csdn.net/lishenglong666/article/details/45536611)  
+[linux 下 epoll 如何实现高效处理](http://www.cnblogs.com/debian/archive/2012/02/16/2354469.html)  
+
+[mac 上的 epoll--kqueue](https://zhuanlan.zhihu.com/p/21375144)  
+[FreeBSD Kqueue 的实现原理](http://wangxuemin.github.io/2015/07/30/FreeBSD%20Kqueue%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/)  

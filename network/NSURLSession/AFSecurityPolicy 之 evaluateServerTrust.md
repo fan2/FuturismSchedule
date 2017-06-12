@@ -11,8 +11,10 @@ ATS 要求后台服务器必须支持最新的 TLS_V1.2 协议和 ECDH 加密算
 
 ![NSAllowsArbitraryLoads](https://i.stack.imgur.com/LqXFE.png)
 
-> [ATS 对 HTTP 协议屏蔽引起的问题](http://www.cnblogs.com/Zev_Fung/p/5591241.html)  
+> [How to migrate to HTTPS using App Transport Security when developing iOS apps](http://www.techrepublic.com/article/how-to-migrate-to-https-using-app-transport-security-when-developing-ios-apps/)  
 > [Transport security has blocked a cleartext HTTP](https://stackoverflow.com/questions/31254725/transport-security-has-blocked-a-cleartext-http)  
+> [ATS 对 HTTP 协议屏蔽引起的问题](http://www.cnblogs.com/Zev_Fung/p/5591241.html)  
+> [iOS9 & iOS10 HTTP 不能正常使用的解决办法](https://segmentfault.com/a/1190000002933776)  
 > [IOS-关于App Transport Security相关说明及适配](http://blog.csdn.net/Maxdong24/article/details/53610127)  
 > [关于iOS9中的App Transport Security相关说明及适配](https://my.oschina.net/vimfung/blog/494687)  
 > [Xcode7.2与iOS9之坑 ](http://www.cnblogs.com/znios/p/4917704.html) [iOS 9之适配ATS](http://www.cocoachina.com/ios/20151012/13722.html)  

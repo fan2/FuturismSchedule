@@ -5,6 +5,11 @@ UNIX Network Programming, Volume 1, [Third Edition Source Code](http://www.unpbo
 
 Here you can download the source code for all the examples in the book. Sorry, we have not spent time making sure the source unpacks and builds cleanly on various systems, but since we compiled these examples and ran them on the target systems used while writing the book, chances are this source will provide you a good starting point for something that works on your machine.
 
+## 电子书
+[linuxidc](http://www.linuxidc.com/Linux/2014-04/100222.htm)  
+[vdisk](http://vdisk.weibo.com/s/zp3-W49kwbIBd)  
+[CSDN](http://download.csdn.net/download/chn475111/7379853#)  
+
 ## 1.4 错误处理：包裹函数
 任何现实世界的程序都必须检查*每个函数*调用是否返回错误。
 在图1-5所示的程序 `intro/daytimetcpcli.c` 中，我们检查 `socket`、`inet_pton`、`connect`、`read` 和 `fputs` 函数是否返回错误。当发生错误时，就调用 `unp.h` 中声明、`error.c` 中定义的 `err_quit` 或 `err_sys` 函数**输出**一个出错消息（fputs error message to stderr）并**终止**程序的运行（exit(EXIT_FAILURE)）。
@@ -113,6 +118,7 @@ Close(int fd)
 [《UNP》中源代码的编译和使用 转载](http://blog.chinaunix.net/uid-10780339-id-189358.html)  
 [《UNP》中源代码的编译和使用](http://www.cnblogs.com/liulipeng/archive/2013/03/23/2977227.html)  
 [UNP编程环境配置](http://blog.chinaunix.net/uid-29586004-id-4211268.html)  
+[Unix网络编程第三版源码编译](http://blog.csdn.net/hantangsongming/article/details/20453349)  
 
 ```markdown
 QUICK AND DIRTY

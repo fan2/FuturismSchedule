@@ -97,19 +97,32 @@ OSStatus SecTrustEvaluate(SecTrustRef trust, SecTrustResultType * __nullable res
 ```
 
 ## Apple Developer Guide for Security
+[Security Starting Point](https://developer.apple.com/library/content/referencelibrary/GettingStarted/GS_Security/index.html)  
 [Secure Coding Guide](https://developer.apple.com/library/content/documentation/Security/Conceptual/SecureCodingGuide/Introduction.html#//apple_ref/doc/uid/TP40002415)  
 [Certificate, Key, and Trust Services](https://developer.apple.com/documentation/security/certificate_key_and_trust_services)  
+
+[Cryptographic Services Guide](https://developer.apple.com/library/content/documentation/Security/Conceptual/cryptoservices/Introduction/Introduction.html)  
+[Certificate, Key, and Trust Services Programming Guide](https://developer.apple.com/library/content/documentation/Security/Conceptual/CertKeyTrustProgGuide/)  
 
 [Security.SecureTransport](https://developer.apple.com/documentation/security/secure_transport)  
 [Using the Secure Socket Layer for Network Communication](https://developer.apple.com/documentation/security/secure_transport/using_the_secure_socket_layer_for_network_communication)  
 
 [HTTPS Server Trust Evaluation](https://developer.apple.com/library/content/technotes/tn2232/_index.html)  
+[Overriding TLS Chain Validation Correctly](https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/NetworkingTopics/Articles/OverridingSSLChainValidationCorrectly.html#//apple_ref/doc/uid/TP40012544-SW1)  
 [Authentication Challenges and TLS Chain Validation](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/URLLoadingSystem/Articles/AuthenticationChallenges.html#//apple_ref/doc/uid/TP40009507-SW1)  
 
 ### Sample Code
-> Networking, Internet, & Web | Protocol Streams | Sample Code | [AdvancedURLConnections](https://developer.apple.com/library/content/samplecode/AdvancedURLConnections/Introduction/Intro.html)
+#### [AdvancedURLConnections](https://developer.apple.com/library/content/samplecode/AdvancedURLConnections/Introduction/Intro.html)
+
+> Networking, Internet, & Web | Protocol Streams | Sample Code
 
 This sample demonstrates various advanced networking techniques with **`NSURLConnection`**. Specifically, it demonstrates how to respond to *authentication challenges*, how to modify the default *server trust evaluation* (for example, to support a server with a self-signed certificate), and how to provide client identities.
+
+#### [CustomHTTPProtocol](https://developer.apple.com/library/content/samplecode/CustomHTTPProtocol/Introduction/Intro.html)
+
+> Core Services Layer | Foundation | Sample Code
+
+CustomHTTPProtocol shows how to use an **`NSURLProtocol`** subclass to intercept the **`NSURLConnections`** made by a high-level subsystem that does not otherwise expose its network connections. In this specific case, it intercepts the *HTTPS* requests made by a web view and overrides *server trust evaluation*, allowing you to browse a site whose certificate is not trusted by default.
 
 ## AFSecurityPolicy
 当基于 NSURLConnection 或 NSURLSession 访问 HTTPs 网站时，NSURLConnection 或 NSURLSession 并没有验证证书是否合法，无法避免中间人攻击。

@@ -96,6 +96,21 @@ OSStatus SecTrustEvaluate(SecTrustRef trust, SecTrustResultType * __nullable res
 +[NSURLCredential(NSServerTrust) credentialForTrust:];
 ```
 
+## Apple Developer Guide for Security
+[Secure Coding Guide](https://developer.apple.com/library/content/documentation/Security/Conceptual/SecureCodingGuide/Introduction.html#//apple_ref/doc/uid/TP40002415)  
+[Certificate, Key, and Trust Services](https://developer.apple.com/documentation/security/certificate_key_and_trust_services)  
+
+[Security.SecureTransport](https://developer.apple.com/documentation/security/secure_transport)  
+[Using the Secure Socket Layer for Network Communication](https://developer.apple.com/documentation/security/secure_transport/using_the_secure_socket_layer_for_network_communication)  
+
+[HTTPS Server Trust Evaluation](https://developer.apple.com/library/content/technotes/tn2232/_index.html)  
+[Authentication Challenges and TLS Chain Validation](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/URLLoadingSystem/Articles/AuthenticationChallenges.html#//apple_ref/doc/uid/TP40009507-SW1)  
+
+### Sample Code
+> Networking, Internet, & Web | Protocol Streams | Sample Code | [AdvancedURLConnections](https://developer.apple.com/library/content/samplecode/AdvancedURLConnections/Introduction/Intro.html)
+
+This sample demonstrates various advanced networking techniques with **`NSURLConnection`**. Specifically, it demonstrates how to respond to *authentication challenges*, how to modify the default *server trust evaluation* (for example, to support a server with a self-signed certificate), and how to provide client identities.
+
 ## AFSecurityPolicy
 当基于 NSURLConnection 或 NSURLSession 访问 HTTPs 网站时，NSURLConnection 或 NSURLSession 并没有验证证书是否合法，无法避免中间人攻击。
 要做到真正的安全通信，需要客户端校验确认是否信任服务器证书（链）并提供凭证。否则会返回以下错误：

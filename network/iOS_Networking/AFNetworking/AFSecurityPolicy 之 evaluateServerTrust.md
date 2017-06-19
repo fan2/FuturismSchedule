@@ -102,6 +102,7 @@ OSStatus SecTrustEvaluate(SecTrustRef trust, SecTrustResultType * __nullable res
 [Certificate, Key, and Trust Services](https://developer.apple.com/documentation/security/certificate_key_and_trust_services)  
 
 [Cryptographic Services Guide](https://developer.apple.com/library/content/documentation/Security/Conceptual/cryptoservices/Introduction/Introduction.html)  
+[Authentication, Authorization, and Permissions Guide](https://developer.apple.com/library/content/documentation/Security/Conceptual/AuthenticationAndAuthorizationGuide/Authentication/Authentication.html#//apple_ref/doc/uid/TP40011200-CH4-SW6)  
 [Certificate, Key, and Trust Services Programming Guide](https://developer.apple.com/library/content/documentation/Security/Conceptual/CertKeyTrustProgGuide/)  
 
 [Security.SecureTransport](https://developer.apple.com/documentation/security/secure_transport)  

@@ -72,6 +72,8 @@ Chapter 18 Using the Windows Desktop Single Sign-On Authentication Module
 
 ![Figure 2: Cross-Realm Referrals](https://i-msdn.sec.s-msft.com/dynimg/IC15653.gif)
 
+#### Redhat [HOW TO SETUP SSO WITH KERBEROS](https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/how_to_setup_sso_with_kerberos/)
+
 #### Cisco [Configuring Active Directory Single Sign-On](http://www.cisco.com/c/en/us/td/docs/security/nac/appliance/configuration_guide/49/cas/49cas-book/s_adsso.html)
 ![Figure 8-1 General Process for Kerberos Ticket Exchange](http://www.cisco.com/c/dam/en/us/td/i/100001-200000/180001-190000/183001-184000/183467.ps/_jcr_content/renditions/183467.jpg)
 
@@ -79,8 +81,11 @@ Chapter 18 Using the Windows Desktop Single Sign-On Authentication Module
 
 ![图2-1 SSO系统逻辑结构图](http://support.huawei.com/enterprise/product/images/be1ed5d611e948538dd05ab5791e0954)
 
-#### [How To Configure Browser-based SSO with Kerberos/SPNEGO and Oracle WebLogic Server](http://www.oracle.com/technetwork/articles/idm/weblogic-sso-kerberos-1619890.html)
+#### [Single Sign-On with Kerberos](https://wiki.scn.sap.com/wiki/display/Security/Single+Sign-On+with+Kerberos)
+[How To Configure Browser-based SSO with Kerberos/SPNEGO and Oracle WebLogic Server](http://www.oracle.com/technetwork/articles/idm/weblogic-sso-kerberos-1619890.html)
+
 @img ![Figure 1: Machine Configuration for SPNEGO/Kerberos scenario](http://www.oracle.com/ocom/groups/public/@otn/documents/digitalasset/1619913.jpg)
+
 ## CAS
 ### [Alfresco & CAS SSO](http://www.seedim.com.au/content/alfresco-cas-sso)
 ![CAS flow](http://www.seedim.com.au/sites/default/files/images/casblog.png)

@@ -3,9 +3,11 @@
 本篇节选自《[Authentication and Identification In Depth](https://developer.apple.com/library/content/documentation/Security/Conceptual/AuthenticationAndAuthorizationGuide/Authentication/Authentication.html#//apple_ref/doc/uid/TP40011200-CH4-SW1)》的 Common Types of Authentication|Kerberos，做了部分阅读笔记，翻译注解了认证流程细节，补充了交叉参考配图。  
 先为自己留个坑，后面有空再完整翻译。  
 
-## Concepts
-> [Kerberos](https://en.wikipedia.org/wiki/Kerberos_%28protocol%29) is a computer network authentication protocol that works on the basis of 'tickets' to allow nodes communicating over a non-secure network to prove their identity to one another in a secure manner. 
+> **[SSO](https://en.wikipedia.org/wiki/Single_sign-on)** *shares* centralized authentication servers that all other applications and systems use for authentication purposes and combines this with techniques to ensure that users *do not* have to actively enter their credentials *more than once*. ——WiKi
+> 
+> **[Kerberos](https://en.wikipedia.org/wiki/Kerberos_%28protocol%29)** is a computer network authentication protocol that works on the basis of '*tickets*' to allow nodes communicating over a non-secure network to *prove their identity to one another* in a secure manner. ——WiKi
 
+## Concepts
 In Greek mythology, Kerberos was the three-headed dog that guarded the gates of Hades. In computer security, Kerberos is an industry-standard protocol created by the Massachusetts Institute of Technology (MIT) to provide **authentication** over a network.
 
 Kerberos is a *symmetric-key*, *server-based* protocol that is widely used in Macintosh, Windows, and UNIX networks. Kerberos has been integrated into OS X since OS X v10.1. Kerberos is highly secure, and unlike some other shared secret, private-key methods, it can be used for `one-to-many` and `many-to-many` communications as well as `one-to-one`. Kerberos achieves this ability by storing all users’ passwords in a ***central location***, the *directory server*. Kerberos can be used for any number of users and servers on a network.
@@ -90,8 +92,6 @@ The steps are as follows:
 ### Authenticating the client and server with a Kerberos ticket
 In the second phase, Alice uses the **TGT** to request ***identification credentials*** from the KDC in order to use a kerberized service, labeled Bob in the figure. Because Alice has a TGT, the KDC *does not have to reauthenticate* her, so Alice is not asked again for her password.
 
-> [SSO](https://en.wikipedia.org/wiki/Single_sign-on) ***shares*** centralized authentication servers that all other applications and systems use for authentication purposes and combines this with techniques to ensure that users *do not* have to actively enter their credentials *more than once*.
-
 In the third phase, Alice sends the *credentials* to Bob, and Bob sends *authentication information* to Alice. The second and third phases are illustrated in Figure 1-3.
 
 ![Figure 1-3  Authenticating the client and server with a Kerberos ticket](https://developer.apple.com/library/content/documentation/Security/Conceptual/AuthenticationAndAuthorizationGuide/Art/kerberos_2_2x.png)
@@ -166,8 +166,14 @@ Thereafter, the user sends the TGT to *the ticket-granting server* whenever the 
 
 > 后续（subsequent）访问 Network Resource 业务，只需携带业务服务小票（ST）即可。
 
-Many networks are too large to efficiently store all the information about users and computers in a single directory server. Instead, a distributed model is used, where there are a number of directory servers, each serving a subset of the network. In Kerberos parlance, this subset is referred to as a ***realm***（domain，域）. Each realm has its *own* ticket-granting server and authentication server. If a user needs *a ticket for a service* in a different realm（Cross-Realm，跨域）, the authentication server(`KDC1`) issues a TGT(`TGT1`) and the user sends the TGT to the authentication server, as before. The authentication server then issues a ticket(`TGT2`), *not* for the desired service *but for* the *remote* ticket-granting server(`KDC2`) for the realm that the service is in. The user then sends the ticket(`TGT2`) to the remote ticket-granting server to *get the ticket*(`ST`) for the actual service(`Network Resource`).
+Many networks are too large to efficiently store all the information about users and computers in a single directory server. Instead, a distributed model(*domain model*) is used, where there are a number of directory servers, each serving a subset of the network. In Kerberos parlance, this subset is referred to as a ***realm***（domain，域）. Each realm has its *own* ticket-granting server and authentication server. If a user needs *a ticket for a service* in a different realm（cross-realm，跨域）, the authentication server issues a TGT and the user sends the TGT to the authentication server, as before. The authentication server then issues a ticket, *not* for the desired service *but for* the *remote* ticket-granting server for the realm that the service is in. The user then sends the ticket to the remote ticket-granting server to *get the ticket* for the actual service.
 
 [![Figure 2: Cross-Realm Referrals](https://i-msdn.sec.s-msft.com/dynimg/IC15653.gif)](https://msdn.microsoft.com/en-us/library/bb742456.aspx)
+
+> ***Trust relationships*** between domains in effect *introduce* the domain controllers, the Kerberos KDCs, in the two domains(`Realm1` & `Ream2`).
+> 
+> As shown above, when a user in one domain needs access to a resource in a trusting domain, he should presents his TGT(`TGT1`) to his domain controller(`KDC1`). Then the user's domain controller(`KDC1`) services his request for a ticket(`TGT2`) by making a ***cross-realm referral*** to the domain controller(`KDC2`) that owns the resource(`Network Resource`).This domain controller(`KDC2`) trusts the referral(`TGT2`), and issues a ticket(`ST`) to the user.   
+> 
+> By default, all domains within a Windows 2000 domain **tree** trust each other and accept referrals from each other. **Forests** in Windows 2000 do not trust each other by default, but *trust relationships* can easily be established between them.
 
 In fact, in a large network, the user might have to contact the remote ticket-granting server in a sequence of realms before finally getting the ticket for the desired service. When a ticket for the application service is finally issued, it contains an enumeration of all the realms consulted in the process of requesting the ticket. An application server that applies strict authorization rules is permitted to reject authentication that passes through realms that it does not trust.

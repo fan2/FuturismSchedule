@@ -68,9 +68,11 @@ Chapter 18 Using the Windows Desktop Single Sign-On Authentication Module
 ![Figure 18–2 Process Flow for Windows Desktop SSO Authentication](https://docs.oracle.com/cd/E19681-01/820-3746/images/WSSOFlow.gif)  
 
 #### [Single Sign-On in Windows 2000 Networks](https://msdn.microsoft.com/en-us/library/bb742456.aspx)
-![Figure 1: Basic Transactions in the Kerberos Protocol](https://msdn.microsoft.com/en-us/library/bb742456.ntks01_big(l=en-us).gif)  
+![Figure 1: Basic Transactions in the Kerberos Protocol](https://msdn.microsoft.com/en-us/library/bb742456.ntks01_big.gif)  
 
 ![Figure 2: Cross-Realm Referrals](https://i-msdn.sec.s-msft.com/dynimg/IC15653.gif)
+
+![Figure 6: Authentication that can be delegated improves Access Control and Auditing in a Multitiered Application](https://msdn.microsoft.com/en-us/library/bb742456.ntks06_big.gif)
 
 #### Redhat [HOW TO SETUP SSO WITH KERBEROS](https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/how_to_setup_sso_with_kerberos/)
 

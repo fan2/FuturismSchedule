@@ -175,8 +175,15 @@ In fact, in a large network, the user might have to contact the remote ticket-gr
 
 ##  impersonation/delegation
 
-一种可能的 SSO [关联](https://msdn.microsoft.com/zh-cn/library/aa546731.aspx)后端业务系统部署如下图所示。下图中将业务服务系统 Network Resource 抽离出三个子系统逻辑实体。
-我们这里姑且将 Network Resource 投影为文件业务后台服务器系统来阐述，在通过登录换票以及跨域认证获取到文件服务的业务小票 ST 后，客户端可以手持 ST 请求文件服务。
+一种可能的 SSO [关联](https://msdn.microsoft.com/zh-cn/library/aa546731.aspx)后端业务系统部署如下图所示。
+
+[![Figure 6: Authentication that can be delegated improves Access Control and Auditing in a Multitiered Application](https://msdn.microsoft.com/en-us/library/bb742456.ntks06_big.gif)](https://msdn.microsoft.com/en-us/library/bb742456.aspx)
+
+> The user places a request with the user interface layer and provides a ticket(`ST`) as authentication. The user interface layer uses the ticket(`ST`) to represent itself as the user to the middle layer, which in turn uses the ticket(`ST`) to represent itself as the user when requesting service from the database. 
+> This process, known as **impersonation**, allows each layer to know exactly who is requesting a service and to perform access control as needed; it also allows the system audit records to show exactly who each action was performed for. 
+
+上图将业务服务系统 Network Resource 抽离出三个子系统逻辑实体。
+我们姑且将 Network Resource 投影为文件业务后台服务器系统来阐述，在通过登录换票以及跨域认证获取到文件服务的业务小票 ST 后，客户端可以手持 ST 请求文件服务。
 文件业务后台面向客户端初始可见的只有 User Interface Layer，客户端可以通过 C-S Session Key 加密的安全信道向 User Interface Layer 发送文件服务请求信令，包括上传（POST）、下载（GET）、拉取列表（FETCH LIST）、删除文件（DELETE FILE）等。
 
 - 对于拉取列表、删除文件请求，User Interface Layer  一般会转交  Business Logic Layer 处理，最后向客户返回操作结果。  
@@ -186,8 +193,3 @@ In fact, in a large network, the user might have to contact the remote ticket-gr
 > ***Business Logic Layer***（FileManager+HttpServer）：文件业务逻辑层，面向 GlobalManager，勾兑 Warehouse，负责文件管理或传输调度。对于上传请求，有秒中逻辑（基于全局 SHA 索引查询命中）。上传完成时，转储临时文件到物理仓库，更新索引服务器和用户文件目录树。如果上传中断，则要记录管理上传状态以支持全局断点续传。  
 > ***Database Layer***（Warehouse/Storage）：文件存储仓库，面向逻辑层，包括物理存储、索引数据库、上传状态记录、用户文件目录树等。  
 >>  **`User Interface Layer`** 有点类似统一接入网关（Portal/Addressing Gateway），而 **`Business Logic Layer+Database Layer`** 则可能会作为逻辑单元分布在全国各 IDC。  
-
-[![Figure 6: Authentication that can be delegated improves Access Control and Auditing in a Multitiered Application](https://msdn.microsoft.com/en-us/library/bb742456.ntks06_big.gif)](https://msdn.microsoft.com/en-us/library/bb742456.aspx)
-
-> The user places a request with the user interface layer and provides a ticket(`ST`) as authentication. The user interface layer uses the ticket(`ST`) to represent itself as the user to the middle layer, which in turn uses the ticket(`ST`) to represent itself as the user when requesting service from the database. 
-> This process, known as **impersonation**, allows each layer to know exactly who is requesting a service and to perform access control as needed; it also allows the system audit records to show exactly who each action was performed for. 

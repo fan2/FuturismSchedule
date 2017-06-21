@@ -134,14 +134,7 @@ The steps are as follows:
 
 4. Because Alice knows that only she and Bob have this session key, she knows that the credential must have come from Bob. She checks the value and compares it with the one she received earlier from the KDC. If they are off by one (as expected), she knows that the Bob *has been authenticated* by the KDC.  
 	> 由于发起者 Alice 知道只有她和 Bob 拥有属于他们的 C-S Session Key，因此若 Alice 使用  C-S Session Key 能解密出报文中的时间戳，并且与自己创建  authenticator 中的时间戳比较，如果相差1，说明 Bob 是通过 KDC 授权认证的（业务 server）。  
-	>> 接下来，Alice 和 Bob 之间即可通过 C-S Session Key （对称）加密进行安全地通信。  
-
-```
-假设 Bob 是文件业务接入服务器，Alice 从 KDC 获取授权 ST 与 Bob 校验后即可接入文件业务：  
-1.Alice 基于 C-S Session Key 加密的安全消息通道向 Bob 请求上传/下载文件；  
-2.Bob 基于 C-S Session Key 加密的安全消息通道回应文件存储的 IP、PORT、URI、UUID 等信息；  
-3.Alice 再通过 HTTP/HTTPS(TLS) 连接文件存储服务器（`IP:PORT/URI?key=UUID`）请求上传（POST）/下载（GET）文件。  
-```
+	>> 接下来，Alice 和 Bob 之间即可通过使用 C-S Session Key （对称）加密的安全通道进行通信。  
 
 Note that this procedure does not involve sending either Alice’s or Bob’s secret key over the network. Because both Alice and Bob are **authenticated** to each other, Bob knows that Alice is a valid user and Alice knows that Bob is the server with which she intended to do business. All credentials are *further protected* with *timestamps* and *expiration times*. Kerberos has other security features as well; for details, see the MIT Kerberos website at [MIT's kerberos page](http://web.mit.edu/kerberos/).
 
@@ -164,7 +157,7 @@ Thereafter, the user sends the TGT to *the ticket-granting server* whenever the 
 
 [![Figure 1: Basic Transactions in the Kerberos Protocol](https://msdn.microsoft.com/en-us/library/bb742456.ntks01_big.gif)](https://msdn.microsoft.com/en-us/library/bb742456.aspx)
 
-> 后续（subsequent）访问 Network Resource 业务，只需携带业务服务小票（ST）即可。
+> 后续（subsequent）在有效期内访问 Network Resource 业务，只需携带业务服务小票（ST）即可。
 
 Many networks are too large to efficiently store all the information about users and computers in a single directory server. Instead, a distributed model(*domain model*) is used, where there are a number of directory servers, each serving a subset of the network. In Kerberos parlance, this subset is referred to as a ***realm***（domain，域）. Each realm has its *own* ticket-granting server and authentication server. If a user needs *a ticket for a service* in a different realm（cross-realm，跨域）, the authentication server issues a TGT and the user sends the TGT to the authentication server, as before. The authentication server then issues a ticket, *not* for the desired service *but for* the *remote* ticket-granting server for the realm that the service is in. The user then sends the ticket to the remote ticket-granting server to *get the ticket* for the actual service.
 
@@ -174,6 +167,27 @@ Many networks are too large to efficiently store all the information about users
 > 
 > As shown above, when a user in one domain needs access to a resource in a trusting domain, he should presents his TGT(`TGT1`) to his domain controller(`KDC1`). Then the user's domain controller(`KDC1`) services his request for a ticket(`TGT2`) by making a ***cross-realm referral*** to the domain controller(`KDC2`) that owns the resource(`Network Resource`).This domain controller(`KDC2`) trusts the referral(`TGT2`), and issues a ticket(`ST`) to the user.   
 > 
+> Both the user and the network resource can verify that they are not talking to an imposter. Parts of the ticket are encrypted using a key that *only* the user and the domain controller share, and other parts(`ST`) are encrypted using a key that *only* the network resource and the domain controller share. The fact that each can read its part of the ticket proves that each is who they say they are.
+> 
 > By default, all domains within a Windows 2000 domain **tree** trust each other and accept referrals from each other. **Forests** in Windows 2000 do not trust each other by default, but *trust relationships* can easily be established between them.
 
 In fact, in a large network, the user might have to contact the remote ticket-granting server in a sequence of realms before finally getting the ticket for the desired service. When a ticket for the application service is finally issued, it contains an enumeration of all the realms consulted in the process of requesting the ticket. An application server that applies strict authorization rules is permitted to reject authentication that passes through realms that it does not trust.
+
+##  impersonation/delegation
+
+一种可能的 SSO [关联](https://msdn.microsoft.com/zh-cn/library/aa546731.aspx)后端业务系统部署如下图所示。下图中将业务服务系统 Network Resource 抽离出三个子系统逻辑实体。
+我们这里姑且将 Network Resource 投影为文件业务后台服务器系统来阐述，在通过登录换票以及跨域认证获取到文件服务的业务小票 ST 后，客户端可以手持 ST 请求文件服务。
+文件业务后台面向客户端初始可见的只有 User Interface Layer，客户端可以通过 C-S Session Key 加密的安全信道向 User Interface Layer 发送文件服务请求信令，包括上传（POST）、下载（GET）、拉取列表（FETCH LIST）、删除文件（DELETE FILE）等。
+
+- 对于拉取列表、删除文件请求，User Interface Layer  一般会转交  Business Logic Layer 处理，最后向客户返回操作结果。  
+- 对于上传/下载请求，User Interface Layer 一般会做预处理，回应文件的  IP、PORT、URI、UUID、COOKIE 等信息，客户端组装好 URL 向具体的 IP:PORT（Business Logic Layer） 发起传输请求。  
+
+> ***User Interface Layer***：文件业务接入层（GlobalManager），负责校验 ST 票据合法性及有效期（**用户合法**）、解析校验 URL 合法性(cookie能解开，防盗链)及有效期(cookie未过期)（**请求有效**）、与 Business Logic Layer 勾兑文件信息（IP、PORT、URI、UUID、COOKIE）并回应客户端请求。  
+> ***Business Logic Layer***（FileManager+HttpServer）：文件业务逻辑层，面向 GlobalManager，勾兑 Warehouse，负责文件管理或传输调度。对于上传请求，有秒中逻辑（基于全局 SHA 索引查询命中）。上传完成时，转储临时文件到物理仓库，更新索引服务器和用户文件目录树。如果上传中断，则要记录管理上传状态以支持全局断点续传。  
+> ***Database Layer***（Warehouse/Storage）：文件存储仓库，面向逻辑层，包括物理存储、索引数据库、上传状态记录、用户文件目录树等。  
+>>  **`User Interface Layer`** 有点类似统一接入网关（Portal/Addressing Gateway），而 **`Business Logic Layer+Database Layer`** 则可能会作为逻辑单元分布在全国各 IDC。  
+
+[![Figure 6: Authentication that can be delegated improves Access Control and Auditing in a Multitiered Application](https://msdn.microsoft.com/en-us/library/bb742456.ntks06_big.gif)](https://msdn.microsoft.com/en-us/library/bb742456.aspx)
+
+> The user places a request with the user interface layer and provides a ticket(`ST`) as authentication. The user interface layer uses the ticket(`ST`) to represent itself as the user to the middle layer, which in turn uses the ticket(`ST`) to represent itself as the user when requesting service from the database. 
+> This process, known as **impersonation**, allows each layer to know exactly who is requesting a service and to perform access control as needed; it also allows the system audit records to show exactly who each action was performed for. 

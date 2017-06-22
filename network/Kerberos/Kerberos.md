@@ -7,6 +7,12 @@
 > 
 > **[Kerberos](https://en.wikipedia.org/wiki/Kerberos_%28protocol%29)** is a computer network authentication protocol that works on the basis of '*tickets*' to allow nodes communicating over a non-secure network to *prove their identity to one another* in a secure manner. ——WiKi
 
+## Prequel
+![Kerberos-Logo](http://web.mit.edu/kerberos/images/dog-ring.jpg)
+
+[Designing an Authentication System: a Dialogue in Four Scenes](http://web.mit.edu/kerberos/dialogue.html)  
+[kerberos的故事](http://blog.sina.com.cn/s/blog_451e586e0100hzu7.html)  
+
 ## Concepts
 In Greek mythology, Kerberos was the three-headed dog that guarded the gates of Hades. In computer security, Kerberos is an industry-standard protocol created by the Massachusetts Institute of Technology (MIT) to provide **authentication** over a network.
 
@@ -14,7 +20,7 @@ Kerberos is a *symmetric-key*, *server-based* protocol that is widely used in Ma
 
 OS X works with all common directory servers, including LDAP (Lightweight Directory Access Protocol) servers and Microsoft Windows Active Directory servers. OS X Server includes an open source LDAP server.
 
-Kerberos works by passing around **Kerberos tickets**—blocks of data used to *identify* a user who has been *previously authenticated*. These tickets are issued for a specific user, service, and period of time. Because the initial Kerberos ticket is a form of identification, a kerberized application can use that ticket to request access to additional kerberized services *without* requiring the user to *reauthenticate* (by reentering the user’s password). (A kerberized service or application is one that has been configured to support Kerberos tickets.) This ability to access additional services without reauthentication is called *`single sign-on`*(***SSO***).
+Kerberos works by passing around **Kerberos tickets**—blocks of data used to *identify* a user who has been *previously authenticated*. These tickets are issued for a specific user, service, and period of time. Because the initial Kerberos ticket is a form of identification, a kerberized application can use that ticket to request access to additional kerberized services *without* requiring the user to *reauthenticate* (by reentering the user’s password). (A **kerberized service** or application is one that has been *configured to support Kerberos tickets*.) This ability to access additional services without reauthentication is called *`single sign-on`*(***SSO***).
 
 OS X can host Kerberos authentication services (called a *`Key Distribution Center`* (***KDC***)). Any OS X Server installation that is configured to include a shared LDAP server automatically includes a Kerberos v5 KDC. The Kerberos server software is also included in the client version of OS X.
 
@@ -99,7 +105,7 @@ In the third phase, Alice sends the *credentials* to Bob, and Bob sends *authent
 The steps are as follows:
 
 1. Alice sends two messages to the KDC:  
-	- An **authenticator**—a request to *open a session* with Bob that includes the client ID ad a timestamp—encrypted using the **session key**  
+	- An **authenticator**—a request to *open a session* with Bob that includes the client ID and a timestamp—encrypted using the **session key**  
 		> Alice 请求建立与 Bob（业务 server）的会话，发送一个使用 Session Key 加密的包含 ID 和 时间戳 的 authenticator 请求。  
 		>> **疑问**：Request for Bob 中的 Bob’s ID 不包含在 authenticator 报文中，应该是明文部分？  
 
@@ -134,7 +140,7 @@ The steps are as follows:
 
 4. Because Alice knows that only she and Bob have this session key, she knows that the credential must have come from Bob. She checks the value and compares it with the one she received earlier from the KDC. If they are off by one (as expected), she knows that the Bob *has been authenticated* by the KDC.  
 	> 由于发起者 Alice 知道只有她和 Bob 拥有属于他们的 C-S Session Key，因此若 Alice 使用  C-S Session Key 能解密出报文中的时间戳，并且与自己创建  authenticator 中的时间戳比较，如果相差1，说明 Bob 是通过 KDC 授权认证的（业务 server）。  
-	>> 接下来，Alice 和 Bob 之间即可通过使用 C-S Session Key （对称）加密的安全通道进行通信。  
+	>> 接下来，Alice 和 Bob 之间即可通过使用 C-S Session Key （对称）加密的安全信令通道进行通信。  
 
 Note that this procedure does not involve sending either Alice’s or Bob’s secret key over the network. Because both Alice and Bob are **authenticated** to each other, Bob knows that Alice is a valid user and Alice knows that Bob is the server with which she intended to do business. All credentials are *further protected* with *timestamps* and *expiration times*. Kerberos has other security features as well; for details, see the MIT Kerberos website at [MIT's kerberos page](http://web.mit.edu/kerberos/).
 
@@ -149,7 +155,7 @@ OS X uses Kerberos for single sign-on authentication, which relieves users from 
 To take advantage of the single sign-on feature, services must be configured for Kerberos authentication and users and services must use the **same** Kerberos KDC. In OS X, user accounts in an LDAP directory that have a password type of Open Directory use the server’s built-in KDC. These user accounts are automatically configured for Kerberos and single sign-on. The server’s kerberized services also use the server’s built-in KDC and are automatically configured for single sign-on.
 
 ## Large Networks
-At a high level, you can usually think of the Kerberos Key Distribution Center (KDC) as a single entity. However, a KDC consists of **two** separate software processes: **`the authentication server`** and the **`ticket-granting server`**. *The authentication server* verifies a user’s identity by prompting the user for a name and password and asking the directory server for the user’s password. The authentication server then looks up the user’s secret key, generates a session key, and creates the ticket-granting ticket (TGT), as shown in Figure 1-4(revisited same as Figure 1-2).
+At a high level, you can usually think of the Kerberos Key Distribution Center (KDC) as a single entity. However, a KDC consists of **two** separate software processes: the **`authentication server`** and the **`ticket-granting server`**. *The authentication server* verifies a user’s identity by prompting the user for a name and password and asking the directory server for the user’s password. The authentication server then looks up the user’s secret key, generates a session key, and creates the ticket-granting ticket (TGT), as shown in Figure 1-4(revisited same as Figure 1-2).
 
 [![Figure 8-1 General Process for Kerberos Ticket Exchange](http://www.cisco.com/c/dam/en/us/td/i/100001-200000/180001-190000/183001-184000/183467.ps/_jcr_content/renditions/183467.jpg)](http://www.cisco.com/c/en/us/td/docs/security/nac/appliance/configuration_guide/49/cas/49cas-book/s_adsso.html)
 
@@ -186,10 +192,13 @@ In fact, in a large network, the user might have to contact the remote ticket-gr
 我们姑且将 Network Resource 投影为文件业务后台服务器系统来阐述，在通过登录换票以及跨域认证获取到文件服务的业务小票 ST 后，客户端可以手持 ST 请求文件服务。
 文件业务后台面向客户端初始可见的只有 User Interface Layer，客户端可以通过 C-S Session Key 加密的安全信道向 User Interface Layer 发送文件服务请求信令，包括上传（POST）、下载（GET）、拉取列表（FETCH LIST）、删除文件（DELETE FILE）等。
 
-- 对于拉取列表、删除文件请求，User Interface Layer  一般会转交  Business Logic Layer 处理，最后向客户返回操作结果。  
-- 对于上传/下载请求，User Interface Layer 一般会做预处理，回应文件的  IP、PORT、URI、UUID、COOKIE 等信息，客户端组装好 URL 向具体的 IP:PORT（Business Logic Layer） 发起传输请求。  
-
-> ***User Interface Layer***：文件业务接入层（GlobalManager），负责校验 ST 票据合法性及有效期（**用户合法**）、解析校验 URL 合法性(cookie能解开，防盗链)及有效期(cookie未过期)（**请求有效**）、与 Business Logic Layer 勾兑文件信息（IP、PORT、URI、UUID、COOKIE）并回应客户端请求。  
-> ***Business Logic Layer***（FileManager+HttpServer）：文件业务逻辑层，面向 GlobalManager，勾兑 Warehouse，负责文件管理或传输调度。对于上传请求，有秒中逻辑（基于全局 SHA 索引查询命中）。上传完成时，转储临时文件到物理仓库，更新索引服务器和用户文件目录树。如果上传中断，则要记录管理上传状态以支持全局断点续传。  
-> ***Database Layer***（Warehouse/Storage）：文件存储仓库，面向逻辑层，包括物理存储、索引数据库、上传状态记录、用户文件目录树等。  
+- 对于拉取列表、删除文件请求，User Interface Layer  一般会透传转交  Business Logic Layer 处理，最后向客户透传返回操作结果。  
+- 对于上传/下载请求，User Interface Layer 一般会做**预处理**：
+	- 与 Business Logic Layer 勾兑，根据 SHA 查询索引是否秒传；如未秒传，则向客户返回上传文件的  IP、PORT、URI、UUID、COOKIE 等信息；
+	- 检查下载请求的文件 UUID 是否有效，与 Business Logic Layer 勾兑查询索引位置，向客户返回文件下载的 IP、PORT、URI、UUID、COOKIE 等信息；
+	- 客户端组装好 URL 后向具体的 IP:PORT（Business Logic Layer） 发起上传请求（HTTP POST）/下载请求（HTTP GET）。  
+	
+> ***User Interface Layer***：文件业务接入层（GlobalManager），面向客户，负责校验 ST 票据合法性及有效期（**用户合法**）、解析校验 URL 合法性(cookie能解开，防盗链)及有效期(cookie未过期)（**请求有效**）、与 Business Logic Layer 勾兑文件传输信息（IP、PORT、URI、UUID、COOKIE）并回应客户端。  
+> ***Business Logic Layer***（FileManager+HttpServer）：文件业务逻辑层，面向 GlobalManager，勾兑 Warehouse，负责文件管理或传输调度。对于上传请求，有秒中逻辑（基于全局 SHA 索引查询命中）。上传完成时，转储临时文件到物理仓库，更新索引数据库和用户文件目录树。如果上传中断，则要记录管理上传状态以支持全局断点续传。  
+> ***Database Layer***（Warehouse/Storage）：文件存储仓库，面向逻辑层，包括物理存储、索引数据库、上传状态记录、基于用户ID的文件目录树等。  
 >>  **`User Interface Layer`** 有点类似统一接入网关（Portal/Addressing Gateway），而 **`Business Logic Layer+Database Layer`** 则可能会作为逻辑单元分布在全国各 IDC。  

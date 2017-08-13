@@ -1,6 +1,6 @@
 ## [异步事件循环](http://www.cnblogs.com/lidabo/p/5514155.html)
 
-[Boost.Asio]([Boost.Asio](http://think-async.com/))：用于网络和底层I/O编程的跨平台的C++库。  
+[Asio](http://think-async.com/)：用于网络和底层I/O编程的跨平台的C++库。  
 [libevent](http://libevent.org/) ：事件通知库  
 [libev](http://libev.schmorp.de/) ：功能齐全，高性能的时间循环，轻微地仿效libevent，但是不再像libevent一样有局限性，也修复了它的一些bug。  
 [libuv](https://github.com/libuv/libuv) ：[Cross-platform asynchronous I/O](http://libuv.org/)（跨平台异步I/O）。  
@@ -25,7 +25,7 @@ libuv提供了一个跨平台的抽象，由平台决定使用libev或IOCP。在
 
 [利用libuv编写异步多线程的addon实例](https://cnodejs.org/topic/519ceb5263e9f8a542c19764)
 
-[libuv移植到ios](http://www.aichengxu.com/ios/5415195.htm)
+[libuv移植到ios](http://www.aichengxu.com/ios/5415195.htm)  [iOS 编译 libuv 资料](http://www.jianshu.com/p/dfce640e4d1c)  
 
 [征服优雅、高效的Libuv库之初识篇](http://www.jianshu.com/p/98eb18ed6149)
 

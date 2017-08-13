@@ -4,7 +4,7 @@ I/O多路复用之 [select](http://www.cnblogs.com/Anker/p/3258674.html)、[poll
 [Linux I/O 模式及 select、poll、epoll 详解](https://segmentfault.com/a/1190000003063859)  
 [再谈 select,iocp,epoll,kqueue 及各种 I/O 复用机制](http://blog.csdn.net/shallwake/article/details/5265287)  
 
-[epoll模型详解](http://blog.chinaunix.net/xmlrpc.php?r=blog/article&uid=28541347&id=4232252)  
+[epoll模型详解](http://blog.chinaunix.net/xmlrpc.php?r=blog/article&uid=28541347&id=4232252)  [epoll 使用详解](http://www.cnblogs.com/haippy/archive/2012/01/09/2317269.html)  
 彻底学会使用epoll [一](http://blog.chinaunix.net/xmlrpc.php?r=blog/article&uid=28541347&id=4273856)  [二](http://blog.chinaunix.net/xmlrpc.php?r=blog/article&uid=28541347&id=4285054)  [三](http://blog.chinaunix.net/xmlrpc.php?r=blog/article&uid=28541347&id=4288802) [四](http://blog.chinaunix.net/xmlrpc.php?r=blog/article&uid=28541347&id=4296180) [五](http://blog.chinaunix.net/xmlrpc.php?r=blog/article&uid=28541347&id=4308612) [六](http://blog.chinaunix.net/xmlrpc.php?r=blog/article&uid=28541347&id=4324338)  
 
 [Linux 下 select&poll 的实现原理简析](http://www.cnblogs.com/lanyuliuyun/p/5011526.html)  

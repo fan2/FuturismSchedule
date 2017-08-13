@@ -86,11 +86,31 @@ POSIX 的定义是这样子的：
 两者的区别就在于 synchronous IO 做 **I/O operation** 的时候会将 process 阻塞。
 根据以上定义，之前所述的 `blocking I/O`，`non-blocking I/O`，`I/O multiplexing` 和 `signal driven I/O` 都属于 synchronous I/O。
 
-#### non-blocking 与 asynchronous 的区别
+## 话题探究
+### non-blocking 与 asynchronous 的区别
 有人会说，non-blocking I/O 并没有被 block 啊。这里需要明确的是定义中所指的”I/O operation”是指真实的 I/O 操作，就是例子中的 `recvfrom` 这个系统调用（system call）。  
 non-blocking I/O 在执行 `recvfrom` 这个 system call 的时候，如果 kernel 的数据没有准备好，这时候不会 block 进程。但是，当 kernel 中数据准备好的时候，`recvfrom` 会将数据从 kernel 拷贝到用户内存中，这个时候进程是被 block 了，在这段时间内，进程是被 block 的。
 
 non-blocking I/O 仅仅要求处理的**第⼀阶段**不 block 即可，⽽ asynchronous I/O 要求**两个阶段**都不能 block 住。
+
+### [Reactor 模式和 Proactor 模式](http://blog.csdn.net/tgxallen/article/details/71083779)
+在高性能服务器并发模型设计中，Reactor 和 Proactor 是两个经常用到的设计模式：前者用于同步 I/O，后者用于异步 I/O。  
+前者在 I/O 操作就绪的情况下通知用户，用户再采取实际的 I/O 操作；后者是在 I/O 操作完成后通知用户。  
+IOCP 的设计就是 Proactor 模式的完美体现；而 epoll 则很容易实现 Reactor 模式；asio 设计为跨平台，并且在 linux 下采用 epoll。
+
+#### libevent
+本质上来讲 libevent 应该是同步的，因为如果看到底层封装的 select 和 epoll 就会发现，里面仍然是个 while 循环在轮询是否准备就绪。
+libevent 本身是一个 Reactor，是同步的。但 libevent 的 bufferevent 是用 Reactor 实现了一个 Proactor，所以 libevent 又是异步的。
+
+#### libuv
+当接口可读时，libuv 会调用你的 allocate callback 来申请内存并将读到的内容写入。
+当读取完毕后，libuv 会调用你为这个 socket 设置的回调函数，在参数中带着这个 buffer 信息。你只需要负责处理这个 buffer 并且free 掉就好了。因为是从 buffer 中读取数据，在你的 callback 被调用时数据已经 ready 了，所以程序员也就不用考虑阻塞的问题了。
+
+而对写的处理则更显巧妙。libuv 没有 write callback ，如果你想写东西，直接 generate 一个 write request 连带要写的 buffer 一起丢给 libuv ，libuv 会把你的 write request 加进相应 socket 的 write queue ，在 I/O 可写时按顺序写入。
+
+C 语言是没有原生支持 closure，否则 closure 应是 callback 机制最价解决方案。  而 C 语言模拟 closure 的方法是用一个 `function` 并携带一个 `void* ud`，此 ud 即原本应该在 closure 中绑定的数据块。ud 指针可存储结构化的参数地址，用于指向用户数据。  
+libuv 用了大量 callback 机制来完成异步 IO 的回调。这些 callback 函数通常都带有一个参数 uv_stream_t 或 uv_req_t 等，这个数据表示这次 callback 绑定的数据 。  
+当 buffer 抛上来的时候，只需要简单的把 data cast 为预定类型，从而还原确定出读写上下文。
 
 ## 参考
 I/O多路复用之 [select](http://www.cnblogs.com/Anker/p/3258674.html)、[poll](http://www.cnblogs.com/Anker/p/3261006.html)、[epoll](http://www.cnblogs.com/Anker/p/3263780.html) 示例及 [总结](http://www.cnblogs.com/Anker/p/3265058.html)  
@@ -105,3 +125,7 @@ I/O多路复用之 [select](http://www.cnblogs.com/Anker/p/3258674.html)、[poll
 
 [mac 上的 epoll--kqueue](https://zhuanlan.zhihu.com/p/21375144)  
 [FreeBSD Kqueue 的实现原理](http://wangxuemin.github.io/2015/07/30/FreeBSD%20Kqueue%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/)  
+
+[使用 libevent 和 libev 提高网络应用性能——I/O模型演进变化史](http://blog.csdn.net/hguisu/article/details/38638183)  
+[那些年我们追过的网络库](https://bbs.avplayer.org/t/topic/654)  
+[关于网络通信模型的剖析：libevent libev libuv asio](http://blog.csdn.net/tgxallen/article/details/71083779)  

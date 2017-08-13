@@ -24,12 +24,6 @@ Callable type 指可以像调用函数一样被调用的对象或函数，包括
 - （[六](http://www.cnblogs.com/qicosmos/p/3304471.html)）：lamda  
 - （[七](http://www.cnblogs.com/qicosmos/p/3318070.html)）：tuple  
 
-## C++11 multithreading
-[Start thread with member function](http://stackoverflow.com/questions/10673585/start-thread-with-member-function)  
-[C++11 multithreading tutorial](https://solarianprogrammer.com/2011/12/16/cpp-11-thread-tutorial/)  
-[使用 C++11 编写 Linux 多线程程序](http://www.ibm.com/developerworks/cn/linux/1412_zhupx_thread/index.html)  
-[C++ 11是如何封装Thread库的？](https://www.zhihu.com/question/30553807)  
-
 ## future & promise & async
 [c++11新特性之 future](http://www.cnblogs.com/taiyang-li/p/5914167.html)  
 [C++11新特性之 std::future and std::async](http://blog.csdn.net/wangshubo1989/article/details/49872199)  
@@ -39,6 +33,14 @@ Callable type 指可以像调用函数一样被调用的对象或函数，包括
 [Why using std::async from C++11?](http://stackoverflow.com/questions/17963172/why-using-stdasync-from-c11)  
 [C++ async task](http://www.cnblogs.com/zhuyp1015/p/4020971.html)  
 [用C++11的std::async代替线程的创建](http://www.cnblogs.com/qicosmos/p/3534211.html)  
+
+future/promise 和 coroutine 简化异步编程。
+
+## C++11 multithreading
+[Start thread with member function](http://stackoverflow.com/questions/10673585/start-thread-with-member-function)  
+[C++11 multithreading tutorial](https://solarianprogrammer.com/2011/12/16/cpp-11-thread-tutorial/)  
+[使用 C++11 编写 Linux 多线程程序](http://www.ibm.com/developerworks/cn/linux/1412_zhupx_thread/index.html)  
+[C++ 11是如何封装Thread库的？](https://www.zhihu.com/question/30553807)  
 
 ## [C++11 并发指南系列](http://www.cnblogs.com/haippy/p/3284540.html)
 

@@ -41,6 +41,7 @@ future/promise 和 coroutine 简化异步编程。
 [C++11 multithreading tutorial](https://solarianprogrammer.com/2011/12/16/cpp-11-thread-tutorial/)  
 [使用 C++11 编写 Linux 多线程程序](http://www.ibm.com/developerworks/cn/linux/1412_zhupx_thread/index.html)  
 [C++ 11是如何封装Thread库的？](https://www.zhihu.com/question/30553807)  
+[C++11 std::unique_lock与std::lock_guard区别及多线程应用实例](http://blog.csdn.net/tgxallen/article/details/73522233)  
 
 ## [C++11 并发指南系列](http://www.cnblogs.com/haippy/p/3284540.html)
 

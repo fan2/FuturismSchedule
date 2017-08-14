@@ -33,15 +33,24 @@ Callable type 指可以像调用函数一样被调用的对象或函数，包括
 [Why using std::async from C++11?](http://stackoverflow.com/questions/17963172/why-using-stdasync-from-c11)  
 [C++ async task](http://www.cnblogs.com/zhuyp1015/p/4020971.html)  
 [用C++11的std::async代替线程的创建](http://www.cnblogs.com/qicosmos/p/3534211.html)  
+[如果异步至关重要请指定std::launch::async](http://blog.csdn.net/acaiwlj/article/details/49174881)  
 
 future/promise 和 coroutine 简化异步编程。
 
-## C++11 multithreading
-[Start thread with member function](http://stackoverflow.com/questions/10673585/start-thread-with-member-function)  
-[C++11 multithreading tutorial](https://solarianprogrammer.com/2011/12/16/cpp-11-thread-tutorial/)  
+## thread
+[从 pthread 转换到 std::thread](https://segmentfault.com/a/1190000002655852)  
+[线程所有权转移--std::move()](http://blog.csdn.net/jeff_ros/article/details/52856288)  
+
+[c++11 线程：让你的多线程任务更轻松](https://www.oschina.net/translate/cplusplus-11-threading-make-your-multitasking-life)  
 [使用 C++11 编写 Linux 多线程程序](http://www.ibm.com/developerworks/cn/linux/1412_zhupx_thread/index.html)  
+[漫谈c++11 Thread库之使写多线程程序](http://www.cnblogs.com/ittinybird/p/4820142.html)  
+
 [C++ 11是如何封装Thread库的？](https://www.zhihu.com/question/30553807)  
 [C++11 std::unique_lock与std::lock_guard区别及多线程应用实例](http://blog.csdn.net/tgxallen/article/details/73522233)  
+[（不要）使用std::thread](http://www.ituring.com.cn/article/17979)  
+
+[Start thread with member function](http://stackoverflow.com/questions/10673585/start-thread-with-member-function)  
+[C++11 multithreading tutorial](https://solarianprogrammer.com/2011/12/16/cpp-11-thread-tutorial/)  
 
 ## [C++11 并发指南系列](http://www.cnblogs.com/haippy/p/3284540.html)
 

@@ -6,6 +6,11 @@
 [为何某些公司不允许使用 C++ STL？](https://www.zhihu.com/question/20201972)  
 [求C++ 模板编程学习路线或推荐图书？](https://www.zhihu.com/question/30716136)  
 
+[C++11和C++14能替代boost吗？](https://www.zhihu.com/question/26915993)  
+[C++11和Boost库](http://blog.csdn.net/wangshubo1989/article/details/50718726) / [boost 与 C++11 比较](http://blog.csdn.net/mdlfans/article/details/46610357)  
+[用C++11替代Boost的实验之三](http://www.cnblogs.com/gongminmin/archive/2013/04/01/2993234.html)  
+[Boost.Lambda与C++11.Lambda的用法对比](http://towriting.com/blog/2013/12/13/boost-lambda-vs-stand-lambda/)  
+
 ### references
 [Boost C++ 库](http://zh.highscore.de/cpp/boost/frontpage.html)  
 [侯捷：Boost.Function内核剖析](http://www.csdn.net/article/2011-03-22/294383)  

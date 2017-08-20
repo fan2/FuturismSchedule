@@ -50,3 +50,12 @@ traits, SFINAE
 [boost::bind的使用](http://blog.csdn.net/hopingwhite/article/details/6278472)  
 [boost库 bind/function的使用](http://blog.csdn.net/misskissc/article/details/11001971)  
 [以 `boost::function` 和 `boost:bind` 取代虚函数](http://blog.csdn.net/solstice/article/details/3066268)  
+
+### scoped_ptr
+[boost scoped_ptr class template](http://www.boost.org/doc/libs/1_64_0/libs/smart_ptr/scoped_ptr.htm)
+
+[scoped_ptr](http://www.cppblog.com/sivan/archive/2011/11/07/159788.html)  
+[Boost智能指针——scoped_ptr](http://www.cnblogs.com/TianFang/archive/2008/09/15/1291050.html)  
+[shared_ptr vs scoped_ptr](https://stackoverflow.com/questions/1770636/shared-ptr-vs-scoped-ptr)  
+[shared_ptr&scoped_ptr&weak_ptr](http://www.cnblogs.com/tekkaman/p/3308624.html)  
+[auto_ptr、shared_ptr、weak_ptr、scoped_ptr用法小结](http://blog.csdn.net/lollipop_jin/article/details/8499530)  

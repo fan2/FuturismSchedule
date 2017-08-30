@@ -3,11 +3,11 @@
 - SDK  
 
 ## Fundamental types
-[C type](http://en.cppreference.com/w/c/language/type) / [C++ Type](http://en.cppreference.com/w/cpp/language/type) / [C++ Fundamental types](http://en.cppreference.com/w/cpp/language/types)  
+[C type](http://en.cppreference.com/w/c/language/type) / [C++ Type](http://en.cppreference.com/w/cpp/language/type) / [**C++ Fundamental types**](http://en.cppreference.com/w/cpp/language/types)  
 
 > The signedness of char depends on the compiler and the target platform: the defaults for ARM and PowerPC are typically **unsigned**, the defaults for x86 and x64 are typically **signed**.
 
-[Variables. Data Types.](http://www.cplusplus.com/doc/oldtutorial/variables/)
+[C++ Variables. Data Types.](http://www.cplusplus.com/doc/oldtutorial/variables/)
 
 MSDN 的 [C++ Type System (Modern C++)](https://msdn.microsoft.com/en-us/library/hh279663.aspx) & [Fundamental Types (C++)](https://msdn.microsoft.com/en-us/library/cc953fe1.aspx)
 
@@ -45,6 +45,169 @@ LP64：long 和 pointer 是 64-bit；
 ILP64：int，long，pointer 是 64-bit；  
 LLP64（(or P64)）：long long，pointer 是 64-bit；  
 
+## [Fundamental types corresponding Data Model](http://en.cppreference.com/w/cpp/language/types)
+
+<table class="wikitable" style="text-align:center;">
+<tr>
+<th rowspan="2"> Type specifier
+</th>
+<th rowspan="2"> Equivalent type
+</th>
+<th colspan="5"> Width in bits by data model
+</th></tr>
+<tr>
+<th> C++ standard
+</th>
+<th> LP32
+</th>
+<th> ILP32
+</th>
+<th> LLP64
+</th>
+<th> LP64
+</th></tr>
+<tr>
+<td> <div style="text-align:left; width:auto; margin-left:auto; margin-right:auto;"><span class="t-c"><span class="mw-geshi cpp source-cpp"><span class="kw4">short</span></span></span></div>
+</td>
+<td rowspan="4"> <span class="t-c"><span class="mw-geshi cpp source-cpp"><span class="kw4">short</span> <span class="kw4">int</span></span></span>
+</td>
+<td rowspan="6"> at least<br /> <b>16</b>
+</td>
+<td rowspan="6"> <b>16</b>
+</td>
+<td rowspan="6"> <b>16</b>
+</td>
+<td rowspan="6"> <b>16</b>
+</td>
+<td rowspan="6"> <b>16</b>
+</td></tr>
+<tr>
+<td> <div style="text-align:left; width:auto; margin-left:auto; margin-right:auto;"><span class="t-c"><span class="mw-geshi cpp source-cpp"><span class="kw4">short</span> <span class="kw4">int</span></span></span></div>
+</td></tr>
+<tr>
+<td> <div style="text-align:left; width:auto; margin-left:auto; margin-right:auto;"><span class="t-c"><span class="mw-geshi cpp source-cpp"><span class="kw4">signed</span> <span class="kw4">short</span></span></span></div>
+</td></tr>
+<tr>
+<td> <div style="text-align:left; width:auto; margin-left:auto; margin-right:auto;"><span class="t-c"><span class="mw-geshi cpp source-cpp"><span class="kw4">signed</span> <span class="kw4">short</span> <span class="kw4">int</span></span></span></div>
+</td></tr>
+<tr>
+<td> <div style="text-align:left; width:auto; margin-left:auto; margin-right:auto;"><span class="t-c"><span class="mw-geshi cpp source-cpp"><span class="kw4">unsigned</span> <span class="kw4">short</span></span></span></div>
+</td>
+<td rowspan="2"> <span class="t-c"><span class="mw-geshi cpp source-cpp"><span class="kw4">unsigned</span> <span class="kw4">short</span> <span class="kw4">int</span></span></span>
+</td></tr>
+<tr>
+<td> <div style="text-align:left; width:auto; margin-left:auto; margin-right:auto;"><span class="t-c"><span class="mw-geshi cpp source-cpp"><span class="kw4">unsigned</span> <span class="kw4">short</span> <span class="kw4">int</span></span></span></div>
+</td></tr>
+<tr>
+<td> <div style="text-align:left; width:auto; margin-left:auto; margin-right:auto;"><span class="t-c"><span class="mw-geshi cpp source-cpp"><span class="kw4">int</span></span></span></div>
+</td>
+<td rowspan="3"> <span class="t-c"><span class="mw-geshi cpp source-cpp"><span class="kw4">int</span></span></span>
+</td>
+<td rowspan="5"> at least<br /> <b>16</b>
+</td>
+<td rowspan="5"> <b>16</b>
+</td>
+<td rowspan="5"> <b>32</b>
+</td>
+<td rowspan="5"> <b>32</b>
+</td>
+<td rowspan="5"> <b>32</b>
+</td></tr>
+<tr>
+<td> <div style="text-align:left; width:auto; margin-left:auto; margin-right:auto;"><span class="t-c"><span class="mw-geshi cpp source-cpp"><span class="kw4">signed</span></span></span></div>
+</td></tr>
+<tr>
+<td> <div style="text-align:left; width:auto; margin-left:auto; margin-right:auto;"><span class="t-c"><span class="mw-geshi cpp source-cpp"><span class="kw4">signed</span> <span class="kw4">int</span></span></span></div>
+</td></tr>
+<tr>
+<td> <div style="text-align:left; width:auto; margin-left:auto; margin-right:auto;"><span class="t-c"><span class="mw-geshi cpp source-cpp"><span class="kw4">unsigned</span></span></span></div>
+</td>
+<td rowspan="2"> <span class="t-c"><span class="mw-geshi cpp source-cpp"><span class="kw4">unsigned</span> <span class="kw4">int</span></span></span>
+</td></tr>
+<tr>
+<td> <div style="text-align:left; width:auto; margin-left:auto; margin-right:auto;"><span class="t-c"><span class="mw-geshi cpp source-cpp"><span class="kw4">unsigned</span> <span class="kw4">int</span></span></span></div>
+</td></tr>
+<tr>
+<td> <div style="text-align:left; width:auto; margin-left:auto; margin-right:auto;"><span class="t-c"><span class="mw-geshi cpp source-cpp"><span class="kw4">long</span></span></span></div>
+</td>
+<td rowspan="4"> <span class="t-c"><span class="mw-geshi cpp source-cpp"><span class="kw4">long</span> <span class="kw4">int</span></span></span>
+</td>
+<td rowspan="6"> at least<br /> <b>32</b>
+</td>
+<td rowspan="6"> <b>32</b>
+</td>
+<td rowspan="6"> <b>32</b>
+</td>
+<td rowspan="6"> <b>32</b>
+</td>
+<td rowspan="6"> <b>64</b>
+</td></tr>
+<tr>
+<td> <div style="text-align:left; width:auto; margin-left:auto; margin-right:auto;"><span class="t-c"><span class="mw-geshi cpp source-cpp"><span class="kw4">long</span> <span class="kw4">int</span></span></span></div>
+</td></tr>
+<tr>
+<td> <div style="text-align:left; width:auto; margin-left:auto; margin-right:auto;"><span class="t-c"><span class="mw-geshi cpp source-cpp"><span class="kw4">signed</span> <span class="kw4">long</span></span></span></div>
+</td></tr>
+<tr>
+<td> <div style="text-align:left; width:auto; margin-left:auto; margin-right:auto;"><span class="t-c"><span class="mw-geshi cpp source-cpp"><span class="kw4">signed</span> <span class="kw4">long</span> <span class="kw4">int</span></span></span></div>
+</td></tr>
+<tr>
+<td> <div style="text-align:left; width:auto; margin-left:auto; margin-right:auto;"><span class="t-c"><span class="mw-geshi cpp source-cpp"><span class="kw4">unsigned</span> <span class="kw4">long</span></span></span></div>
+</td>
+<td rowspan="2"> <span class="t-c"><span class="mw-geshi cpp source-cpp"><span class="kw4">unsigned</span> <span class="kw4">long</span> <span class="kw4">int</span></span></span>
+</td></tr>
+<tr>
+<td> <div style="text-align:left; width:auto; margin-left:auto; margin-right:auto;"><span class="t-c"><span class="mw-geshi cpp source-cpp"><span class="kw4">unsigned</span> <span class="kw4">long</span> <span class="kw4">int</span></span></span></div>
+</td></tr>
+<tr>
+<td> <div style="text-align:left; width:auto; margin-left:auto; margin-right:auto;"><span class="t-c"><span class="mw-geshi cpp source-cpp"><span class="kw4">long</span> <span class="kw4">long</span></span></span></div>
+</td>
+<td rowspan="4"> <span class="t-c"><span class="mw-geshi cpp source-cpp"><span class="kw4">long</span> <span class="kw4">long</span> <span class="kw4">int</span></span></span> <br /> <span class="t-mark-rev t-since-cxx11">(C++11)</span>
+</td>
+<td rowspan="6"> at least<br /> <b>64</b>
+</td>
+<td rowspan="6"> <b>64</b>
+</td>
+<td rowspan="6"> <b>64</b>
+</td>
+<td rowspan="6"> <b>64</b>
+</td>
+<td rowspan="6"> <b>64</b>
+</td></tr>
+<tr>
+<td> <div style="text-align:left; width:auto; margin-left:auto; margin-right:auto;"><span class="t-c"><span class="mw-geshi cpp source-cpp"><span class="kw4">long</span> <span class="kw4">long</span> <span class="kw4">int</span></span></span></div>
+</td></tr>
+<tr>
+<td> <div style="text-align:left; width:auto; margin-left:auto; margin-right:auto;"><span class="t-c"><span class="mw-geshi cpp source-cpp"><span class="kw4">signed</span> <span class="kw4">long</span> <span class="kw4">long</span></span></span></div>
+</td></tr>
+<tr>
+<td> <div style="text-align:left; width:auto; margin-left:auto; margin-right:auto;"><span class="t-c"><span class="mw-geshi cpp source-cpp"><span class="kw4">signed</span> <span class="kw4">long</span> <span class="kw4">long</span> <span class="kw4">int</span></span></span></div>
+</td></tr>
+<tr>
+<td> <div style="text-align:left; width:auto; margin-left:auto; margin-right:auto;"><span class="t-c"><span class="mw-geshi cpp source-cpp"><span class="kw4">unsigned</span> <span class="kw4">long</span> <span class="kw4">long</span></span></span></div>
+</td>
+<td rowspan="2"> <span class="t-c"><span class="mw-geshi cpp source-cpp"><span class="kw4">unsigned</span> <span class="kw4">long</span> <span class="kw4">long</span> <span class="kw4">int</span></span></span> <br /> <span class="t-mark-rev t-since-cxx11">(C++11)</span>
+</td></tr>
+<tr>
+<td> <div style="text-align:left; width:auto; margin-left:auto; margin-right:auto;"><span class="t-c"><span class="mw-geshi cpp source-cpp"><span class="kw4">unsigned</span> <span class="kw4">long</span> <span class="kw4">long</span> <span class="kw4">int</span></span></span></div>
+</td></tr></table>
+
+## Predefined-Macros
+MSDN 的 [Keywords (C++)](https://msdn.microsoft.com/en-us/library/2e6a4at9.aspx)
+
+> In Microsoft C++, identifiers with two leading underscores are reserved for compiler implementations.
+
+MSDN 的 [Data Type Ranges](https://msdn.microsoft.com/en-us/library/s3f49ktz(v=vs.140).aspx)
+
+> If its name begins with two underscores (__), a data type is non-standard.
+
+GNU 的 [Common Predefined Macros](https://gcc.gnu.org/onlinedocs/cpp/Common-Predefined-Macros.html)
+
+> The common predefined macros are GNU C extensions. 
+> Their names all start with double underscores.
+
+Visual Studio 2015 [预定义的宏](https://msdn.microsoft.com/zh-cn/library/b0084kay.aspx)
+
 ## win64
 [What is the bit size of long on 64-bit Windows?](https://stackoverflow.com/questions/384502/what-is-the-bit-size-of-long-on-64-bit-windows)  
 
@@ -67,22 +230,6 @@ wireshark [Development/Win64](https://wiki.wireshark.org/Development/Win64)
 [Installing Visual Studio 64-bit Components](https://msdn.microsoft.com/en-us/library/ms246588(v=vs.100).aspx)  
 [How to make Visual Studio use the native amd64 toolchain](https://stackoverflow.com/questions/19820718/how-to-make-visual-studio-use-the-native-amd64-toolchain)  
 
-## Predefined-Macros
-MSDN 的 [Keywords (C++)](https://msdn.microsoft.com/en-us/library/2e6a4at9.aspx)
-
-> In Microsoft C++, identifiers with two leading underscores are reserved for compiler implementations.
-
-MSDN 的 [Data Type Ranges](https://msdn.microsoft.com/en-us/library/s3f49ktz(v=vs.140).aspx)
-
-> If its name begins with two underscores (__), a data type is non-standard.
-
-GNU 的 [Common Predefined Macros](https://gcc.gnu.org/onlinedocs/cpp/Common-Predefined-Macros.html)
-
-> The common predefined macros are GNU C extensions. 
-> Their names all start with double underscores.
-
-Visual Studio 2015 [预定义的宏](https://msdn.microsoft.com/zh-cn/library/b0084kay.aspx)
-
 ### __int n
 MSDN 的 [Data Type Ranges](https://msdn.microsoft.com/en-us/library/s3f49ktz(v=vs.140).aspx)
 
@@ -94,10 +241,10 @@ MSDN 的 [Data Type Ranges](https://msdn.microsoft.com/en-us/library/s3f49ktz(v=
 The types __int8, __int16, and __int32 are synonyms for the ANSI/ISO C types (as specified in [ISO/IEC-9899]) that have the same size. They are useful for writing portable code that behaves identically across multiple platforms.
 
 ## cross platform
-[Linux64位程序移植](http://www.cnblogs.com/linuxbug/p/4887715.html)  
-
-[针对 64 位平台配置 Visual C++ 项目](https://msdn.microsoft.com/zh-cn/library/9yb4317s.aspx)  
 [Windows上64位编程](http://www.cnblogs.com/shiney/archive/2011/06/23/2088103.html)  
-[从 Windows 移植到 UNIX，第 1 部分: 移植 C/C++ 源代码](https://www.ibm.com/developerworks/cn/aix/library/au-porting/index.html)  
+[Programming Guide for 64-bit Windows](https://msdn.microsoft.com/en-us/library/windows/desktop/bb427430(v=vs.85).aspx)  
+[针对 64 位平台配置 Visual C++ 项目](https://msdn.microsoft.com/zh-cn/library/9yb4317s.aspx)  
 
-[Differences in Primitive Data Types between OS X and Windows](http://thecoatlessprofessor.com/programming/differences-in-primitive-data-types-between-os-x-and-windows/)
+[Linux64位程序移植](http://www.cnblogs.com/linuxbug/p/4887715.html)  
+[从 Windows 移植到 UNIX，第 1 部分: 移植 C/C++ 源代码](https://www.ibm.com/developerworks/cn/aix/library/au-porting/index.html)  
+[Differences in Primitive Data Types between OS X and Windows](http://thecoatlessprofessor.com/programming/differences-in-primitive-data-types-between-os-x-and-windows/)  

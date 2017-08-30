@@ -29,7 +29,7 @@ A basic trait for types is the categories in which they can be classified. This 
 <tr><td><a href="/is_function">function</a></td><td></td><td></td><td></td></tr>
 </table>
 
-> * = excluding unions
+> `*` = excluding unions
 
 ## std::is_fundamental
 [cppreference](http://en.cppreference.com/w/cpp/types/is_fundamental) / [cplusplus](http://www.cplusplus.com/reference/type_traits/is_fundamental/)
@@ -65,10 +65,10 @@ include arithmetic type, void, or nullptr_t
 <tr><td>void</td><td><tt>void</tt></td></tr>
 <tr><td>null pointer</td><td><tt>std::nullptr_t</tt></td></tr>
 </table>
+
 ### std::is_arithmetic
 [cppreference](http://en.cppreference.com/w/cpp/types/is_arithmetic) / [cplusplus](http://www.cplusplus.com/reference/type_traits/is_arithmetic/)
 
-### misc
 is_arithmetic = is_integral || is_floating_point
 
 is_integral：[cppreference](http://en.cppreference.com/w/cpp/types/is_integral) /  [cplusplus](http://www.cplusplus.com/reference/type_traits/is_integral/)  

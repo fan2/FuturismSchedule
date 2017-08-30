@@ -90,6 +90,21 @@ struct is_arithmetic : std::integral_constant<bool,
                                               std::is_floating_point<T>::value> {};
 ```
 
+### signedness
+#### std::is_signed
+[cppreference](http://en.cppreference.com/w/cpp/types/is_signed) / [cplusplus](http://www.cplusplus.com/reference/type_traits/is_signed/)  
+
+```CPP
+T(-1) < T(0)
+```
+
+#### is_unsigned
+[cppreference](http://en.cppreference.com/w/cpp/types/is_unsigned) / [cplusplus](http://www.cplusplus.com/reference/type_traits/is_unsigned/)  
+
+```CPP
+T(0) < T(-1)
+```
+
 ## std::is_compound（复合类型）
 [cppreference](http://en.cppreference.com/w/cpp/types/is_compound) / [cplusplus](http://www.cplusplus.com/reference/type_traits/is_compound/)
 
@@ -108,10 +123,6 @@ Any C++ type is either fundamental or compound.
 template< class T >
 struct is_compound : std::integral_constant<bool, !std::is_fundamental<T>::value> {};
 ```
-
-[cv-qualified and cv-unqualified](http://blog.csdn.net/asongnic/article/details/4571418)  
-[What does “cv-unqualified” mean in C++?](https://stackoverflow.com/questions/15413037/what-does-cv-unqualified-mean-in-c)  
-[用12个实例来解释几个C++概念：POD，cv-qualified，trivial，aggregate type](http://blog.csdn.net/aladdina/article/details/3953552)  
 
 ## std::is_scalar
 [cppreference](http://en.cppreference.com/w/cpp/types/is_scalar) / [cplusplus](http://www.cplusplus.com/reference/type_traits/is_scalar/)
@@ -132,17 +143,9 @@ struct is_scalar : std::integral_constant<bool,
                      std::is_null_pointer<T>::value> {};
 ```
 
-## signedness
-### std::is_signed
-[cppreference](http://en.cppreference.com/w/cpp/types/is_signed) / [cplusplus](http://www.cplusplus.com/reference/type_traits/is_signed/)  
+## misc
+[cv-qualified and cv-unqualified](http://blog.csdn.net/asongnic/article/details/4571418)  
+[What does “cv-unqualified” mean in C++?](https://stackoverflow.com/questions/15413037/what-does-cv-unqualified-mean-in-c)  
+[用12个实例来解释几个C++概念：POD，cv-qualified，trivial，aggregate type](http://blog.csdn.net/aladdina/article/details/3953552)  
 
-```CPP
-T(-1) < T(0)
-```
-
-### is_unsigned
-[cppreference](http://en.cppreference.com/w/cpp/types/is_unsigned) / [cplusplus](http://www.cplusplus.com/reference/type_traits/is_unsigned/)  
-
-```CPP
-T(0) < T(-1)
-```
+[is_pod](http://www.cplusplus.com/reference/type_traits/is_pod/)，[is_standard_layout](http://www.cplusplus.com/reference/type_traits/is_standard_layout/)，[is_trivial](http://www.cplusplus.com/reference/type_traits/is_trivial/)

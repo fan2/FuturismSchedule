@@ -1,5 +1,8 @@
 ## [OpenMP](http://www.openmp.org/)
 OpenMP：[Open Multi-Processing](https://en.wikipedia.org/wiki/OpenMP)  
+
+[llvm.org](http://llvm.org/git/openmp) @[github](https://github.com/llvm-mirror/openmp)  
+
 [OpenMP Compilers](http://www.openmp.org/resources/openmp-compilers/)  
 
 [openMP的一点使用经验](http://www.cnblogs.com/yangyangcv/archive/2012/03/23/2413335.html)  
@@ -7,6 +10,8 @@ OpenMP：[Open Multi-Processing](https://en.wikipedia.org/wiki/OpenMP)
 
 ## [TBB](https://www.threadingbuildingblocks.org/)
 [Threading Building Blocks](https://en.wikipedia.org/wiki/Threading_Building_Blocks)
+
+tbb @[github](https://github.com/01org/tbb)
 
 [Intel TBB](http://www.cppblog.com/lai3d/archive/2007/08/31/31312.html)
 

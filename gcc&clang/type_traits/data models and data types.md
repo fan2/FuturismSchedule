@@ -43,7 +43,7 @@ LLP（or P32）：long long 和 pointer 是 32-bit。
 
 LP64：long 和 pointer 是 64-bit；  
 ILP64：int，long，pointer 是 64-bit；  
-LLP64（(or P64)）：long long，pointer 是 64-bit；  
+LLP64（or P64）：long long，pointer 是 64-bit；  
 
 ## [Fundamental types corresponding Data Model](http://en.cppreference.com/w/cpp/language/types)
 
@@ -242,6 +242,7 @@ The types __int8, __int16, and __int32 are synonyms for the ANSI/ISO C types (as
 
 ## cross platform
 [Windows上64位编程](http://www.cnblogs.com/shiney/archive/2011/06/23/2088103.html)  
+[用Visual Studio 编译64位程序](http://blog.csdn.net/jiangxinyu/article/details/6205710)  
 [Programming Guide for 64-bit Windows](https://msdn.microsoft.com/en-us/library/windows/desktop/bb427430(v=vs.85).aspx)  
 [针对 64 位平台配置 Visual C++ 项目](https://msdn.microsoft.com/zh-cn/library/9yb4317s.aspx)  
 

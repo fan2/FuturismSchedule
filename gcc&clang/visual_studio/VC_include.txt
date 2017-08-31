@@ -1,0 +1,38 @@
+// c:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\vcruntime.h
+
+// Definitions of common types
+#ifdef _WIN64
+    typedef unsigned __int64 size_t;
+    typedef __int64          ptrdiff_t;
+    typedef __int64          intptr_t;
+#else
+    typedef unsigned int     size_t;
+    typedef int              ptrdiff_t;
+    typedef int              intptr_t;
+#endif
+
+c:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\cstddef
+c:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stddef.h
+
+c:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\cstdint
+c:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\stdint.h
+
+c:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\cstdio
+c:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdio.h
+
+c:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\cstdlib
+c:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\stdlib.h
+
+c:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\cstring
+c:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\string.h
+
+C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\climits
+c:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\limits.h
+
+源码
+===
+C:\Program Files (x86)\Windows Kits\10\Source\10.0.10240.0\ucrt
+
+stdio
+stdlib
+string

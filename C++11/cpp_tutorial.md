@@ -19,7 +19,9 @@ sitesbay：[C++ Programs](http://www.sitesbay.com/cpp-program/index)
 [C++ language](http://en.cppreference.com/w/cpp/language)   
 [History of C++](http://en.cppreference.com/w/cpp/language/history)：[C++98](http://www.cplusplus.com/doc/oldtutorial/)  
 
-[Visual Studio 2015 中的 Visual C++](https://msdn.microsoft.com/zh-cn/library/60k1461a.aspx) / [C++ 语言和标准库](https://msdn.microsoft.com/zh-cn/library/hh875057.aspx)  
+[**用于 Visual C++ 开发的 IDE 和工具**](https://msdn.microsoft.com/zh-cn/library/hh967574.aspx)  
+
+[**Visual Studio 2015 中的 Visual C++**](https://msdn.microsoft.com/zh-cn/library/60k1461a.aspx) / [C++ 语言和标准库](https://msdn.microsoft.com/zh-cn/library/hh875057.aspx)  
 [Standard C++ Library Overview ](https://technet.microsoft.com/zh-cn/subscriptions/ct1as7hw(v=vs.80).aspx) / [C++ 标准库概述](https://technet.microsoft.com/zh-cn/subscriptions/ct1as7hw.aspx)  
 
 ## advance

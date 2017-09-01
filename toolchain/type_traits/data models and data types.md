@@ -3,11 +3,12 @@
 - SDK  
 
 ## Fundamental types
-[C type](http://en.cppreference.com/w/c/language/type) / [C++ Type](http://en.cppreference.com/w/cpp/language/type) / [**C++ Fundamental types**](http://en.cppreference.com/w/cpp/language/types)  
+[C type](http://en.cppreference.com/w/c/language/type)  
+[C++ Type](http://en.cppreference.com/w/cpp/language/type)： [**C++ Fundamental types**](http://en.cppreference.com/w/cpp/language/types)  
 
 > The signedness of char depends on the compiler and the target platform: the defaults for ARM and PowerPC are typically **unsigned**, the defaults for x86 and x64 are typically **signed**.
 
-[C++ Variables. Data Types.](http://www.cplusplus.com/doc/oldtutorial/variables/)
+[C++98](http://www.cplusplus.com/doc/oldtutorial/) [Variables. Data Types.](http://www.cplusplus.com/doc/oldtutorial/variables/)
 
 MSDN 的 [C++ Type System (Modern C++)](https://msdn.microsoft.com/en-us/library/hh279663.aspx) & [Fundamental Types (C++)](https://msdn.microsoft.com/en-us/library/cc953fe1.aspx)
 

@@ -25,9 +25,15 @@ sitesbay：[C++ Programs](http://www.sitesbay.com/cpp-program/index)
 
 [Standard C++ Library Overview ](https://technet.microsoft.com/zh-cn/subscriptions/ct1as7hw(v=vs.80).aspx) / [C++ 标准库概述](https://technet.microsoft.com/zh-cn/subscriptions/ct1as7hw.aspx)  
 
+## standard
+[cplusplus/draft](https://github.com/cplusplus/draft)  
+[Standard for Programming Language C++](http://cpp14.centaur.ath.cx/front.html)  
+
+[The C++ Programming Language](http://www.stroustrup.com/C++.html)  
+[Programming -- Principles and Practice Using C++ (Second Edition)](http://stroustrup.com/Programming/)  
+
 ## advance
 [Programming/C++ tutorial](https://arachnoid.com/cpptutor/index.html)  
-[Programming -- Principles and Practice Using C++ (Second Edition)](http://stroustrup.com/Programming/)  
 
 [Linux C Program Solution](https://www.gitbook.com/book/yonghaowu/linux-c-program-solution/details)  
 [C PROGRAMMING IN LINUX](http://windegger.org/docs/c-programming-in-linux.pdf)  

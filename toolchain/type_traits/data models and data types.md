@@ -221,7 +221,7 @@ Visual Studio 2015 [预定义的宏](https://msdn.microsoft.com/zh-cn/library/b0
 > In the **LLP64** data model, only pointers expand to 64 bits; all other basic data types (integer and long) remain 32 bits in length.
 
 [Why did the Win64 team choose the LLP64 model?](https://blogs.msdn.microsoft.com/oldnewthing/20050131-00/?p=36563)  
-[64-Bit Programming Models: Why LP64?](http://www.unix.org/version2/whatsnew/lp64_wp.html)  
+UNIX [64-Bit Programming Models: Why LP64?](http://www.unix.org/version2/whatsnew/lp64_wp.html)  
 
 wireshark [Development/Win64](https://wiki.wireshark.org/Development/Win64)  
 
@@ -240,6 +240,9 @@ MSDN 的 [Data Type Ranges](https://msdn.microsoft.com/en-us/library/s3f49ktz(v=
 
 > Microsoft C/C++ supports different sizes of integer types. An 8-bit, 16-bit, 32-bit, or 64-bit integer variable can be declared by using the __intn type specifier, where n is 8, 16, 32, or 64.
 The types __int8, __int16, and __int32 are synonyms for the ANSI/ISO C types (as specified in [ISO/IEC-9899]) that have the same size. They are useful for writing portable code that behaves identically across multiple platforms.
+
+[__int64 与 long long 的区别](http://blog.csdn.net/shiwei408/article/details/7463476)  
+[C++ 中的 long long 和 __int64 类型](http://blog.csdn.net/ithomer/article/details/5913669)  
 
 ## cross platform
 [Windows上64位编程](http://www.cnblogs.com/shiney/archive/2011/06/23/2088103.html)  

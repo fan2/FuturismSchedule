@@ -31,8 +31,12 @@ A basic trait for types is the categories in which they can be classified. This 
 
 > `*` = excluding unions
 
+![TypeHiearchy](../images/Type-Classification.jpg)
+
 ## std::is_fundamental
 [cppreference](http://en.cppreference.com/w/cpp/types/is_fundamental) / [cplusplus](http://www.cplusplus.com/reference/type_traits/is_fundamental/)
+
+[A fundamental type is a one that is built into the language](http://www.msg.ucsf.edu/local/programs/IBM_Compilers/C:C++/html/language/ref/clrc03simple_type_specifiers.ht).
 
 - [Fundamental (built-in) types](https://msdn.microsoft.com/en-us/library/hh279663.aspx)  
 - [primitive data types](http://helpcentreonline.com/article/primitiv_console_gcc_framhtml.html)  
@@ -108,6 +112,8 @@ T(0) < T(-1)
 ## std::is_compound（复合类型）
 [cppreference](http://en.cppreference.com/w/cpp/types/is_compound) / [cplusplus](http://www.cplusplus.com/reference/type_traits/is_compound/)
 
+aggregate
+
 ### Notes
 Compound types are the types that are **constructed** from fundamental types. 
 Any C++ type is either fundamental or compound.
@@ -142,6 +148,8 @@ struct is_scalar : std::integral_constant<bool,
                      std::is_member_pointer<T>::value ||
                      std::is_null_pointer<T>::value> {};
 ```
+
+[What is a scalar Object in C++?](https://stackoverflow.com/questions/14821936/what-is-a-scalar-object-in-c)
 
 ## misc
 [cv-qualified and cv-unqualified](http://blog.csdn.net/asongnic/article/details/4571418)  

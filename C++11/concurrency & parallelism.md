@@ -1,5 +1,7 @@
 # concurrency & parallelism
 
+## [Thread](https://en.wikipedia.org/wiki/Thread_(computing))
+
 ## [Extensions for concurrency](http://en.cppreference.com/w/cpp/experimental/concurrency)
 Concurrency library extensions  (concurrency TS)
 

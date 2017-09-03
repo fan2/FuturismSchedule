@@ -96,6 +96,9 @@ faner@THOMASFAN-MB0:/Applications/Xcode-beta.app/Contents/Developer/Platforms/iP
 ./Platforms/WatchSimulator.platform/Developer/SDKs/WatchSimulator.sdk/
 ```
 
+### search path
+关于 clang 编译器下的 C/C++ 头文件包含路径 search list，参考《xcode-Build_Settings.md》的 Header Search Paths 章节。
+
 ### cstddef(stddef.h)
 在 `./Toolchains/XcodeDefault.xctoolchain/`、`./Platforms/MacOSX.platform/`、`./Platforms/iPhoneOS.platform/` 3个路径下查找 C 标准库头文件 <stddef.h> 及其对应的 C++ 标准库头文件 <cstddef>：
 

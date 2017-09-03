@@ -1,3 +1,6 @@
+[C standard library](https://en.wikipedia.org/wiki/C_standard_library)  wiki
+[C++ Standard Library](https://en.wikipedia.org/wiki/C%2B%2B_Standard_Library)  wiki
+
 ![cplusplus-c++11](images/cplusplus.png)
 
 [C++STL概览](http://www.cnblogs.com/ggjucheng/archive/2012/01/03/2310884.html)  

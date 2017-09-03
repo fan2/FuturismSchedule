@@ -9,11 +9,26 @@
 - gm4(m4)：M4 - macro processor  
 - unifdef, unifdefall -- remove preprocessor conditionals from code  
 
-### cl(Compiler and Linker)
-- as - Mac OS X Mach-O GNU-based assemblers  
+### cl(Compiler/Assembler/Linker)
 - clang - the Clang C, C++, and Objective-C compiler - c++/cc/clang++/cpp  
+- as - Mac OS X Mach-O GNU-based assemblers  
 - ld -- linker  
 - ar：archive  
+
+#### as
+```Shell
+faner@THOMASFAN-MB0:/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/libexec/as|
+⇒  tree
+.
+├── arm
+│   └── as
+├── i386
+│   └── as
+└── x86_64
+    └── as
+
+3 directories, 3 files
+```
 
 ### utility
 - indent -- indent and format C program source  

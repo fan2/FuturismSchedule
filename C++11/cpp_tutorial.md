@@ -17,7 +17,7 @@ sitesbay：[C++ Programs](http://www.sitesbay.com/cpp-program/index)
 ## references
 [C language](http://en.cppreference.com/w/c/language)  
 [C++ language](http://en.cppreference.com/w/cpp/language)   
-[History of C++](http://en.cppreference.com/w/cpp/language/history)：[C++98](http://www.cplusplus.com/doc/oldtutorial/)  
+History of C++：[cppreference](http://en.cppreference.com/w/cpp/language/history) / [cplusplus](http://www.cplusplus.com/info/history/)：[C++98](http://www.cplusplus.com/doc/oldtutorial/)  
 
 > [**Visual Studio 2015 中的 Visual C++**](https://msdn.microsoft.com/zh-cn/library/60k1461a.aspx)  
 >> [**C++ 语言和标准库**](https://msdn.microsoft.com/zh-cn/library/hh875057.aspx)  

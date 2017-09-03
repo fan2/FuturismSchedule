@@ -5,6 +5,10 @@ There are fundamental types and compound types.
 **Fundamental types** are the arithmetic types, void, and std::nullptr_t.  
 **Compound types** are arrays, functions, pointers, references, classes, unions, enumerations, and pointers to non-static members.  
 
+[LLVM Features](https://en.wikipedia.org/wiki/LLVM)：
+
+> The type system consists of basic types such as [integer](https://en.wikipedia.org/wiki/Integer_(computer_science)) or [floating point](https://en.wikipedia.org/wiki/Floating_point) numbers and five [derived types](https://en.wikipedia.org/wiki/Composite_data_type): [pointers](https://en.wikipedia.org/wiki/Pointer_(computer_programming)), [arrays](https://en.wikipedia.org/wiki/Array_data_structure), [vectors](https://en.wikipedia.org/wiki/Array_data_type), [structures](https://en.wikipedia.org/wiki/Record_(computer_science)), and [functions](https://en.wikipedia.org/wiki/Function_(programming)). A type construct in a concrete language can be represented by combining these basic types in LLVM. For example, a class in C++ can be represented by a mix of structures, functions and arrays of function pointers. 
+
 # <type_traits>
 This header defines a series of classes to obtain type information on compile-time.
 

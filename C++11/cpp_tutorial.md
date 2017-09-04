@@ -1,3 +1,8 @@
+[C++ Shell](http://cpp.sh/)
+
+> This is a simple frontend for a GCC compiler.  
+> The system uses GCC 4.9.2, with Boost 1.55 available.  
+
 ## begine
 [How To Write, Compile and Execute C Program on Unix OS](http://www.thegeekstuff.com/2009/09/how-to-write-compile-and-execute-c-program-on-unix-os-with-hello-world-example/?ref=driverlayer.com)  
 [HowTo: Compile And Run a C/C++ Code In Linux](https://www.cyberciti.biz/faq/howto-compile-and-run-c-cplusplus-code-in-linux/)  

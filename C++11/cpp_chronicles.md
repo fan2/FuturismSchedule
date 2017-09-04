@@ -1,7 +1,8 @@
-[C++ Chronicles and Data Types](http://blog.csdn.net/phunxm/article/details/5071772)
+[C++ Chronicles](http://blog.csdn.net/phunxm/article/details/5071772)
 
 [**Standard C++**](https://isocpp.org/) : [The Standard](https://isocpp.org/std/the-standard) and [Current Status](https://isocpp.org/std/status)  [FAQ](https://isocpp.org/faq)
-[**Meeting C++**](http://meetingcpp.com/) : [History of C++](http://en.cppreference.com/w/cpp/language/history)  
+[**Meeting C++**](http://meetingcpp.com/)  
+History of C++：[cppreference](http://en.cppreference.com/w/cpp/language/history) / [cplusplus](http://www.cplusplus.com/info/history/)
 
 ## milestones
 - C++98/03: Traditional C++  

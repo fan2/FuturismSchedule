@@ -1,3 +1,9 @@
+## Build Options
+Compiler for C/C++/Objective-C：
+
+- Xcode 8.3：Default compiler(Apple LLVM 8.1)  
+- Xcode 9：Default compiler(Apple LLVM 9.0)  
+
 ## Language Dialect
 [Language Standards Supported by GCC](https://gcc.gnu.org/onlinedocs/gcc/Standards.html)  
 [**Options Controlling C Dialect**](https://gcc.gnu.org/onlinedocs/gcc/C-Dialect-Options.html)  
@@ -49,13 +55,20 @@ Xcode 8 默认（Compiler Default）选择 `GNU++11`；最新 Xcode 9 默认选�
 
 ---
 
-关于 C++ 版本里程碑参考下图：
+C++ 版本里程碑时间线参考下图：
 
 ![C++-milestones](https://isocpp.org/files/img/wg21-timeline-2017-07b.png)
 
+C++ 各版本特性对应的编译器支持情况 ，可查表 [C++ compiler support](http://en.cppreference.com/w/cpp/compiler_support)。
+
 #### references
+[ANSI C, Standard C 与 GCC](http://www.jianshu.com/p/3756ccb7c0c2)  
+[C语言的各种版本：C89，AMD1，C99，C11](https://www.crifan.com/summary_c_language_version_c89_amd1_c99_c11/)  
+History of C++：[cppreference](http://en.cppreference.com/w/cpp/language/history) / [cplusplus](http://www.cplusplus.com/info/history/)  
+
 [C11Status](https://gcc.gnu.org/wiki/C11Status)  
-[Linux Kernel Working Towards GNU11/C11 Compatibility](http://www.phoronix.com/scan.php?page=news_item&px=MTgxODI)
+[Linux Kernel Working Towards GNU11/C11 Compatibility](http://www.phoronix.com/scan.php?page=news_item&px=MTgxODI)  
+[What is the default C mode for the current gcc (especially on Ubuntu)?](https://stackoverflow.com/questions/14737104/what-is-the-default-c-mode-for-the-current-gcc-especially-on-ubuntu)  
 [What are the differences between -std=c++11 and -std=gnu++11?](https://stackoverflow.com/questions/10613126/what-are-the-differences-between-std-c11-and-std-gnu11)  
 
 > the difference between the two options is whether GNU extensions that violates the C++ standard are **enabled** or not. The GNU extensions are described [here](https://gcc.gnu.org/onlinedocs/gcc/C_002b_002b-Extensions.html).
@@ -80,8 +93,6 @@ libstdc++ —— [The GNU C++ Library](https://gcc.gnu.org/onlinedocs/gcc-7.2.0/
 
 libstdc++ 4.2 is the last GPL2 version.
 Mainline libstdc++ has switched to GPL3, a license which the developers of libc++ cannot use. 
-
-Xcode 下的 libstdc++ 库实现在`/Applications/Xcode-beta.app/Contents/Developer/usr/lib/llvm-gcc/4.2.1/libgcc.a` 中？
 
 ### libc++
 libc++ —— [LLVM's C++ standard library](http://libcxx.llvm.org/), targeting C++11(the C++0x standard).  
@@ -115,7 +126,7 @@ $ echo | /usr/local/bin/clang++ -Wp,-v -stdlib=libc++ -x c++ - -fsyntax-only
 [OS X clang include lib search path](https://langui.sh/2015/07/24/osx-clang-include-lib-search-paths/)  
 [**Include search path on Mac OSX Yosemite 10.10.1**](https://stackoverflow.com/questions/27948093/include-search-path-on-mac-osx-yosemite-10-10-1)  
 
-### clang
+### [clang](http://clang.llvm.org/docs/LanguageExtensions.html)
 运行 **`clang -x c -v -E /dev/null`** 可以查看 C 语言的 Header Search Paths：
 
 ```Shell
@@ -145,16 +156,20 @@ search list 顺序如下：
 5. MacOSX10.13.sdk/usr/include  
 6. MacOSX10.13.sdk/System/Library/Frameworks (framework directory)  
 
+以上即为选择 CLANG_CXX_LIBRARY =*`libc++`* 时的头文件搜索路径。
+
 ### [gcc](https://stackoverflow.com/questions/39829340/which-version-of-gcc-is-installed-on-mac-yosemite)
 LLVM allows code to be compiled statically, as it is **under** the traditional GCC system.  
 XCode gcc and clang are linked to the same binary in the SDK.  
 
-在 macOS 终端运行 `xcrun -f gcc` 命令可查找到 gcc 在目录 `/Applications/Xcode-beta.app/Contents/Developer/usr/bin/` 下：
+在 macOS 终端运行 `xcrun -f gcc` 命令可查找到 [gcc](https://stackoverflow.com/questions/39829340/which-version-of-gcc-is-installed-on-mac-yosemite) 在目录 `/Applications/Xcode-beta.app/Contents/Developer/usr/bin/` 下：
 
 ```Shell
 ⇒  xcrun -f gcc
 /Applications/Xcode-beta.app/Contents/Developer/usr/bin/gcc
 ```
+
+> `/Applications/Xcode-beta.app/Contents/Developer/usr/lib/llvm-gcc/4.2.1/libgcc.a`?
 
 运行 `clang -v` 和 `gcc -v` 查看 clang 和 gcc 的版本详细信息(verbose)。  
 由 **InstalledDir** 可以看出 gcc 实际上是 XcodeDefault.xctoolchain 下 clang 的 [shims or wrapper](http://stackoverflow.com/questions/9329243/xcode-4-4-and-later-install-command-line-tools/) executables。
@@ -174,7 +189,7 @@ Thread model: posix
 InstalledDir: /Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin
 ```
 
-从配置信息(**Configured with**) 中可以看出 `--with-gxx-include-dir` 目录为 SDK(MacOSX.sdk、iPhoneOS.sdk) 下的 `/usr/include/c++/4.2.1`。
+从配置信息(**Configured with**) 中可以看出 `--with-gxx-include-dir` 目录为 SDK(MacOSX.sdk、iPhoneOS.sdk) 下的 `/usr/include/c++/4.2.1`，此即为选择 CLANG_CXX_LIBRARY =*`libstdc++`* 时的头文件搜索路径。
 
 #### tr1
 `/usr/include/c++/4.2.1` 下的 `tr1/` 为 TR1 扩展库头文件：
@@ -195,7 +210,7 @@ Xcode 工具链包含的 llvm-gcc 版本为 4.2.1 (libstdc++ 4.2 is the last **G
 #include <tr1/unordered_map>
 ```
 
-建议在 Xcode 下选择 CLANG_CXX_LIBRARY = `libc++`，不要选择陈旧的 `libstdc++`，否则会发出 deprecated warning。  
+Xcode 建议选择默认的 CLANG_CXX_LIBRARY = `libc++`，不要选择陈旧的 `libstdc++`，否则会发出 deprecated warning。  
 
 ## Library Search Paths
 

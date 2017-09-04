@@ -57,6 +57,19 @@ A toolchain will have some sort of [Cross compiler](https://en.wikipedia.org/wik
 
 Sometimes the toolchain may involve a full IDE (like Microsoft VC++ Embedded or Hitachi's IDEs), often it is a **collection** of *command-line tools*, especially if the toolchain is hosted on Unix/Linux.
 
+## [MSVC](https://en.wikipedia.org/wiki/Microsoft_Visual_C%2B%2B)
+Microsoft Visual C++ (often abbreviated to MSVC) is an [integrated development environment](https://en.wikipedia.org/wiki/Integrated_development_environment) (IDE) product from Microsoft for the C, C++, and [C++/CLI](https://en.wikipedia.org/wiki/C%2B%2B/CLI) [programming languages](https://en.wikipedia.org/wiki/Programming_language).
+
+> [**Visual Studio 2015 中的 Visual C++**](https://msdn.microsoft.com/zh-cn/library/60k1461a.aspx)  
+>> [**C++ 语言和标准库**](https://msdn.microsoft.com/zh-cn/library/hh875057.aspx)：[C/C++ 预处理器参考](https://msdn.microsoft.com/zh-cn/library/y4skk93w.aspx)  
+>> [**用于 Visual C++ 开发的 IDE 和工具**](https://msdn.microsoft.com/zh-cn/library/hh967574.aspx)  
+>>> [生成 C/C++ 程序](https://msdn.microsoft.com/zh-cn/library/z7kx322x.aspx)  
+>>>> [在命令行上生成](https://msdn.microsoft.com/zh-cn/library/f35ctcxw.aspx)：[C 程序](https://msdn.microsoft.com/zh-cn/library/bb384838.aspx) / [C++ 程序](https://msdn.microsoft.com/zh-cn/library/ms235639.aspx) / [NMAKE 参考](https://msdn.microsoft.com/zh-cn/library/dd9y37ha.aspx)  
+>>>> [C/C++ 生成参考](https://msdn.microsoft.com/zh-CN/library/91621w01.aspx)  
+>>>>> [编译 C/C++ 程序](https://msdn.microsoft.com/zh-cn/library/wk21sfcf.aspx)  
+>>>>>> [编译器选项](https://msdn.microsoft.com/zh-cn/library/9s7c9wdw.aspx)：[/D（预处理器定义）](https://msdn.microsoft.com/zh-cn/library/hhzbb5c8.aspx)、[/U、/u（未定义符号）](https://msdn.microsoft.com/zh-cn/library/c3h46dfd.aspx)、[/P（预处理到文件）](https://msdn.microsoft.com/zh-cn/library/8z9z0bx6.aspx)、[/link（将选项传递到链接器）](https://msdn.microsoft.com/zh-cn/library/5y4fae15.aspx)  
+>>>>>> [设置编译器选项](https://msdn.microsoft.com/zh-CN/library/3600tzxa.aspx)：[编译器命令行语法](https://msdn.microsoft.com/zh-cn/library/610ecb4h.aspx)、[CL 调用链接器](https://msdn.microsoft.com/zh-cn/library/btw8x58e.aspx)  
+
 ## [GNU toolchain](https://en.wikipedia.org/wiki/GNU_toolchain)
 official site: [What is GNU?](https://www.gnu.org/home.en.html)
 
@@ -163,6 +176,15 @@ official site: [GCC, the GNU Compiler Collection](https://gcc.gnu.org/)
 ### [GDB](https://en.wikipedia.org/wiki/GNU_Debugger)
 The debugger is also usually part of the toolchain, as a cross-debugger is needed to debug applications running on your target machine. In the embedded Linux world, the typical debugger is [GDB](http://elinux.org/GDB).
 
+### references
+[Linux GCC编译器和GDB调试器](http://www.jianshu.com/p/ffbc358150b9)  
+[预处理-编译-汇编-链接过程分析](http://blog.h5min.cn/radianceblau/article/details/73606101)  
+[gcc编译出的elf文件分析](http://blog.h5min.cn/radianceblau/article/details/73649350)  
+
+[GCC 编译的背后](https://www.kancloud.cn/kancloud/cbook/68997) / [GCC 编译详解](http://www.cnblogs.com/azraelly/archive/2012/07/07/2580839.html) / [GCC编译器总结](http://www.jianshu.com/p/b8ddb4cee7af)  
+
+[Compiling GCC 7 on macOS](https://solarianprogrammer.com/2017/05/21/compiling-gcc-macos/)
+
 ## [LLVM](https://en.wikipedia.org/wiki/LLVM)
 official site: [The LLVM Compiler Infrastructure](http://llvm.org/)  
 [Assembling a Complete Toolchain](https://clang.llvm.org/docs/Toolchain.html)  
@@ -207,14 +229,14 @@ LLVM supports a language-independent [instruction set](https://en.wikipedia.org/
 
 ### [Clang](https://en.wikipedia.org/wiki/Clang)
 [clang: a C language family frontend for LLVM](http://clang.llvm.org/)  
+[Clang Language Extensions](http://clang.llvm.org/docs/LanguageExtensions.html)  
+[Clang vs Other Open Source Compilers](https://clang.llvm.org/comparison.html)  
+
 [Clang “man” pages](http://clang.llvm.org/docs/CommandGuide/index.html)  
 [Clang Compiler User’s Manual](http://clang.llvm.org/docs/UsersManual.html)  
 [Frequently Asked Questions (FAQ)](http://clang.llvm.org/docs/FAQ.html)  
 
 Widespread interest in LLVM has led to several efforts to develop new front ends for a variety of languages. The one that has received the most attention is Clang, a new compiler supporting C, C++, and Objective-C.
-
-[Clang Language Extensions](http://clang.llvm.org/docs/LanguageExtensions.html)  
-[Clang vs Other Open Source Compilers](https://clang.llvm.org/comparison.html)  
 
 [LLVM 与 Clang 介绍](https://linuxtoy.org/archives/llvm-and-clang.html)  
 [结构化编译器前端 Clang 介绍](https://www.ibm.com/developerworks/cn/opensource/os-cn-clang/index.html)  
@@ -230,3 +252,13 @@ Widespread interest in LLVM has led to several efforts to develop new front ends
 
 [LLDB基础知识](http://www.jianshu.com/p/e89af3e9a8d7) / [LLDB调试命令初探](http://www.starfelix.com/blog/2014/03/17/lldbdiao-shi-ming-ling-chu-tan/)  
 [Dancing in the Debugger — A Waltz with LLDB](https://www.objc.io/issues/19-debugging/lldb-debugging/) / [与调试器共舞 - LLDB 的华尔兹](https://objccn.io/issue-19-2/) @[segmentfault](https://segmentfault.com/a/1190000002413758)
+
+## references
+[编译器(GNU & GCC & LLVM & clang)](http://blog.csdn.net/itianyi/article/details/43057279)  
+[通过编译 eddic 来比较 GCC 4.7 和 Clang 3.1 的性能](https://www.oschina.net/question/12_78997)  
+
+[Clang 比 GCC 好在哪里？](https://www.zhihu.com/question/20235742)  
+[C/C++: clang 代替 gcc](http://fzheng.me/2016/03/15/clang-gcc/)  
+
+[mac 使用gcc 为什么编译错误是clang 提示？](https://segmentfault.com/q/1010000000515389)
+

@@ -1,7 +1,7 @@
 # [Toolchain](https://en.wikipedia.org/wiki/Toolchain)
 A simple software development toolchain may consist of a [compiler](https://en.wikipedia.org/wiki/Compiler) and [linker](https://en.wikipedia.org/wiki/Linker_(computing)) (which transform the source code into an [executable program](https://en.wikipedia.org/wiki/Executable_program)), [libraries](https://en.wikipedia.org/wiki/Software_library) (which provide interfaces to the [operating system](https://en.wikipedia.org/wiki/Operating_system)), and a [debugger](https://en.wikipedia.org/wiki/Debugger) (which is used to [test](https://en.wikipedia.org/wiki/Software_testing) and debug [debug](https://en.wikipedia.org/wiki/Debugging) programs).
 
-## [compiler tool chain](https://www.quora.com/What-exactly-is-a-compiler-tool-chain) 
+## [compiler tool chain](https://www.quora.com/What-exactly-is-a-compiler-tool-chain)
 answered by Ajinkya RC：
 
 Every program of any language is written in a high level language. This must be converted to machine understandable language. So, ‘Compiler’ is the predefined set of program that does this activity. Also, there are number of different components that play important role. This whole set of components is nothing but the ‘Compiler tool chain’.

@@ -1,0 +1,48 @@
+[CPU technologies](https://en.wikipedia.org/wiki/Central_processing_unit)
+
+# [Word (computer architecture)](https://en.wikipedia.org/wiki/Word_(computer_architecture))
+
+Categories: Data types | Data unit | Primitive types | Units of information
+
+In [computing](https://en.wikipedia.org/wiki/Computing), a word is the ***natural unit*** of data used by a particular [processor](https://en.wikipedia.org/wiki/Central_processing_unit) design. A word is a fixed-sized [piece of data](https://en.wikipedia.org/wiki/Data_(computing)) handled as a unit by the [instruction set](https://en.wikipedia.org/wiki/Instruction_set) or the hardware of the processor. The number of [bits](https://en.wikipedia.org/wiki/Bit) in a word (the *word size*, *word width*, or *word length*) is an important characteristic of any specific processor design or [computer architecture](https://en.wikipedia.org/wiki/Computer_architecture).
+
+The size of a word is reflected in many aspects of a computer's structure and operation; the majority of the [registers](https://en.wikipedia.org/wiki/Processor_register) in a processor are usually word sized and the largest piece of data that can be transferred to and from the working memory in a ***single operation*** is a word in many (not all) architectures.
+
+## Uses of words
+### Fixed point numbers
+Holders for [fixed point](https://en.wikipedia.org/wiki/Fixed-point_arithmetic), usually [integer](https://en.wikipedia.org/wiki/Integer_(computer_science)), numerical values may be available in one or in several different sizes, but one of the sizes available will almost always be the word. The other sizes, if any, are likely to be **multiples** or **fractions** of the word size. The smaller sizes are normally used only for efficient use of memory; when loaded into the processor, their values usually ***go into*** a larger, word sized *holder*.
+
+### Addresses
+Holders for memory addresses must be of a size capable of expressing the needed range of values but not be excessively large, so often the size used is the word though it can also be a **multiple** or **fraction** of the word size.
+
+### Registers
+[Processor registers](https://en.wikipedia.org/wiki/Processor_register) are designed with a size appropriate for the type of data they hold, e.g. integers, floating point numbers or addresses. Many computer architectures use "[general purpose registers](https://en.wikipedia.org/wiki/General_purpose_register)" that can hold any of several types of data, these registers must be sized to hold the largest of the types, historically this is the ***word size*** of the architecture though increasingly special purpose, larger, registers have been added to deal with newer types.
+
+### Memory-processor transfer
+When the processor reads from the memory subsystem into a register or writes a register's value to memory, the amount of data transferred is often a **word**. Historically, this amount of bits which could be transferred in one cycle was also called a *catena* in some environments.
+
+### Unit of address resolution
+In a given architecture, successive address values designate successive units of memory; this unit is the unit of address resolution. In most computers, the unit is either a character (e.g. a byte) or a word. (A few computers have used bit resolution.) If the unit is a word, then a larger amount of memory can be accessed using an address of a given size at the cost of added complexity to access **individual** characters. On the other hand, if the unit is a ***byte***, then **individual** characters can be addressed (i.e. selected during the memory operation).
+
+> 此处的 resolution 为 `分辨率`。
+
+### Instructions
+Machine instructions are normally the size of the architecture's word, such as in RISC architectures, or a multiple of the "char" size that is a fraction of it. This is a natural choice since instructions and data usually share the same memory subsystem. In Harvard architectures the word sizes of instructions and data need not be related, as instructions and data are stored in different memories; for example, the processor in the 1ESS electronic telephone switch had 37-bit instructions and 23-bit data words.
+
+## Word size choice
+### Word and byte addressing
+The *memory model* of an architecture is strongly influenced by the word size. In particular, the resolution of a memory address, that is, the smallest unit that can be designated by an address, has often been chosen to be the **word**. In this approach, address values which differ by one designate adjacent memory words. This is natural in machines which deal almost always in word (or multiple-word) units, and has the advantage of allowing instructions to use minimally sized fields to contain addresses, which can permit a smaller instruction size or a larger variety of instructions.
+
+When byte processing is to be a significant part of the workload, it is usually more advantageous to use the byte, rather than the word, as the unit of address resolution. This allows an arbitrary character within a character string to be addressed straightforwardly. A word can still be addressed, but the address to be used requires a few more bits than the word-resolution alternative. The word size needs to be an integer multiple of the character size in this organization. This addressing approach was used in the IBM 360, and has been the most common approach in machines designed since then.
+
+Individual bytes can be accessed on a word-oriented machine in one of two ways. **Bytes** can be manipulated by a combination of shift and mask operations in registers. Moving a single byte from one arbitrary location to another may require the equivalent of the following:
+
+- `LOAD` the word containing the source byte  
+- `SHIFT` the source word to align the desired byte to the correct position in the target word  
+- `AND` the source word with a mask to zero out all but the desired bits  
+- `LOAD` the word containing the target byte  
+- `AND` the target word with a mask to zero out the target byte  
+- `OR` the registers containing the source and target words to insert the source byte  
+- `STORE` the result back in the target location  
+
+Alternatively many word-oriented machines implement byte operations with instructions using special byte pointers in registers or memory. For an example the PDP-10 byte pointer contained the size of the byte in bits (allowing different-sized bytes to be accessed), the bit position of the byte within the word, and the word address of the data. Instructions could automatically adjust the pointer to the next byte on, for example, load and deposit (store) operations.

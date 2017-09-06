@@ -133,3 +133,45 @@ armv7(s) 和 arm64 下的 `sizeof(wchar_t)` 均为 4。
 #define __SIZEOF_DOUBLE__ 8
 #define __SIZEOF_LONG_DOUBLE__ 8
 ```
+
+## cstdint
+
+```C
+// *_TYPE__ for cstdint under i386/x86_64/armv7s/arm64
+
+// underlying types for 
+#define __CHAR16_TYPE__ unsigned short
+
+// underlying types for 
+#define __CHAR32_TYPE__ unsigned int
+
+// underlying types for wchar_t
+#define __WCHAR_TYPE__ int
+
+// underlying types for wint_t
+#define __WINT_TYPE__ int
+
+// underlying types for int8_t
+#define __INT8_TYPE__ signed char
+
+// underlying types for uint8_t
+#define __UINT8_TYPE__ unsigned char
+
+// underlying types for int16_t
+#define __INT16_TYPE__ short
+
+// underlying types for uint16_t
+#define __UINT16_TYPE__ unsigned short
+
+// underlying types for int32_t
+#define __INT32_TYPE__ int
+
+// underlying types for uint32_t
+#define __UINT32_TYPE__ unsigned int
+
+// underlying types for int64_t
+#define __INT64_TYPE__ long long int
+
+// underlying types for uint64_t
+#define __UINT64_TYPE__ long long unsigned int
+```

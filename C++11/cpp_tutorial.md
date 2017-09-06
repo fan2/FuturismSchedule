@@ -18,6 +18,7 @@
 programiz：[Learn C Programming](https://www.programiz.com/c-programming) / [Learn C++ Programming](https://www.programiz.com/cpp-programming)  
 tutorialspoint：[C++ Basic Syntax](https://www.tutorialspoint.com/cplusplus/cpp_basic_syntax.htm)  
 sitesbay：[C++ Programs](http://www.sitesbay.com/cpp-program/index)  
+runoob：[C++ 基本语法](http://www.runoob.com/cplusplus/cpp-basic-syntax.html)
 
 ## references
 [C language](http://en.cppreference.com/w/c/language)  

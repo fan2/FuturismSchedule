@@ -46,6 +46,8 @@ LP64：long 和 pointer 是 64-bit；
 ILP64：int，long，pointer 是 64-bit；  
 LLP64（or P64）：long long，pointer 是 64-bit；  
 
+[64-bit computing#64-bit data models](https://en.wikipedia.org/wiki/64-bit_computing#64-bit_data_models)
+
 ## [Fundamental types corresponding Data Model](http://en.cppreference.com/w/cpp/language/types)
 
 <table class="wikitable" style="text-align:center;">

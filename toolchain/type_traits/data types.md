@@ -1,5 +1,6 @@
 [Data type](https://en.wikipedia.org/wiki/Data_type)  
 [C data types](https://en.wikipedia.org/wiki/C_data_types)  
+[How does my computer store things in memory?](http://tldp.org/HOWTO/Unix-and-Internet-Fundamentals-HOWTO/core-formats.html)  
 
 ## [Data type](https://en.wikipedia.org/wiki/Data_type)
 In [computer science](https://en.wikipedia.org/wiki/Computer_science) and [computer programming](https://en.wikipedia.org/wiki/Computer_programming), a **data type** or simply **type** is a classification of data which tells the [compiler](https://en.wikipedia.org/wiki/Compiler) or [interpreter](https://en.wikipedia.org/wiki/Interpreter_(computing)) how the programmer intends to **use** the data.

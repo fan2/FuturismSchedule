@@ -1,4 +1,9 @@
-[CPU technologies](https://en.wikipedia.org/wiki/Central_processing_unit)
+[CPU technologies](https://en.wikipedia.org/wiki/Central_processing_unit)  
+[Bits, Bytes and Words](http://www.cs.scranton.edu/~cil102/data_bits.html)  
+[The name of 16 and 32 bits](https://stackoverflow.com/questions/14181090/the-name-of-16-and-32-bits)  
+[How many bits is a WORD and is that constant over different architectures?](https://stackoverflow.com/questions/621657/how-many-bits-is-a-word-and-is-that-constant-over-different-architectures)  
+
+the MS Windows `WORD` datatype was defined back in the early days, when 16-bit CPUs were the norm. When 32-bit CPUs came around, the definition stayed, and a 32-bit integer became a `DWORD`. And now we have 64-bit `QWORD`s.
 
 # [Word (computer architecture)](https://en.wikipedia.org/wiki/Word_(computer_architecture))
 

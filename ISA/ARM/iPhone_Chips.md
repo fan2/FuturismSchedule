@@ -2,8 +2,9 @@
 
 Chip             | ARM Architecture | Word Size | Product        | Time
 -------------|-----------------------|--------------|--------------|------
-[Apple A5](https://en.wikipedia.org/wiki/Apple_A5)   | ARM Cortex-A9      | 32-bit          | iPhone 4S    | ?
-[Apple A6](https://en.wikipedia.org/wiki/Apple_A6)   | ARMv7-A                  | 32-bit          | iPhone 5(C) | September 12, 2012
+[Apple A4](https://en.wikipedia.org/wiki/Apple_A4)   | ARM Cortex-A8      | 32-bit          | iPhone 4      | January 27, 2010
+[Apple A5](https://en.wikipedia.org/wiki/Apple_A5)   | ARM Cortex-A9      | 32-bit          | iPhone 4S    | October 2011
+[Apple A6](https://en.wikipedia.org/wiki/Apple_A6)   | [ARMv7-A](https://en.wikipedia.org/wiki/ARM_Cortex-A15_MPCore)                  | 32-bit          | iPhone 5(C) | September 12, 2012
 [Apple A7](https://en.wikipedia.org/wiki/Apple_A7)    | ARMv8-A                  | 64-bit         | iPhone 5S     | September 10, 2013
 [Apple A8](https://en.wikipedia.org/wiki/Apple_A8)   | ARMv8-A                  | 64-bit         | iPhone 6(+) | September 9, 2014
 [Apple A9](https://en.wikipedia.org/wiki/Apple_A9)   | ARMv8-A                  | 64-bit         | iPhone 6S(+) | September 9, 2015

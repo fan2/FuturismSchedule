@@ -8,10 +8,7 @@
 [Selected background on ARM registers, stack layout, and calling convention](https://www.trust.informatik.tu-darmstadt.de/fileadmin/user_upload/Group_TRUST/LectureSlides/ESS-SS2017/05-Code-Reuse_Attacks-handout.pdf) pdf  
 
 ## ARM infocenter
-
-- [ARM 体系结构](http://infocenter.arm.com/help/topic/com.arm.doc.set.architecture/index.html)  
-- [ARM 软件开发工具](http://infocenter.arm.com/help/topic/com.arm.doc.set.swdev/index.html)  
-- [ARM1136](http://infocenter.arm.com/help/topic/com.arm.doc.set.arm11/index.html#arm1136) [The core register set in ARM state](http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.ddi0211k/ch02s08s01.html)  
+[ARM 体系结构](http://infocenter.arm.com/help/topic/com.arm.doc.set.architecture/index.html)  
 
 [Procedure Call Standard for the ARM® Architecture](http://infocenter.arm.com/help/topic/com.arm.doc.ihi0042f/IHI0042F_aapcs.pdf) pdf  
 

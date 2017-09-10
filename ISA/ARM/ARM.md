@@ -82,6 +82,15 @@ Cortex-A(64-bit)/ARMv8-A/Cortex-A57：3-way superscalar, deeply out-of-order pip
 可参考：RealView 文档 [ARM_Architecture_Overview](https://web.eecs.umich.edu/~prabal/teaching/eecs373-f10/readings/ARM_Architecture_Overview.pdf) 和 [ARM integer cores](http://www.paulkilloran.com/arm/Lecture_8.pdf)（父目录有更多lecture）  
 博客：《[指令集及流水线](http://blog.csdn.net/phunxm/article/details/8980808)》  
 
+## MSDN
+Understanding ARM Assembly：[Part 1](https://blogs.msdn.microsoft.com/ntdebugging/2013/11/22/understanding-arm-assembly-part-1/) / [Part 2](https://blogs.msdn.microsoft.com/ntdebugging/2014/05/15/understanding-arm-assembly-part-2/) / [Part 3](https://blogs.msdn.microsoft.com/ntdebugging/2014/05/29/understanding-arm-assembly-part-3/)  
+
+## [davespace](http://www.davespace.co.uk/)
+http://www.davespace.co.uk/arm/
+
+- [ARM: Introduction to ARM](http://www.davespace.co.uk/arm/introduction-to-arm/)  
+- [ARM: Efficient C for ARM](http://www.davespace.co.uk/arm/efficient-c-for-arm/)  
+
 ## azeria-labs
 
 - [ARM Assembly Basics](https://azeria-labs.com/writing-arm-assembly-part-1/)  

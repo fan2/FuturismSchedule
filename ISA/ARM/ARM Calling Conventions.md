@@ -31,19 +31,6 @@
 
 [iOS Assembly Tutorial: Understanding ARM](https://www.raywenderlich.com/37181/ios-assembly-tutorial)
 
-## MSDN
-Understanding ARM Assembly 
-
-- [Part 1](https://blogs.msdn.microsoft.com/ntdebugging/2013/11/22/understanding-arm-assembly-part-1/)   
-- [Part 2](https://blogs.msdn.microsoft.com/ntdebugging/2014/05/15/understanding-arm-assembly-part-2/)  
-- [Part 3](https://blogs.msdn.microsoft.com/ntdebugging/2014/05/29/understanding-arm-assembly-part-3/)  
-
-## [davespace](http://www.davespace.co.uk/)
-http://www.davespace.co.uk/arm/
-
-- [ARM: Introduction to ARM](http://www.davespace.co.uk/arm/introduction-to-arm/)  
-- [ARM: Efficient C for ARM](http://www.davespace.co.uk/arm/efficient-c-for-arm/)  
-
 ## stackoverflow
 [What are SP (stack) and LR in ARM?](https://stackoverflow.com/questions/8236959/what-are-sp-stack-and-lr-in-arm)  
 [ARM to C calling convention, registers to save](https://stackoverflow.com/questions/261419/arm-to-c-calling-convention-registers-to-save)  

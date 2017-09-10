@@ -1,3 +1,6 @@
+[ABI](https://en.wikipedia.org/wiki/Application_binary_interface) wiki  
+[Calling convention](https://en.wikipedia.org/wiki/Calling_convention) wiki  
+
 [ARM registers](http://www.keil.com/support/man/docs/armasm/armasm_dom1359731128950.htm) / [gdb Registers](https://sourceware.org/gdb/onlinedocs/gdb/Registers.html)  
 
 [ARM stacks](http://www.cems.uwe.ac.uk/~cduffy/es/ARMstacks.doc)  doc  
@@ -22,7 +25,7 @@
 [ARM procedure calling conventions and recursion](https://www.slideshare.net/StephanCadene/arm-procedure-calling-conventions-and-recursion) slideshare  
 
 ## Apple Developer
-[iOS ABI Function Call Guide](https://developer.apple.com/library/content/documentation/Xcode/Conceptual/iPhoneOSABIReference/Introduction/Introduction.html#//apple_ref/doc/uid/TP40009020-SW1)  
+[iOS ABI Function Call Guide](https://developer.apple.com/library/content/documentation/Xcode/Conceptual/iPhoneOSABIReference/Introduction/Introduction.html)  
 
 - [ARMv6 Function Calling Conventions](https://developer.apple.com/library/content/documentation/Xcode/Conceptual/iPhoneOSABIReference/Articles/ARMv6FunctionCallingConventions.html#//apple_ref/doc/uid/TP40009021-SW1)  
 - [ARMv7 Function Calling Conventions](https://developer.apple.com/library/content/documentation/Xcode/Conceptual/iPhoneOSABIReference/Articles/ARMv7FunctionCallingConventions.html#//apple_ref/doc/uid/TP40009022-SW1)  

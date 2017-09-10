@@ -1,4 +1,15 @@
 
+## Architecture profiles
+《Architectures, Processors, and Devices Development Article》:
+
+ARMv7 introduces the concept of Architecture ***profiles***, defining versions of the architecture aimed at different types of processors for different market segments. The defined profiles are:
+
+- ***A***: The *Application* profile defines a VMSA(*Virtual Memory System Architecture*) based microprocessor architecture. It is targeted at **high performance** processors, capable of running **full feature** operating systems. It supports the ARM and Thumb instruction sets.  
+- ***R***: The *Real-time* profile defines a PMSA(*Protected Memory System Architecture*) based microprocessor architecture. It is targeted at systems that require **deterministic timing** and **low interrupt latency**. It supports the ARM and Thumb instruction sets.  
+- ***M***: The *Microcontroller* profile provides **low-latency interrupt** processing accessible directly from high-level programming languages. It has a **different exception handling model** to the other profiles, implements a variant of the PMSA, and supports a variant of the Thumb instruction set only.  
+
+参考 [Cores](https://en.wikipedia.org/wiki/ARM_architecture#Cores) 和 [List of ARM cores](https://en.wikipedia.org/wiki/List_of_ARM_cores) 表格。
+
 ## [ARM infocenter](http://infocenter.arm.com/help/index.jsp)
 ARM 信息中心，包含所有 ARM 非机密† 技术出版物。
 
@@ -42,7 +53,34 @@ ARM 信息中心，包含所有 ARM 非机密† 技术出版物。
 - ARM 是统一编址的  
 - ARM 是哈佛结构的  
 
-[What is the difference between a von Neumann architecture and a Harvard architecture?](http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.faqs/ka3839.html)
+### [Computer architecture](https://en.wikipedia.org/wiki/Computer_architecture)
+From [ARM9T](https://en.wikipedia.org/wiki/ARM9T)/ARMv4T, with this design generation, ARM moved from a [von Neumann architecture](https://en.wikipedia.org/wiki/Von_Neumann_architecture) (Princeton architecture) to a (modified; meaning split cache) [Harvard architecture](https://en.wikipedia.org/wiki/Harvard_architecture) with separate instruction and data buses (and caches), significantly increasing its potential speed. Most silicon chips integrating these cores will package them as [modified Harvard architecture](https://en.wikipedia.org/wiki/Modified_Harvard_architecture) chips, combining the two address buses on the other side of separated [CPU caches](https://en.wikipedia.org/wiki/CPU_caches) and tightly coupled memories.
+
+@img ![Von Neumann architecture scheme](https://upload.wikimedia.org/wikipedia/commons/e/e5/Von_Neumann_Architecture.svg)
+
+@img ![Block diagram of Harvard computer architecture](https://upload.wikimedia.org/wikipedia/commons/3/3f/Harvard_architecture.svg)
+
+[Difference Between Harvard Architecture And Von Neumann Architecture](http://wikidifferences.com/Difference_Between_Harvard_Architecture_And_Von_Neumann_Architecture)  
+[What is the difference between a von Neumann architecture and a Harvard architecture?](http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.faqs/ka3839.html)  
+[What are the advantages and disadvantages of von Neumann architecture vs Harvard architecture?](https://www.quora.com/Computer-Science-What-are-the-advantages-and-disadvantages-of-von-Neumann-architecture-vs-Harvard-architecture)  
+
+### pipeline stage
+参考 [List of ARM microarchitectures](https://en.wikipedia.org/wiki/List_of_ARM_microarchitectures)：
+
+ARM7T/ARMv4T/ARM7TDMI(-S)：3-stage pipeline  
+ARM7EJ/ARMv5TEJ/ARM7EJ-S：5-stage pipeline  
+ARM10E/ARMv5TE/ARM1020E：6-stage pipeline  
+ARM11/ARMv6/ARM1136J(F)-S：8-stage pipeline  
+ARM11/ARMv6T2/ARM1156T2(F)-S：9-stage pipeline  
+Cortex-R/ARMv7-R/Cortex-R7：9-stage pipeline  
+Cortex-A(32-bit)/ARMv7-A/Cortex-A7：8–10 stage pipeline  
+Cortex-A(32-bit)/ARMv7-A/Cortex-A8：13-stage superscalar pipeline  
+Cortex-A(32-bit)/ARMv7-A/Cortex-A15：15–24 stage pipeline  
+Cortex-A(32-bit)/ARMv8-A/Cortex-A32：dual issue, in-order pipeline  
+Cortex-A(64-bit)/ARMv8-A/Cortex-A57：3-way superscalar, deeply out-of-order pipeline  
+
+可参考：RealView 文档 [ARM_Architecture_Overview](https://web.eecs.umich.edu/~prabal/teaching/eecs373-f10/readings/ARM_Architecture_Overview.pdf) 和 [ARM integer cores](http://www.paulkilloran.com/arm/Lecture_8.pdf)（父目录有更多lecture）  
+博客：《[指令集及流水线](http://blog.csdn.net/phunxm/article/details/8980808)》  
 
 ## azeria-labs
 

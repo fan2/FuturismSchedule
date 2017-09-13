@@ -2,6 +2,7 @@
 [Computer architecture](https://en.wikipedia.org/wiki/Computer_architecture)  
 [Multi-core processor](https://en.wikipedia.org/wiki/Multi-core_processor)  
 [Instruction set architecture](https://en.wikipedia.org/wiki/Instruction_set_architecture)  
+[Machine code](https://en.wikipedia.org/wiki/Machine_code)  
 
 [ARM与X86 CPU架构对比区别](http://blog.csdn.net/watermusicyes/article/details/50526863)  
 [ARM vs X86 – Key differences explained!](http://www.androidauthority.com/arm-vs-x86-key-differences-explained-568718/)  
@@ -51,3 +52,7 @@ MIPS architecture：[**nekochan**](http://nekochan.net/wiki/MIPS_architecture) &
 - [Instruction Set Quick Reference Cards](http://infocenter.arm.com/help/topic/com.arm.doc.set.architecture/index.html#qrcs)  
 
 [**ARM® and Thumb®-2 Instruction Set Quick Reference Card**](http://infocenter.arm.com/help/topic/com.arm.doc.qrc0001m/QRC0001_UAL.pdf)  
+
+## topics
+[How Microprocessors Work](http://computer.howstuffworks.com/microprocessor.htm)  
+[VISION | 苹果之“芯“蚂蚁撼大象：ARM对Intel的逆袭](http://www.sohu.com/a/148309359_99911982)  

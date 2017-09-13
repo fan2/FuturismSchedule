@@ -1,3 +1,7 @@
+- align  
+- alignment  
+- Unaligned  
+
 [what is “stack alignment”?](https://stackoverflow.com/questions/672461/what-is-stack-alignment)  
 [Data Alignment](http://www.songho.ca/misc/alignment/dataalign.html)  
 [Data structure alignment](https://en.wikipedia.org/wiki/Data_structure_alignment)  
@@ -17,3 +21,48 @@ ARM处理器直接支持对齐存放的半字或字数据的存取，也就是�
 因此，在C语言编程中，定义的多字节变量或结构体，最好使其为对齐存放。  
 
 [How do the ARM Compilers handle memcpy()?](http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.faqs/ka3934.html)
+
+## datasheet
+### IA
+`325462-sdm-vol-1-2abcd-3abcd.pdf`
+
+Volume 1: Basic Architecture
+
+- 4.1.1 Alignment of Words, Doublewords, Quadwords, and Double Quadwords  
+- 6.2.2 Stack Alignment  
+
+### ARM
+`DDI0406C_c_armv7(A&R)_arm.pdf`
+
+- A3.2 Alignment support  
+	- A3.2.2 Cases where unaligned accesses are UNPREDICTABLE  
+	- A3.2.3 Unaligned data access restrictions in ARMv7 and ARMv6  
+
+`DEN0013D_cortex_a_series_PG.pdf`
+
+- 14-2 Alignment 
+- 17.3.10 Unaligned access  
+
+### MIPS
+For MIPS instructions, the layout of the bit fields in instructions is **little-endian**, regardless of the endianness mode in which the processor is executing.
+
+`MD00082-2B-MIPS32INT-AFP-06.01.pdf`
+
+- 4.5: Memory Alignment  
+	- 4.5.1: Addressing Alignment Constraints  
+	- 4.5.2: Unaligned Load and Store Instructions (Removed in Release 6)  
+
+- 7.2.1.1 Data Alignment in Loads, Stores, and Moves  
+- Appendix B: Misaligned Memory Accesses  
+
+`MIPS_Architecture_MIPS32_InstructionSet_AFP_P_MD00086_06.05.pdf`
+
+未对齐的加载和存储操作展开序列：
+
+- Unaligned Word Load  
+- Unaligned Word Store  
+
+## memory order
+[如何理解 C++11 的六种 memory order？](https://www.zhihu.com/question/24301047)
+
+std::memory_order: [cppreference](http://en.cppreference.com/w/cpp/atomic/memory_order) / [cplusplus](http://www.cplusplus.com/reference/atomic/memory_order/)  

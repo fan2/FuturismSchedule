@@ -2,6 +2,27 @@
 - toolchain：GNU(GCC) / LLVM(CLANG) / Visual Studio(VC)  
 - SDK  
 
+## datasheet
+### IA
+`325462-sdm-vol-1-2abcd-3abcd.pdf`
+
+Volume 1: Basic Architecture
+
+> CHAPTER 4 DATA TYPES  
+>> 4.1 FUNDAMENTAL DATA TYPES 
+
+```
+The fundamental data types are bytes, words, doublewords, quadwords, and double quadwords (see Figure 4-1). A byte is eight bits, a word is 2 bytes (16 bits), a doubleword is 4 bytes (32 bits), a quadword is 8 bytes (64 bits), and a double quadword is 16 bytes (128 bits). A subset of the IA-32 architecture instructions operates on these fundamental data types without any additional operand typing.
+```
+
+### ARM
+`DEN0024A_v8_architecture_PG.pdf`  
+
+Table 5-1 Variable width
+
+### MIPS
+
+
 ## Fundamental types
 [C type](http://en.cppreference.com/w/c/language/type)  
 [C++ Type](http://en.cppreference.com/w/cpp/language/type)： [**C++ Fundamental types**](http://en.cppreference.com/w/cpp/language/types)  

@@ -17,6 +17,29 @@ openJTAG [ARM JTAG 调试原理 ](http://www.micetek.com.cn/technic/jtag.pdf)
 [在Linux下,用OpenJTAG+OpenOCD烧写NAND Flash](http://blog.csdn.net/jaskiller/article/details/8646270)
 
 ## board
+[新手入门应如何选择 ARM 开发板？](https://www.zhihu.com/question/20637927)  
+嵌入式小哥
+
+[十款值得我们选择的开源开发板](https://www.leiphone.com/news/201406/arduino-development-board.html)  
+2013-07-03 16:44
+
+[嵌入式ARM入门之开发板选择](http://www.veryarm.com/1478.html)  
+2015-04-20
+
+[2016 年十大开发板](https://www.arrow.com/zh-cn/research-and-events/articles/top-ten-dev-boards-of-2016)  
+
+- [Intel Edison](https://www.arrow.com/en/products/edi2.spon.al.s/intel#page-1)  
+- [Arduino Uno](https://www.arrow.com/en/products/a000073/arduino-corporation#page-1)  
+
 ### raspberry pi
 [「树莓派」是什么以及普通人怎么玩？](https://www.zhihu.com/question/20859055)  
 [树莓派 Ubuntu 64 位系统玩家体验版](http://shumeipai.nxez.com/2017/09/10/raspberry-pi-ubuntu-64-bit-system-player-experience-version.html)  
+[树莓派和其他 arm 开发板的本质区别](http://www.jianshu.com/p/626d3c6dbe02)  
+
+## [cubietruck](https://www.cubietruck.com/)
+[Cubietech Cubietruck](https://linux-sunxi.org/Cubietruck) @SUNXI
+
+[CubieBoard | A series of open source hardware](http://cubieboard.org/)  
+[cubieboard3(cubietruck)](http://cubieboard.org/model/cb3/)  
+
+[CubieTruck Plus评测](http://www.21ic.com/evm/evaluate/MCU/201603/666648.htm)  / 2016-03-17  

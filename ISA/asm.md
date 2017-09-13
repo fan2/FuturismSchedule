@@ -43,4 +43,12 @@ mov r0, #42
 ## misc.etc
 [iOS 开发者应该知道的 ARM 结构](http://apple4us.com/2010/07/a-few-things-ios-developer-ought-to-know/)  
 [**iOS 逆向之ARM汇编**](http://www.cnblogs.com/csutanyu/p/3575297.html)  
+
+### LDR
+[ARM 软件开发工具](http://infocenter.arm.com/help/topic/com.arm.doc.set.swdev/index.html) | [Legacy Tools](http://infocenter.arm.com/help/topic/com.arm.doc.set.swdev/index.html) | [RealView Development Suite](http://infocenter.arm.com/help/topic/com.arm.doc.subset.swdev.rvds/index.html)  
+- [Version 4.0 中文用户手册](http://infocenter.arm.com/help/topic/com.arm.doc.subset.swdev.rvds/index.html#rvdscn40)/[RealView 编译工具 《汇编器指南》](http://infocenter.arm.com/help/topic/com.arm.doc.dui0204ic/index.html)/[LDR 伪指令](http://infocenter.arm.com/help/topic/com.arm.doc.dui0204ic/Babbfdih.html)  
+
 [说说ARM汇编的LDR伪指令](http://blog.chinaunix.net/uid-26765074-id-3498038.html)  
+[ARM汇编中LDR伪指令和LDR指令](http://blog.csdn.net/ce123_zhouwei/article/details/7182756)  
+[ARM汇编中的ldr和adr的区别及其在uboot中相关源码的分析](http://blog.csdn.net/ce123_zhouwei/article/details/7277114)  
+

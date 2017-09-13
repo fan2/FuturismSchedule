@@ -79,7 +79,6 @@ Cortex-A(32-bit)/ARMv7-A/Cortex-A15：15–24 stage pipeline
 Cortex-A(32-bit)/ARMv8-A/Cortex-A32：dual issue, in-order pipeline  
 Cortex-A(64-bit)/ARMv8-A/Cortex-A57：3-way superscalar, deeply out-of-order pipeline  
 
-可参考：RealView 文档 [ARM_Architecture_Overview](https://web.eecs.umich.edu/~prabal/teaching/eecs373-f10/readings/ARM_Architecture_Overview.pdf) 和 [ARM integer cores](http://www.paulkilloran.com/arm/Lecture_8.pdf)（父目录有更多lecture）  
 博客：《[指令集及流水线](http://blog.csdn.net/phunxm/article/details/8980808)》  
 
 ## MSDN

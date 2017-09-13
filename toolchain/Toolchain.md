@@ -250,7 +250,7 @@ Widespread interest in LLVM has led to several efforts to develop new front ends
 [LLDB to GDB Command Map](https://lldb.llvm.org/lldb-gdb.html)  
 [LLDB Quick Start Guide](https://developer.apple.com/library/content/documentation/IDEs/Conceptual/gdb_to_lldb_transition_guide/document/lldb-basics.html): [GDB and LLDB Command Examples](https://developer.apple.com/library/content/documentation/IDEs/Conceptual/gdb_to_lldb_transition_guide/document/lldb-command-examples.html)  
 
-[LLDB基础知识](http://www.jianshu.com/p/e89af3e9a8d7) / [LLDB调试命令初探](http://www.starfelix.com/blog/2014/03/17/lldbdiao-shi-ming-ling-chu-tan/)  
+[LLDB基础知识](http://www.jianshu.com/p/e89af3e9a8d7) / [LLDB调试命令初探](http://www.starfelix.com/blog/2014/03/17/lldbdiao-shi-ming-ling-chu-tan/) / [lldb 常用命令整理 - 飘云](http://www.dllhook.com/post/51.html)  
 [Dancing in the Debugger — A Waltz with LLDB](https://www.objc.io/issues/19-debugging/lldb-debugging/) / [与调试器共舞 - LLDB 的华尔兹](https://objccn.io/issue-19-2/) @[segmentfault](https://segmentfault.com/a/1190000002413758)
 
 ## references

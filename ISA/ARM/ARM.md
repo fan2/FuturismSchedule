@@ -79,7 +79,33 @@ Cortex-A(32-bit)/ARMv7-A/Cortex-A15：15–24 stage pipeline
 Cortex-A(32-bit)/ARMv8-A/Cortex-A32：dual issue, in-order pipeline  
 Cortex-A(64-bit)/ARMv8-A/Cortex-A57：3-way superscalar, deeply out-of-order pipeline  
 
+`ARM7TDMI` - architecture v4T. **Von Neuman** core with 3 stage pipeline  
+`ARM920T` - architecture v4T. **Harvard** core with 5 stage pipeline and MMU  
+
 博客：《[指令集及流水线](http://blog.csdn.net/phunxm/article/details/8980808)》  
+
+## instruction set
+`ARM_Architecture_Overview.pdf`
+
+- All instructions are 32 bits long  
+- many execute in a single cycle  
+- Instructions are conditionally executed  
+- A load / store architecture  
+
+`The ARM Instruction Set Architecture.ppt.pdf`
+
+Main features of the ARM Instruction Set：
+
+-  All instructions are 32 bits long.  
+-  Most instructions execute in a single cycle.  
+-  Most instructions can be conditionally executed.   
+- A load/store architecture  
+
+ When the processor is executing in ARM state:
+
+- All instructions are 32 bits in length  
+- All instructions **must be** word aligned  
+- Therefore the PC value is stored in bits [31:2] with bits [1:0] equal to zero (as instruction cannot be halfword or byte aligned).  
 
 ## MSDN
 Understanding ARM Assembly：[Part 1](https://blogs.msdn.microsoft.com/ntdebugging/2013/11/22/understanding-arm-assembly-part-1/) / [Part 2](https://blogs.msdn.microsoft.com/ntdebugging/2014/05/15/understanding-arm-assembly-part-2/) / [Part 3](https://blogs.msdn.microsoft.com/ntdebugging/2014/05/29/understanding-arm-assembly-part-3/)  

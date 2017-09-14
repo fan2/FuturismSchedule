@@ -1,3 +1,5 @@
+[Machine_code](https://en.wikipedia.org/wiki/Machine_code)  
+[Assembly_language](https://en.wikipedia.org/wiki/Assembly_language)  
 
 [OS X Assembler Reference](https://developer.apple.com/library/content/documentation/DeveloperTools/Reference/Assembler/000-Introduction/introduction.html)  
 

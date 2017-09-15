@@ -27,6 +27,8 @@ Cortex-A(64-bit)/ARMv8-A/Cortex-A57：3-way superscalar, deeply out-of-order pip
 - P16 - Pipeline changes for  ARM10 vs. ARM11 Pipelines  
 
 # MIPS
+[Instruction Pipeline-指令流水线](https://cs.nju.edu.cn/swang/CompArchOrg_13F/slides/lecture24.pdf) shuaiwang@nju  
+ 
 ## MIPS_Architecture_MIPS32_InstructionSet_AFP_P_MD00086_06.05.pdf
 
 ### 2.1 Understanding the Instruction Fields
@@ -55,3 +57,6 @@ on continues with the instruction following the WAIT instruction.
 - A.2: Parallel Pipeline  
 - A.3: Superpipeline  
 - A.4: Superscalar Pipeline  
+
+# reference
+[为什么CPU流水线设计的级越长，完成一条指令的速度就越快？](https://www.zhihu.com/question/20180643)  

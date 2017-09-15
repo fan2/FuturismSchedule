@@ -7,3 +7,7 @@
 > mips is [harvard architecture](https://www.quora.com/What-is-the-difference-between-MIPS-and-The-von-Neumann-architecture), that means there will be separate instruction and data memory where as in von Neumann architecture there will be only one memory where  we will store program and data.
 
 [Design of the MIPS Processor](http://homepage.divms.uiowa.edu/~ghosh/4-7-11.pdf)  @divms.uiowa.edu pdf  
+
+[基于MIPS架构的32位CPU设计](http://imgtec.eetrend.com/blog/2494)  
+[基于MIPS指令集的RISC微处理器数据通路的设计与实现](https://wenku.baidu.com/view/f56e645076eeaeaad0f33013.html)  
+

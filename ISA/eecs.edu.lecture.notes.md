@@ -17,6 +17,11 @@
 https://www.cs.utexas.edu/~simon/378/resources/  
 [DDI 0406B](https://www.cs.utexas.edu/~simon/378/resources/ARMv7-AR_TRM.pdf) - P2158 - too old  
 
+## cs.nju.edu.cn
+[Shuai Wang](https://cs.nju.edu.cn/swang/)  
+[Computer Architecture](https://cs.nju.edu.cn/swang/CA_16S/)  
+[Instruction Pipeline-指令流水线](https://cs.nju.edu.cn/swang/CompArchOrg_13F/slides/lecture24.pdf)  
+
 ## eecs.umich.edu
 [2010 VERSION OF CLASS](https://web.eecs.umich.edu/~prabal/teaching/eecs373-f10/)
 

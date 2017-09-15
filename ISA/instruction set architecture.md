@@ -56,3 +56,4 @@ MIPS architecture：[**nekochan**](http://nekochan.net/wiki/MIPS_architecture) &
 ## topics
 [How Microprocessors Work](http://computer.howstuffworks.com/microprocessor.htm)  
 [VISION | 苹果之“芯“蚂蚁撼大象：ARM对Intel的逆袭](http://www.sohu.com/a/148309359_99911982)  
+[ARM 构架比 MIPS 更适合路由吗？](https://www.zhihu.com/question/21287007)  

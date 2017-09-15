@@ -2,6 +2,7 @@
 [Assembly_language](https://en.wikipedia.org/wiki/Assembly_language)  
 
 [OS X Assembler Reference](https://developer.apple.com/library/content/documentation/DeveloperTools/Reference/Assembler/000-Introduction/introduction.html)  
+[23. Whirlwind Tour of ARM Assembly](https://www.coranac.com/tonc/text/asm.htm)  
 
 ## quora
 [as -arch armv6 main.s](https://stackoverflow.com/questions/15982720/armv6-assembler-for-mac)  
@@ -20,6 +21,7 @@
 [Linux 汇编器：对比 GAS 和 NASM](https://www.ibm.com/developerworks/cn/linux/l-gas-nasm.html)  
 
 ## [iOS Assembly Tutorial: Understanding ARM](https://www.raywenderlich.com/37181/ios-assembly-tutorial)
+翻译：[iOS汇编教程：理解ARM](http://www.jianshu.com/p/544464a5e630)  
 
 In ARM assembly, the destination comes first, so the above instruction moves the value 42 into register r0. 
 
@@ -53,4 +55,3 @@ mov r0, #42
 [说说ARM汇编的LDR伪指令](http://blog.chinaunix.net/uid-26765074-id-3498038.html)  
 [ARM汇编中LDR伪指令和LDR指令](http://blog.csdn.net/ce123_zhouwei/article/details/7182756)  
 [ARM汇编中的ldr和adr的区别及其在uboot中相关源码的分析](http://blog.csdn.net/ce123_zhouwei/article/details/7277114)  
-

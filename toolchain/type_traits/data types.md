@@ -2,6 +2,7 @@
 [C data types](https://en.wikipedia.org/wiki/C_data_types)  
 [How does my computer store things in memory?](http://tldp.org/HOWTO/Unix-and-Internet-Fundamentals-HOWTO/core-formats.html)  
 
+# wiki
 ## [Data type](https://en.wikipedia.org/wiki/Data_type)
 In [computer science](https://en.wikipedia.org/wiki/Computer_science) and [computer programming](https://en.wikipedia.org/wiki/Computer_programming), a **data type** or simply **type** is a classification of data which tells the [compiler](https://en.wikipedia.org/wiki/Compiler) or [interpreter](https://en.wikipedia.org/wiki/Interpreter_(computing)) how the programmer intends to **use** the data.
 
@@ -32,3 +33,22 @@ Composite types are derived from more than one primitive type. This can be done 
 ## [C data types](https://en.wikipedia.org/wiki/C_data_types)
 [Primitive data type](https://en.wikipedia.org/wiki/Primitive_data_type)  
 [Composite data type](https://en.wikipedia.org/wiki/Composite_data_type)  
+
+# C++ data types
+## Fundamental types
+[C type](http://en.cppreference.com/w/c/language/type)  
+[C++ Type](http://en.cppreference.com/w/cpp/language/type)： [**C++ Fundamental types**](http://en.cppreference.com/w/cpp/language/types)  
+
+> The signedness of char depends on the compiler and the target platform: the defaults for ARM and PowerPC are typically **unsigned**, the defaults for x86 and x64 are typically **signed**.
+
+[C++98](http://www.cplusplus.com/doc/oldtutorial/) [Variables. Data Types.](http://www.cplusplus.com/doc/oldtutorial/variables/)
+
+MSDN 的 [C++ Type System (Modern C++)](https://msdn.microsoft.com/en-us/library/hh279663.aspx) & [Fundamental Types (C++)](https://msdn.microsoft.com/en-us/library/cc953fe1.aspx)
+
+GNU 的 [The GNU C Reference Manual](https://www.gnu.org/software/gnu-c-manual/gnu-c-manual.html) / [Primitive-Types](https://www.gnu.org/software/gnu-c-manual/gnu-c-manual.html#Primitive-Types)、[GCC C++: Primitive Data Types, Variables and Constants Introduction](http://helpcentreonline.com/article/primitiv_console_gcc_framhtml.html)  
+
+ARM/Keil 的 [Basic data types in ARM C and C++](http://www.keil.com/support/man/docs/armcc/armcc_chr1359125009502.htm)  
+
+### limits(range)
+
+MSDN 的 [Data Type Ranges](https://msdn.microsoft.com/en-us/library/s3f49ktz(v=vs.140).aspx) 和 GNU 的 [Data Type Measurements](http://www.gnu.org/software/libc/manual/html_node/Data-Type-Measurements.html#Data-Type-Measurements) & [Layout of Source Language Data Types](https://gcc.gnu.org/onlinedocs/gccint/Type-Layout.html)  

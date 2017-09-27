@@ -1,6 +1,8 @@
 - Pipeline stages  
 - stage pipeline  
 
+Allows several operations to be performed(undertaken) simultaneously, rather than serially  
+
 # ARM
 ## pipeline stage
 参考 wiki [List of ARM microarchitectures](https://en.wikipedia.org/wiki/List_of_ARM_microarchitectures)：
@@ -19,8 +21,25 @@ Cortex-A(64-bit)/ARMv8-A/Cortex-A57：3-way superscalar, deeply out-of-order pip
 
 参考 `DEN0013D_cortex_a_series_PG.pdf` 的 Table 2-3 Some properties of Cortex-A series processors 中的 **Pipeline stages** 行。
 
+## refill PC
+The PC points to the instruction being fetched, not executed.  
+Rather than pointing to the instruction being executed, the PC points to the instruction being fetched.  
+
+### branch
+F → D → E → E~L~ → E~A~
+
+**L**: Linkret; **A**: Adjust  
+
+When executing(**EXECUTE**) the branch instruction(`blPC`), pipeline has been refilled with the next second instruction(**FETCH**, `PC=blPC+8`), while the following instruction(`PC-4`) is at **DECODE** stage.  
+The "Branch with link" instruction implements a subroutine call by writing `PC‐4`(`blPC+4`) into the LR of the current bank befor E~L~.  
+E~L~ will break the pipeline, as the PC will be reseted(**FETCH**) to point to the  branch(link address).  
+
 ## misc.etc
-`The ARM Instruction Set Architecture.ppt.pdf`
+1. `ARM_Architecture_Overview.pdf`  
+
+- 4. The Instruction Pipeline
+
+2. `The ARM Instruction Set Architecture.ppt.pdf`  
 
 - P14 - The Original Instruction Pipeline  
 - P15 - Pipeline changes for ARM9TDMI  

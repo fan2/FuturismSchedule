@@ -84,12 +84,22 @@ Cortex-A(64-bit)/ARMv8-A/Cortex-A57：3-way superscalar, deeply out-of-order pip
 
 博客：《[指令集及流水线](http://blog.csdn.net/phunxm/article/details/8980808)》  
 
+## registers
+ARM has 37 registers, all 32-bits long
+
+- 1 dedicated program counter  
+- 1 dedicated current program status register  
+- 5 dedicated saved program status registers  
+- 30 general purpose registers  
+
+arranged into several banks, with the accessible bank being governed by the processor mode.
+
 ## instruction set
 `ARM_Architecture_Overview.pdf`
 
 - All instructions are 32 bits long  
 - many execute in a single cycle  
-- Instructions are conditionally executed  
+- Instructions are **conditionally** executed  
 - A load / store architecture  
 
 `The ARM Instruction Set Architecture.ppt.pdf`
@@ -98,14 +108,26 @@ Main features of the ARM Instruction Set：
 
 -  All instructions are 32 bits long.  
 -  Most instructions execute in a single cycle.  
--  Most instructions can be conditionally executed.   
+-  Most instructions can be **conditionally** executed.   
 - A load/store architecture  
 
  When the processor is executing in ARM state:
 
 - All instructions are 32 bits in length  
-- All instructions **must be** word aligned  
+- All instructions **must be** word *aligned*  
 - Therefore the PC value is stored in bits [31:2] with bits [1:0] equal to zero (as instruction cannot be halfword or byte aligned).  
+
+### Branch instructions
+**BRANCH OFFSET** = bit[23,0]  
+The offset for branch instructions is calculated by the assembler:  
+
+- By taking the difference between the branch instruction and the target address minus 8 (to allow for the pipeline).  
+- This gives a 26 bit offset which is ***right shifted*** 2 bits (as the bottom two bits are always zero as instructions are *word-aligned*) and stored into the instruction encoding.  
+- This gives a range of `±32` Mbytes.  
+
+When executing the instruction, the processor:
+
+- shifts the offset ***left*** two bits, *sign extends* it to 32 bits, and **adds** it to PC.
 
 ## MSDN
 Understanding ARM Assembly：[Part 1](https://blogs.msdn.microsoft.com/ntdebugging/2013/11/22/understanding-arm-assembly-part-1/) / [Part 2](https://blogs.msdn.microsoft.com/ntdebugging/2014/05/15/understanding-arm-assembly-part-2/) / [Part 3](https://blogs.msdn.microsoft.com/ntdebugging/2014/05/29/understanding-arm-assembly-part-3/)  

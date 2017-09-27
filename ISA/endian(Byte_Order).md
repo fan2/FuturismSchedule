@@ -34,3 +34,8 @@
 `MD00082-2B-MIPS32INT-AFP-06.01.pdf`
 
 - 4.4 Byte Ordering and Endianness
+
+## references
+`The ARM Instruction Set Architecture.ppt.pdf`
+
+- Effect of endianess

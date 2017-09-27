@@ -25,7 +25,7 @@
 ## [MIPS](https://en.wikipedia.org/wiki/MIPS_architecture)
 **M**icroprocessor without **I**nterlocked **P**ipeline **S**tages
 
-imgtec [MIPS Architectures](https://www.imgtec.com/mips/architectures/)
+imgtec [MIPyS Architectures](https://www.imgtec.com/mips/architectures/)
 
 ***官方 datasheet***：[documentation](https://www.imgtec.com/documentation/)    
 

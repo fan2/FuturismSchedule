@@ -43,6 +43,10 @@ Volume 1: Basic Architecture
 - 14-2 Alignment 
 - 17.3.10 Unaligned access  
 
+`ARM_Architecture_Overview.pdf`
+
+- 1. Programmer's Model | Data alignment
+
 ### MIPS
 For MIPS instructions, the layout of the bit fields in instructions is **little-endian**, regardless of the endianness mode in which the processor is executing.
 

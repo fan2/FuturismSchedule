@@ -1,5 +1,6 @@
 
-## man
+# man
+## where is man pages
 ```Shell
 faner@THOMASFAN-MB0:~|⇒  cd /usr/share/man/
 faner@THOMASFAN-MB0:/usr/share/man|⇒  ls

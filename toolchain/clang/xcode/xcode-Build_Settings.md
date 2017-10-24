@@ -8,6 +8,9 @@ Compiler for C/C++/Objective-C：
 [Language Standards Supported by GCC](https://gcc.gnu.org/onlinedocs/gcc/Standards.html)  
 [**Options Controlling C Dialect**](https://gcc.gnu.org/onlinedocs/gcc/C-Dialect-Options.html)  
 
+[How to get the default compiler of c++ on Mac os x](https://apple.stackexchange.com/questions/219196/how-to-get-the-default-compiler-of-c-on-mac-os-x)  
+[What is Xcode's 'Compiler Default' for C++ language settings?](https://stackoverflow.com/questions/21348606/what-is-xcodes-compiler-default-for-c-language-settings)  
+
 以下为 XCode | Project | Target | Build Settings 的截图。
 
 ![xcode_9.0_language_dialect](../../images/xcode_9.0_language_dialect.png)

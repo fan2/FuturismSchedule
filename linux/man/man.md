@@ -1,6 +1,13 @@
 
 # man
-## where is man pages
+[The Linux *man-pages* project](https://www.kernel.org/doc/man-pages/) documents the [Linux](http://en.wikipedia.org/wiki/Linux) [kernel](http://www.kernel.org/pub/linux/kernel) and C library interfaces that are employed by user-space programs.  
+With respect to the C library, the primary focus is the [GNU](http://www.gnu.org/) C library (glibc), although, where known, documentation of *variations* on other C libraries available for Linux is also included.
+
+- [CGit](http://git.kernel.org/?p=docs/man-pages/man-pages.git)  
+- [Online man pages](http://man7.org/linux/man-pages/index.html) @man7.org  
+- [Changelog](http://man7.org/linux/man-pages/changelog.html)  
+
+## man location
 ```Shell
 faner@THOMASFAN-MB0:~|⇒  cd /usr/share/man/
 faner@THOMASFAN-MB0:/usr/share/man|⇒  ls
@@ -31,7 +38,15 @@ bashbug.1
        9   Kernel routines [Non standard]
 ```
 
-List of all man pages:   [**by section**](http://man7.org/linux/man-pages/dir_all_by_section.html)  |  [alphabetically](http://man7.org/linux/man-pages/dir_all_alphabetic.html)  |  [by project](http://man7.org/linux/man-pages/dir_by_project.html)
+[Online man pages](http://man7.org/linux/man-pages/index.html):   [**by section**](http://man7.org/linux/man-pages/dir_all_by_section.html)  |  [alphabetically](http://man7.org/linux/man-pages/dir_all_alphabetic.html)  |  [by project](http://man7.org/linux/man-pages/dir_by_project.html)
+
+- [1: *User commands*](http://man7.org/linux/man-pages/dir_section_1.html); man-pages includes a very few Section 1 pages that document programs supplied by the <u>GNU C library</u>.  
+- [2: *System calls*](http://man7.org/linux/man-pages/dir_section_2.html) documents the [system calls](http://man7.org/linux/man-pages/man2/syscalls.2.html) provided by the Linux kernel.  
+- [3: *Library functions*](http://man7.org/linux/man-pages/dir_section_3.html) documents the functions provided by the <u>standard C library</u>.  
+- [4: *Devices*](http://man7.org/linux/man-pages/dir_section_4.html) documents details of various devices, most of which reside in `/dev`.  
+- [5: *Files*](http://man7.org/linux/man-pages/dir_section_5.html) describes various file formats, and includes [proc(5)](http://man7.org/linux/man-pages/man5/proc.5.html), which documents the `/proc` file system.  
+- [7: *Overviews, conventions, and miscellaneous*](http://man7.org/linux/man-pages/dir_section_7.html).  
+- [*8: Superuser and system administration commands*](http://man7.org/linux/man-pages/dir_section_8.html); man-pages includes a very few Section 8 pages, mainly documenting programs supplied by the <u>GNU C library</u>.  
 
 ### 1.General Commands
 man bash：MAN(1), BASH(1)；  

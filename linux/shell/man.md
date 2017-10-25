@@ -1,5 +1,8 @@
 
 # man
+[Linux Man Pages](https://www.linux.org/docs/)  
+[善用 man 指令查詢 Linux 線上手冊（Man Page）](https://blog.gtwang.org/linux/linux-man-page-command-examples/)  
+
 [The Linux *man-pages* project](https://www.kernel.org/doc/man-pages/) documents the [Linux](http://en.wikipedia.org/wiki/Linux) [kernel](http://www.kernel.org/pub/linux/kernel) and C library interfaces that are employed by user-space programs.  
 With respect to the C library, the primary focus is the [GNU](http://www.gnu.org/) C library (glibc), although, where known, documentation of *variations* on other C libraries available for Linux is also included.
 
@@ -7,17 +10,95 @@ With respect to the C library, the primary focus is the [GNU](http://www.gnu.org
 - [Online man pages](http://man7.org/linux/man-pages/index.html) @man7.org  
 - [Changelog](http://man7.org/linux/man-pages/changelog.html)  
 
-## man location
+## manpath
+macOS 下的 manpath：
+
 ```Shell
+faner@THOMASFAN-MB0:~|⇒  manpath
+/usr/local/share/man:/usr/share/man:/opt/X11/share/man:/Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/share/man:/Applications/Xcode-beta.app/Contents/Developer/usr/share/man:/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/share/man
+```
+
+raspbian 下的 manpath：
+
+```Shell
+pi@raspberrypi:~$ manpath
+/usr/local/man:/usr/local/share/man:/usr/share/man:/usr/man
+
+pi@raspberrypi:~$ man -w
+/usr/local/man:/usr/local/share/man:/usr/share/man:/usr/man
+```
+
+### /usr/share/man/
+以下为 `/usr/share/man/` 下的详细列表：
+
+```Shell
+# macOS
 faner@THOMASFAN-MB0:~|⇒  cd /usr/share/man/
 faner@THOMASFAN-MB0:/usr/share/man|⇒  ls
 man1   man4   man5   man6   man7   man8   man9   mann   whatis
+
+# raspbian
+pi@raspberrypi:/usr/share/man$ ls
+cs  es  fr.ISO8859-1  hu  ja    man2  man5  man8  pt     sl  zh_CN
+da  fi  fr.UTF-8      id  ko    man3  man6  nl    pt_BR  sv  zh_TW
+de  fr  gl            it  man1  man4  man7  pl    ru     tr
+
+pi@raspberrypi:/usr/share/man$ ls zh_CN
+man1  man5  man8
 ```
 
+### bash.1
+man子目录后面的数字为 man 手册章节序号。
+
 ```Shell
+# macOS
 faner@THOMASFAN-MB0:/usr/share/man|⇒  ls man1 | grep bash
 bash.1
 bashbug.1
+
+# raspbian
+pi@raspberrypi:/usr/share/man$ ls man1 | grep bash
+bash.1.gz
+bashbug.1.gz
+dh_bash-completion.1.gz
+rbash.1.gz
+```
+
+### man -w
+`man -w` 命令可以查看 man 手册的 nroff 源文件；加上 `-a`(--all) 选项，则显示所有 section 匹配到的命令说明文档路径。
+
+```Shell
+# macOS
+faner@THOMASFAN-MB0:~|⇒  man -w bash
+/usr/share/man/man1/bash.1
+
+faner@THOMASFAN-MB0:~|⇒  man -aw shutdown
+/usr/share/man/man8/shutdown.8
+/Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/share/man/man8/shutdown.8
+/Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/share/man/man2/shutdown.2
+
+# raspbian
+pi@raspberrypi:~$ man -w bash
+/usr/share/man/man1/bash.1.gz
+
+pi@raspberrypi:/usr/share/man$ man -aw shutdown
+/usr/share/man/man8/shutdown.8.gz
+/usr/share/man/man2/shutdown.2.gz
+```
+
+### man -L
+-L 选项可指定帮助文档的语系。
+
+> -L locale, --locale=locale
+
+执行 `ls /usr/share/man/zh_CN` 可知 man 1、5、8 三章节中含有部分中文翻译文档。具体可进一步深入查看 `/zh_CN/man1/` 子目录。
+
+```Shell
+pi@raspberrypi:~$ man -L zh_CN man
+MAN(1)                         手册分页显示工具                         MAN(1)
+
+名称
+       man - 在线参考手册的接口
 ```
 
 ## manual page types
@@ -47,6 +128,24 @@ bashbug.1
 - [5: *Files*](http://man7.org/linux/man-pages/dir_section_5.html) describes various file formats, and includes [proc(5)](http://man7.org/linux/man-pages/man5/proc.5.html), which documents the `/proc` file system.  
 - [7: *Overviews, conventions, and miscellaneous*](http://man7.org/linux/man-pages/dir_section_7.html).  
 - [*8: Superuser and system administration commands*](http://man7.org/linux/man-pages/dir_section_8.html); man-pages includes a very few Section 8 pages, mainly documenting programs supplied by the <u>GNU C library</u>.  
+
+如果一个关键字（item keyword）出现在多个 man 手册中，则按照手册中的章节号顺序进行搜索。man 预定义的搜索章节号顺序（search available sections following a pre-defined order by default）为 `1 n l 8 3 2 5 4 9 6 7`。  
+可在 man 后面接 section 段号，指定从哪本 man 手册中搜索帮助，如 `man 2 shutdown` 或 `man shutdown 8`。  
+
+`man -f` 命令可查看命令简介，默认显示第一个搜索到的；加上 `-a`(--all) 选项，则显示所有 section 匹配到的命令。
+
+```Shell
+# macOS
+faner@THOMASFAN-MB0:~|⇒  man -af shutdown
+servertool(1)            - The Java(TM) IDL Server Tool servertool provides an ease-of-use interface for application programmers to register, unregister, startup and shutdown a server
+shutdown(8)              - close down the system at a given time
+upsshutdown(8)           - UPS emergency low power shutdown script
+
+# raspbian
+pi@raspberrypi:/usr/share/man$ man -af shutdown
+shutdown (2)         - shut down part of a full-duplex connection
+shutdown (8)         - Halt, power-off or reboot the machine
+```
 
 ### 1.General Commands
 man bash：MAN(1), BASH(1)；  
@@ -177,3 +276,6 @@ macOS 下的 man(1) 版本为比较陈旧的：
 ```Shell
                                   September 19, 2005                            man(1)
 ```
+
+## [man.vim](http://www.vim.org/scripts/script.php?script_id=5615)  
+[vim-man](https://github.com/vim-utils/vim-man)  

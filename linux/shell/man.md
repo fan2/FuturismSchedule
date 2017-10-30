@@ -101,6 +101,44 @@ MAN(1)                         手册分页显示工具                         
        man - 在线参考手册的接口
 ```
 
+## man pager help
+man 默认使用可翻页查看的 less 作为分页器，可指定 `-P pager`（`--pager=pager`） 选项来修改输出分页器程序。
+
+> This option overrides the `$MANPAGER` environment variable, which in turn overrides the `$PAGER` environment variable.
+
+- linux: By default, man uses less.  
+- raspbian: By default, man uses pager.  
+- macOS: By default, man uses /usr/bin/less -is.  
+
+```Shell
+pi@raspberrypi:~ $ whatis pager
+pager (1)            - opposite of more
+```
+
+man pager 打开的也是 LESS(1) 的帮助手册。
+
+```Shell
+faner@THOMASFAN-MB0:~|⇒  echo $PAGER 
+less
+```
+
+可见 man pager 默认是基于 less 的，而 less 基于 more，more 则是基于 vi 的。
+
+- Interactive commands for ***more*** are based on **vi**(1).  
+- Commands for ***less*** are based on both **more** and **vi**.  
+
+---
+
+在查看 man page 时，输入 `:h` 可打开查看 man-page viewer 的操作帮助说明（SUMMARY OF **LESS** COMMANDS）。
+
+- **MOVING**  
+- **SEARCHING**  
+- **JUMPING**  
+- CHANGING FILES  
+- MISCELLANEOUS COMMANDS  
+- OPTIONS  
+- LINE EDITING  
+
 ## manual page types
 
 ```Shell

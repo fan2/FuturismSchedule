@@ -69,6 +69,27 @@ There is NO WARRANTY, to the extent permitted by law.
 
 输入执行 `man bash` 或 `man 1 bash` 可以查看 bash 的说明文档——[GNU Bash manual](https://www.gnu.org/software/bash/manual/) | [Bash Reference Manual](https://www.gnu.org/software/bash/manual/bashref.html)。
 
+### PROMPTING
+When executing interactively, **bash** *displays* the <u>primary</u> prompt **PS1**.  
+
+> PS1 stands for "Prompt String One" or "Prompt Statement One", the first prompt string (that you see at a command line).  
+> The default value is `'\s-\v\$'`, such as `bash-3.2$`.  
+
+when it is ready to read a command, and the <u>secondary</u> prompt **PS2** when it needs more *input* to complete a command.  
+
+> PS2 The secondary prompt string. ie for continued commands (those taking more than one line).  
+> The default value is `'>'`.  
+
+**Bash** displays **PS0** *after it reads* a command but *before executing* it.  
+
+> [Why is bash's prompt variable called PS1?](https://unix.stackexchange.com/questions/32096/why-is-bashs-prompt-variable-called-ps1)  
+> [Bash Shell: Take Control of PS1, PS2, PS3, PS4 and PROMPT_COMMAND](http://www.thegeekstuff.com/2008/09/bash-shell-take-control-of-ps1-ps2-ps3-ps4-and-prompt_command/)  
+> [Echo expanded PS1](https://stackoverflow.com/questions/3451993/echo-expanded-ps1)  
+> [Bash prompt basics](https://linuxconfig.org/bash-prompt-basics)  
+> [Linux用户命令行字符环境变量](http://blog.csdn.net/cheungjustin/article/details/5825213)  
+> [shell PS1 PS2 PS3 PS4界面提示符](http://blog.csdn.net/misskissc/article/details/8144283)  
+> [Linux下PS1、PS2、PS3、PS4使用详解](http://os.51cto.com/art/201205/334954.htm)  
+
 ### command type
 bash 内置的 **type** 命令可以查看某个命令是否为 bash 的内置命令。
 
@@ -126,10 +147,18 @@ pi@raspberrypi:~$ type -a ifconfig
 ifconfig is /sbin/ifconfig
 ```
 
+### Special keys
+
+- `C-i` = Tab  
+- `C-j` = Newline  
+- `C-m` = Enter  
+- `C-[` = Escape  
+- `C-_` / `<C-x>u` = Undo  
+
 ## zsh
 终端执行以下命令可通过 curl 从 github 下载安装流行的 Zsh（兼容 bash） 配置 [oh-my-zsh](http://ohmyz.sh/)：
 
-```
+```Shell
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 ```
 
@@ -164,14 +193,18 @@ zsh 5.2 (x86_64-apple-darwin16.0)
 ## readline
 The GNU Readline Library: [Library for command-line editing](https://tiswww.case.edu/php/chet/readline/rltop.html)
 
-在 BASH(1) 的 man page 输入 `/^READLINE`，可搜索 READLINE 相关的说明（the READLINE section of the bash(1) man page）。
+在 BASH(1) 的 man page 输入 `/^READLINE`（`^` 为 vim 中的行首字元位置），可搜索 READLINE 相关的说明（the READLINE section of the bash(1) man page）。
+
+This is the library that <u>handles reading input</u> when using an interactive shell, unless the `--noediting` option is given at shell invocation. Line editing is also used when using the `-e` option to the *read* builtin.  
+By default, the line editing commands are similar to those of **Emacs**. A **vi**-style line editing interface is also available.  
+Line editing can be enabled at any time using the `-o emacs` or `-o vi` options to the set builtin.  
 
 > [Bash Reference Manual](https://www.gnu.org/software/bash/manual/bashref.html#Command-Line-Editing)  
 >> [8 Command Line Editing](https://www.gnu.org/software/bash/manual/bashref.html#Command-Line-Editing)  
 >>> [8.2 Readline Interaction](https://www.gnu.org/software/bash/manual/bashref.html#Readline-Interaction)  
 
 ## Moving
-BASH(1) 的 man page 中的 `Commands for Moving`。
+BASH(1) 的 man page 中输入 `/Commands for Moving` 即可定位到对应章节。
 
 [emacs-compatible keybindings](https://stackoverflow.com/questions/81272/is-there-any-way-in-the-os-x-terminal-to-move-the-cursor-word-by-word)
 
@@ -197,30 +230,122 @@ redraw-current-line
       Refresh the current line.
 ```
 
+`<C-l>`：滚动屏幕将当前行置顶，同 clear 命令。不清除缓冲区，可继续下拉滚动翻看过往记录。
+
+←/→：`<C-b>`/`<C-f>`  
+option+←/→：`<M-b>`/`<M-f>`  
+command+←/→：`<C-a>`/`<C-e>`  
+
 ## Editing
-BASH(1) 的 man page 中的 `Commands for Changing Text`。
+BASH(1) 的 man page 中输入 `/Commands for Changing Text` 即可定位到对应章节。
+
+```Shell
+delete-char (C-d)
+      Delete the character at point. If this function is bound to the same character as the tty EOF character, as C-d commonly is, see above for the effects.
+```
+
+`C-h`：delete char backward.
 
 ## Killing and Yanking
-BASH(1) 的 man page 中的 `Killing and Yanking`。
+BASH(1) 的 man page 中输入 `/Killing and Yanking` 即可定位到对应章节。
+
+```Shell
+kill-line (C-k)
+      Kill the text from point to the end of the line.
+backward-kill-line (C-x Rubout)
+      Kill backward to the beginning of the line.
+unix-line-discard (C-u)
+      Kill backward from point to the beginning of the line.   The  killed  text  is saved on the kill-ring.
+kill-whole-line
+      Kill all characters on the current line, no matter where point is.
+kill-word (M-d)
+      Kill  from  point  to the end of the current word, or if between words, to the end of the next word.  Word boundaries are the same  as  those  used  by  for ward-word.
+backward-kill-word (M-Rubout)
+      Kill  the  word  behind  point.  Word boundaries are the same as those used by backward-word.
+shell-kill-word
+      Kill from point to the end of the current word, or if between  words,  to  the end  of  the  next  word.   Word  boundaries  are  the  same  as those used by shell-forward-word.
+shell-backward-kill-word
+      Kill the word behind point.  Word boundaries are the same  as  those  used by shell-backward-word.
+unix-word-rubout (C-w)
+      Kill  the word behind point, using white space as a word boundary.  The killed text is saved on the kill-ring.
+
+yank (C-y)
+      Yank the top of the kill ring into the buffer at point.
+yank-pop (M-y)
+      Rotate  the  kill  ring,  and  yank the new top.  Only works following yank or yank-pop.
+```
+
+M-delete(backspace, `\b`)：等效于 `C-w`，向后删除单词。
+
+`<C-y>`：召回（yank）`<C-w>`、`<M-d>`、`<C-u>`、`<C-k>` 删除的文本。
 
 ## Keyboard Macros
-BASH(1) 的 man page 中的 `Keyboard Macros`。
+BASH(1) 的 man page 中输入 `/Keyboard Macros` 即可定位到对应章节。
 
 # history
-BASH(1) 的 man page 中的议题：
+在 BASH(1) 的 man page 输入 `/^HISTORY` 可以查看内建 history 命令的帮助说明部分。
+
+在 macOS/raspbian 终端输入 `history` 命令可查看历史输入记录，最多展示 `$HISTSIZE` 条。  
+输入 `history linenumber` 只显示指定行数的历史命令。  
+
+BASH(1) 的 man page 中可 `/` 或 `?` 搜索以下议题：
 
 - Searching  
 - Commands for Manipulating the History   
 
-## list
-输入 `history` 可以查看输入的历史命令。
+按下 `C-p`/`C-n`（↑/↓，同 `<M-p>`/`<M-n>`）可以调出上一条/下一条历史命令。
 
-`!!`：执行上一条命令。
+```Shell
+previous-history (C-p)
+      Fetch the previous command from the history list, moving back in the list.
+next-history (C-n)
+      Fetch the next command from the history list, moving forward in the list.
+
+non-incremental-reverse-search-history (M-p)
+      Search backward through the history starting at the current line using  a  non-incremental search for a string supplied by the user.
+non-incremental-forward-search-history (M-n)
+      Search  forward through the history using a non-incremental search for a string supplied by the user.
+
+beginning-of-history (M-<)
+      Move to the first line in the history.
+end-of-history (M->)
+      Move to the end of the input history, i.e., the line currently being entered.
+```
+
+## Event Designators
+针对 history list，支持以下前缀为 `!` 的 Event Designators：
+
+```Shell
+!      Start a history substitution, except when followed by a blank,  newline,  carriage return, = or ( (when the extglob shell option is enabled using the shopt builtin).
+!n     Refer to command line n.
+!-n    Refer to the current command minus n.
+!!     Refer to the previous command.  This is a synonym for `!-1'.
+!string
+      Refer to the most recent command preceding the current position in the history list starting with string.
+!?string[?]
+      Refer to the most recent command preceding the current position in the history list containing string.  The trailing ? may be omitted if string  is  followed immediately by a newline.
+^string1^string2^
+      Quick  substitution.   Repeat  the  previous  command,  replacing string1 with string2.  Equivalent to ``!!:s/string1/string2/'' (see Modifiers below).
+!#    The entire command line typed so far.
+```
+
+- `!!`：选定上一条命令；  
+- `!n`：选定编号为 n 的历史记录；  
+- `!-n`：选定编号为 -n（最近第 n-1 条） 的历史记录；  
+- `!string`：选定最近历史记录中匹配 string 关键字的历史记录。  
 
 ## Search
-Readline  provides commands for searching through the command history
 
-- Search as you type. `Ctrl + r` and type the search term; Repeat `Ctrl + r` to loop through results.  
-- Search the last remembered search term. `Ctrl + r` twice.  
-- End the search at current history entry. `Ctrl + j`.  
-- Cancel the search and restore original line. `Ctrl + g`.  
+```Shell
+reverse-search-history (C-r)
+      Search backward starting at the current line and moving `up' through  the  history as necessary. This is an incremental search.
+
+forward-search-history (C-s)
+      Search  forward starting at the current line and moving `down' through the history as necessary. This is an incremental search.
+```
+
+重复按 `C-r` 可翻看过往匹配的命令。
+
+- 按下 <kbd>esc</kbd> 确认选定；  
+- 按下 <kbd>enter</kbd> 或 `C-j` 选定执行；  
+- 按下 `C-g` 取消放弃当前搜索匹配结果；  

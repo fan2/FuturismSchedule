@@ -70,12 +70,12 @@ There is NO WARRANTY, to the extent permitted by law.
 输入执行 `man bash` 或 `man 1 bash` 可以查看 bash 的说明文档——[GNU Bash manual](https://www.gnu.org/software/bash/manual/) | [Bash Reference Manual](https://www.gnu.org/software/bash/manual/bashref.html)。
 
 ### PROMPTING
-When executing interactively, **bash** *displays* the <u>primary</u> prompt **PS1**.  
+When executing interactively, **bash** *displays* the <u>primary</u> prompt **PS1** when it is ready to read a command,  
 
 > PS1 stands for "Prompt String One" or "Prompt Statement One", the first prompt string (that you see at a command line).  
 > The default value is `'\s-\v\$'`, such as `bash-3.2$`.  
 
-when it is ready to read a command, and the <u>secondary</u> prompt **PS2** when it needs more *input* to complete a command.  
+and the <u>secondary</u> prompt **PS2** when it needs more *input* to complete a command.  
 
 > PS2 The secondary prompt string. ie for continued commands (those taking more than one line).  
 > The default value is `'>'`.  
@@ -150,9 +150,10 @@ ifconfig is /sbin/ifconfig
 ### Special keys
 
 - `C-i` = Tab  
-- `C-j` = Newline  
-- `C-m` = Enter  
+- `C-g` = Abort，放弃当前行，新起一行  
+- `C-j` = Newline，运行当前行，新起一行  
 - `C-[` = Escape  
+- `C-m` = Enter  
 - `C-_` / `<C-x>u` = Undo  
 
 ## zsh
@@ -233,8 +234,7 @@ redraw-current-line
 `<C-l>`：滚动屏幕将当前行置顶，同 clear 命令。不清除缓冲区，可继续下拉滚动翻看过往记录。
 
 ←/→：`<C-b>`/`<C-f>`  
-option+←/→：`<M-b>`/`<M-f>`  
-command+←/→：`<C-a>`/`<C-e>`  
+⌥+←/→：`<M-b>`/`<M-f>`  
 
 ## Editing
 BASH(1) 的 man page 中输入 `/Commands for Changing Text` 即可定位到对应章节。
@@ -275,9 +275,18 @@ yank-pop (M-y)
       Rotate  the  kill  ring,  and  yank the new top.  Only works following yank or yank-pop.
 ```
 
-M-delete(backspace, `\b`)：等效于 `C-w`，向后删除单词。
+`M-d`：向前（forward）删除至单词末尾；  
+`C-w` / `M-delete`(backspace)，向后（backward）删除至单词开头；  
+`C-u`：删除至行首 or 删除整行（macOS）；  
+`C-k`：删除至行末；  
 
 `<C-y>`：召回（yank）`<C-w>`、`<M-d>`、`<C-u>`、`<C-k>` 删除的文本。
+
+## Completing
+complete (`TAB`)  
+possible-completions (`M-?`)  
+possible-filename-completions (`C-x /`)  
+possible-variable-completions (`C-x $`)  
 
 ## Keyboard Macros
 BASH(1) 的 man page 中输入 `/Keyboard Macros` 即可定位到对应章节。

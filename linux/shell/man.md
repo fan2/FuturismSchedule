@@ -122,10 +122,12 @@ faner@THOMASFAN-MB0:~|⇒  echo $PAGER
 less
 ```
 
-可见 man pager 默认是基于 less 的，而 less 基于 more，more 则是基于 vi 的。
+可见 man pager 默认是基于 less 的，而 less 基于 more，more 则是基于 vi 的。  
 
 - Interactive commands for ***more*** are based on **vi**(1).  
 - Commands for ***less*** are based on both **more** and **vi**.  
+
+也即 man 是基于 **vi-style** 的。  
 
 ---
 

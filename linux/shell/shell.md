@@ -299,26 +299,12 @@ BASH(1) 的 man page 中输入 `/Keyboard Macros` 即可定位到对应章节。
 - Searching  
 - Commands for Manipulating the History   
 
-在 macOS/raspbian 终端输入 `history` 命令可查看历史输入记录；输入 `history N` 命令则只显示指定行数的最近历史命令。  
+[history 增加详细历史记录](http://www.cnblogs.com/jjzd/p/5798603.html)  
+[Linux 用户登录后精确命令记录](http://blog.csdn.net/lixiaohuiok111/article/details/34428161)  
 
-在终端按下 `C-p`/`C-n`（↑/↓，同 `<M-p>`/`<M-n>`）可以调出上一条/下一条历史命令。
-
-```Shell
-previous-history (C-p)
-      Fetch the previous command from the history list, moving back in the list.
-next-history (C-n)
-      Fetch the next command from the history list, moving forward in the list.
-
-non-incremental-reverse-search-history (M-p)
-      Search backward through the history starting at the current line using  a  non-incremental search for a string supplied by the user.
-non-incremental-forward-search-history (M-n)
-      Search  forward through the history using a non-incremental search for a string supplied by the user.
-
-beginning-of-history (M-<)
-      Move to the first line in the history.
-end-of-history (M->)
-      Move to the end of the input history, i.e., the line currently being entered.
-```
+[Linux下history命令用法](http://blog.sina.com.cn/s/blog_5caa94a00100gyls.html)  
+[Linux下history命令配置及高级应用](http://blog.itpub.net/29306197/viewspace-1062708/)  
+[Linux中history历史命令使用方法详解](http://os.51cto.com/art/201205/335040.htm)  
 
 ## HISTFILE & HISTSIZE
 环境变量 **HISTFILE** 定义了保存历史输入记录的文件路径；环境变量 **HISTSIZE** 则定义了保存最近历史记录的条数。
@@ -352,6 +338,38 @@ HISTFILESIZE=2000
 ```
 
 > 也可修改 system-wide 级别的配置`/etc/profile`，但 `/etc/profile` 会被 `~/.bash_profile` 修改覆盖， `~/.bash_profile` 会被 `~/.bashrc` 修改覆盖。  
+
+## rolling
+在终端按下 `C-p`/`C-n`（↑/↓，同 `<M-p>`/`<M-n>`）可以调出上一条/下一条历史命令。
+
+```Shell
+previous-history (C-p)
+      Fetch the previous command from the history list, moving back in the list.
+next-history (C-n)
+      Fetch the next command from the history list, moving forward in the list.
+
+non-incremental-reverse-search-history (M-p)
+      Search backward through the history starting at the current line using  a  non-incremental search for a string supplied by the user.
+non-incremental-forward-search-history (M-n)
+      Search  forward through the history using a non-incremental search for a string supplied by the user.
+
+beginning-of-history (M-<)
+      Move to the first line in the history.
+end-of-history (M->)
+      Move to the end of the input history, i.e., the line currently being entered.
+```
+
+## display
+在 macOS/raspbian 终端输入 `history` 命令可查看历史输入记录。
+
+如果过往输入历史接近 HISTSIZE，`history` 命令列表较长，不便翻阅。  
+此时，可通过管道命令导向 `head` / `tail` 筛选查看开头/结尾部分，或导向 `more` / `less` 翻页查看。  
+
+当然，也可以在 `history` 命令后接参数 `[n]` 查看指定行数的历史记录。
+
+- raspbian 下输入 `history N` 列显结尾（最近）的 N 条历史输入记录。  
+- macOS 下输入 `history N` 列显开头的 N 条历史输入记录。
+	> 可通过管道将 `history` 导向 `tail -n N` 选取列显结尾（最近）的 N 条历史输入记录：`history | tail -n 10`。  
 
 ## Event Designators
 针对 history list，支持以下前缀为 `!` 的 Event Designators：

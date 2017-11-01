@@ -294,15 +294,14 @@ BASH(1) 的 man page 中输入 `/Keyboard Macros` 即可定位到对应章节。
 # history
 在 BASH(1) 的 man page 输入 `/^HISTORY` 可以查看内建 history 命令的帮助说明部分。
 
-在 macOS/raspbian 终端输入 `history` 命令可查看历史输入记录，最多展示 `$HISTSIZE` 条。  
-输入 `history linenumber` 只显示指定行数的历史命令。  
-
-BASH(1) 的 man page 中可 `/` 或 `?` 搜索以下议题：
+可在 BASH(1) 的 man page 中 `/` 或 `?` 搜索以下议题：
 
 - Searching  
 - Commands for Manipulating the History   
 
-按下 `C-p`/`C-n`（↑/↓，同 `<M-p>`/`<M-n>`）可以调出上一条/下一条历史命令。
+在 macOS/raspbian 终端输入 `history` 命令可查看历史输入记录；输入 `history N` 命令则只显示指定行数的最近历史命令。  
+
+在终端按下 `C-p`/`C-n`（↑/↓，同 `<M-p>`/`<M-n>`）可以调出上一条/下一条历史命令。
 
 ```Shell
 previous-history (C-p)
@@ -320,6 +319,39 @@ beginning-of-history (M-<)
 end-of-history (M->)
       Move to the end of the input history, i.e., the line currently being entered.
 ```
+
+## HISTFILE & HISTSIZE
+环境变量 **HISTFILE** 定义了保存历史输入记录的文件路径；环境变量 **HISTSIZE** 则定义了保存最近历史记录的条数。
+
+```Shell
+# macOS
+faner@THOMASFAN-MB0:~|⇒  echo $HISTFILE
+/Users/faner/.zsh_history
+faner@THOMASFAN-MB0:~|⇒  echo $HISTSIZE
+10000
+```
+
+```Shell
+# raspbian
+pi@raspberrypi:~ $ echo $HISTFILE
+/home/pi/.bash_history
+pi@raspberrypi:~ $ echo $HISTSIZE
+1000
+```
+
+我们可以在终端偏好设置中修改 Scrollback lines 行数限制。
+
+或者 `vim .bashrc` 修改 `~/.bashrc` 中的 `HISTSIZE` 和 `HISTFILESIZE` 这两个 Shell Variables：
+
+```Shell
+pi@raspberrypi:~ $ vim .bashrc
+
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=1000
+HISTFILESIZE=2000
+```
+
+> 也可修改 system-wide 级别的配置`/etc/profile`，但 `/etc/profile` 会被 `~/.bash_profile` 修改覆盖， `~/.bash_profile` 会被 `~/.bashrc` 修改覆盖。  
 
 ## Event Designators
 针对 history list，支持以下前缀为 `!` 的 Event Designators：
@@ -355,6 +387,6 @@ forward-search-history (C-s)
 
 重复按 `C-r` 可翻看过往匹配的命令。
 
-- 按下 <kbd>esc</kbd> 确认选定；  
+- 连按两下 <kbd>esc</kbd> 确认选定；  
 - 按下 <kbd>enter</kbd> 或 `C-j` 选定执行；  
 - 按下 `C-g` 取消放弃当前搜索匹配结果；  

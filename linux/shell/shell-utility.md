@@ -41,7 +41,9 @@ There are four special variables, `scale`, `ibase`, `obase`, and `last`.
 > [我使用过的Linux命令之bc - 浮点计算器、进制转换](http://codingstandards.iteye.com/blog/793734)  
 
 ## basic
-1. 在 bash shell 终端输入 `bc` 即可启动 bc 计算器：
+1. 在 bash shell 终端输入 `bc` 即可启动 bc 计算器。
+
+输入表达式 `56.8 + 77.7`，再按回车键即可在新行得到计算结果：
 
 ```Shell
 pi@raspberrypi:~ $ bc
@@ -49,11 +51,12 @@ bc 1.06.95
 Copyright 1991-1994, 1997, 1998, 2000, 2004, 2006 Free Software Foundation, Inc.
 This is free software with ABSOLUTELY NO WARRANTY.
 For details type `warranty'. 
+
 56.8 + 77.7
 134.5
 ```
 
-可书写代数表达式，用变量承载计算结果，作为进一步计算的操作数：
+也可书写代数表达式，用变量承载计算结果，作为进一步计算的操作数：
 
 ```Shell
 a=2+3;
@@ -74,7 +77,7 @@ pi@raspberrypi:~ $ echo "56.8 + 77.7" | bc
 134.5
 ```
 
-3. `scale` 变量可指定浮点数计算输出精度：
+3. bc 内置的 **`scale`** 变量可指定浮点数计算输出精度：
 
 ```Shell
 scale=2; 5 * 7 /3
@@ -92,7 +95,7 @@ pi@raspberrypi:~ $ echo $result
 ## last
 **`last`**  (an  extension)  is a variable that has the value of the *last* printed number.
 
- last 变量代表上个表达式的计算结果，可将 last 变量作为后续表达式的操作数，进行二次计算：
+bc 内置的 **`last`** 变量代表上个表达式的计算结果，可将 last 变量作为后续表达式的操作数，进行二次计算：
 
 ```
 2+3
@@ -102,6 +105,15 @@ last*4
 ```
 
 ## ibase/obase
+默认输入和输出都是基于十进制：
+
+```Shell
+ibase
+10
+obase
+10
+```
+
 在 bc 命令解释器中输入 `ibase=10;obase=16;2017`，转换输出2017（十进制）的十六进制：
 
 ```Shell
@@ -148,9 +160,19 @@ hex=7e1
 # Checksum
 ## cksum
 cksum, sum -- display file checksums and block counts
-     
+
 ## CRC32
 crc32 - Perform a 32bit Cyclic Redundancy Check
+
+计算从 [crx4chrome](https://www.crx4chrome.com/) 离线下载的 [Vimium CRX 1.60.3 for Chrome](https://www.crx4chrome.com/crx/731/)  插件的 crc32 校验和：
+
+```Shell
+faner@THOMASFAN-MB0:~/Downloads/crx|
+⇒  crc32 dbepggeogbaibhgnhhndojpepiihcmeb-1.60.3-Crx4Chrome.com.crx 
+db950177
+```
+
+与官网给出的 CRC32 Checksum 值一致，则说明未被篡改，可放心安装。
 
 ## MD5 
 md5 -- calculate a message-digest fingerprint (checksum) for a file
@@ -160,6 +182,26 @@ md5 命令后的默认输入参数为文件名，也可通过 `-s` 选项指定�
 ```
      -s string
              Print a checksum of the given string.
+```
+
+计算从 [crx4chrome](https://www.crx4chrome.com/) 离线下载的 [Vimium CRX 1.60.3 for Chrome](https://www.crx4chrome.com/crx/731/)  插件的 MD5：
+
+```
+faner@THOMASFAN-MB0:~/Downloads/crx|
+⇒  md5 dbepggeogbaibhgnhhndojpepiihcmeb-1.60.3-Crx4Chrome.com.crx 
+MD5 (dbepggeogbaibhgnhhndojpepiihcmeb-1.60.3-Crx4Chrome.com.crx) = c98057821ee3cede87d911ead832dcc1
+```
+
+与官网给出的 MD5 Checksum 值一致，则说明未被篡改，可放心安装。
+
+---
+
+计算下载到本地的 Vimium CRX 1.60.3 for Chrome 插件所在路径字符串的 MD5 值：
+
+```Shell
+faner@THOMASFAN-MB0:~/Downloads/crx|
+⇒  md5 -s "/Users/faner/Downloads/crx/dbepggeogbaibhgnhhndojpepiihcmeb-1.60.3-Crx4Chrome.com.crx" 
+MD5 ("/Users/faner/Downloads/crx/dbepggeogbaibhgnhhndojpepiihcmeb-1.60.3-Crx4Chrome.com.crx") = 2f6f9a98b561f995564793765c205a66
 ```
 
 ## SHA1
@@ -180,6 +222,18 @@ SYNOPSIS
 When verifying SHA-512/224 or SHA-512/256 checksums, indicate the **algorithm** explicitly using the `-a` option, e.g.
 
 `shasum -a 512224 -c checksumfile`
+
+---
+
+计算从 [crx4chrome](https://www.crx4chrome.com/) 离线下载的 [Vimium CRX 1.60.3 for Chrome](https://www.crx4chrome.com/crx/731/)  插件的 SHA：
+
+```
+faner@THOMASFAN-MB0:~/Downloads/crx|
+⇒  shasum dbepggeogbaibhgnhhndojpepiihcmeb-1.60.3-Crx4Chrome.com.crx 
+476c61437d3c34e38ed1ee15950d202ded0902c8  dbepggeogbaibhgnhhndojpepiihcmeb-1.60.3-Crx4Chrome.com.crx
+```
+
+与官网给出的 SHA1 Checksum 值一致，则说明未被篡改，可放心安装。
 
 # pipe
 how count all lines in all files in current dir and omit empty lines with wc, grep, cut and bc commands

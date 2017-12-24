@@ -1,4 +1,4 @@
-# cd
+## cd
 cd（change directory）：切换文件目录。
 
 - `cd` / `cd ~`：进入当前用户的家目录（$HOME）；  
@@ -23,7 +23,7 @@ faner@THOMASFAN-MB0:~|⇒  cd $dir
 faner@THOMASFAN-MB0:~/Library/Application Support/Sublime Text 3/Packages/User|
 ```
 
-# [bc](https://en.wikipedia.org/wiki/Bc_(programming_language))
+## [bc](https://en.wikipedia.org/wiki/Bc_(programming_language))
 [bc](https://www.gnu.org/software/bc/manual/html_mono/bc.html)(basic calculator) - An arbitrary precision calculator language  
 
 bc is typically used as either a `mathematical scripting language` or as an `interactive mathematical shell`.  
@@ -40,7 +40,7 @@ There are four special variables, `scale`, `ibase`, `obase`, and `last`.
 > [Linux中的super pi(bc 命令总结)](http://www.linuxidc.com/Linux/2012-06/63684.htm)  
 > [我使用过的Linux命令之bc - 浮点计算器、进制转换](http://codingstandards.iteye.com/blog/793734)  
 
-## basic
+### basic
 1. 在 bash shell 终端输入 `bc` 即可启动 bc 计算器。
 
 输入表达式 `56.8 + 77.7`，再按回车键即可在新行得到计算结果：
@@ -92,7 +92,7 @@ pi@raspberrypi:~ $ echo $result
 11.66
 ```
 
-## last
+### last
 **`last`**  (an  extension)  is a variable that has the value of the *last* printed number.
 
 bc 内置的 **`last`** 变量代表上个表达式的计算结果，可将 last 变量作为后续表达式的操作数，进行二次计算：
@@ -104,7 +104,7 @@ last*4
 20
 ```
 
-## ibase/obase
+### ibase/obase
 默认输入和输出都是基于十进制：
 
 ```Shell
@@ -128,11 +128,11 @@ pi@raspberrypi:~ $ echo "ibase=10;obase=16;2017" | bc
 7E1
 ```
 
-# Checksum
-## cksum
+## Checksum
+### cksum
 cksum, sum -- display file checksums and block counts
 
-## CRC32
+### CRC32
 crc32 - Perform a 32bit Cyclic Redundancy Check
 
 计算从 [crx4chrome](https://www.crx4chrome.com/) 离线下载的 [Vimium CRX 1.60.3 for Chrome](https://www.crx4chrome.com/crx/731/)  插件的 crc32 校验和：
@@ -145,7 +145,7 @@ db950177
 
 与官网给出的 CRC32 Checksum 值一致，则说明未被篡改，可放心安装。
 
-## MD5 
+### MD5 
 md5 -- calculate a message-digest fingerprint (checksum) for a file
 
 md5 命令后的默认输入参数为文件名，也可通过 `-s` 选项指定计算字符串参数的MD5。
@@ -175,7 +175,7 @@ faner@THOMASFAN-MB0:~/Downloads/crx|
 MD5 ("/Users/faner/Downloads/crx/dbepggeogbaibhgnhhndojpepiihcmeb-1.60.3-Crx4Chrome.com.crx") = 2f6f9a98b561f995564793765c205a66
 ```
 
-## SHA1
+### SHA1
 shasum - Print or Check SHA Checksums
 
 ```Shell
@@ -206,7 +206,30 @@ faner@THOMASFAN-MB0:~/Downloads/crx|
 
 与官网给出的 SHA1 Checksum 值一致，则说明未被篡改，可放心安装。
 
-# pipe
+## pipeline
+### demo 1
+以下为 [Homebrew](https://docs.brew.sh/) [Installation](https://docs.brew.sh/Installation.html) 脚本：
+
+```shell
+mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
+```
+
+### demo 2
+```shell
+pi@raspberrypi:~ $ echo $PATH
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/games:/usr/games
+pi@raspberrypi:~ $ PATH=$PATH:/usr/local/sbin
+pi@raspberrypi:~ $ echo $PATH 
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/games:/usr/games:/usr/local/sbin
+```
+
+如何删除刚才追加重复的 `/usr/local/sbin`？
+
+1. 直接 `PATH=` 赋值修改前的值 `/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/games:/usr/games`。  
+2. `PATH=$(echo $PATH | cut -d : -f 1,3-)` 移除第2项；
+
+### demo 3
+
 how count all lines in all files in current dir and omit empty lines with wc, grep, cut and bc commands
 
 ```Shell

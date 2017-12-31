@@ -121,14 +121,14 @@ This may be inhibited by using the --norc option. The --rcfile file option will 
 ### 全局环境变量
 首先是设置全局环境变量，对所有用户都会生效：
 
-- **`etc/profile`**: 此文件为系统的每个用户设置环境信息。当用户登录时，该文件被执行一次，并从 `/etc/profile.d` 目录的配置文件中搜集shell 的设置。一般用于设置所有用户使用的全局变量。
+- **`etc/profile`**: 此文件为系统级配置信息（Systemwide configuration file）。当用户登录时，该文件被执行一次，并从 `/etc/profile.d` 目录的配置文件中搜集shell 的设置。一般用于设置所有用户使用的全局变量。
 
 - **`/etc/bashrc`**: 当 bash shell 被打开时，该文件被读取。也就是说，每次新打开一个终端 shell，该文件就会被读取。
 
 > [UNIX系统级别环境文件profile](http://blog.sina.com.cn/s/blog_6151984a0100ej4n.html)  
 
 ### 用户环境变量
-bash 在读完了系统整体环境配置的 `/etc/profile` 并借此调用其他配置文件后，接下来则会读取用户的个人配置文件。
+bash 在读完了系统整体环境配置的 `/etc/profile` 并借此调用其他配置文件后，接下来则会读取用户的个人配置文件（per-user configuration file）。
 
 在 login shell 的 bash 环境中，依次会读取以下三个个人偏好配置文件：
 
@@ -154,6 +154,16 @@ bash 在读完了系统整体环境配置的 `/etc/profile` 并借此调用其�
 
 ```shell
 echo 'export PATH=somepath:$PATH' >> ~/.bash_profile
+```
+
+以下为 brew install openssl/sqlite 的 Caveats：
+
+```shell
+If you need to have this software first in your PATH run:
+  echo 'export PATH="/usr/local/opt/openssl/bin:$PATH"' >> ~/.zshrc
+
+If you need to have this software first in your PATH run:
+   echo 'export PATH="/usr/local/opt/sqlite/bin:$PATH"' >> ~/.zshrc
 ```
 
 以下节选自本人 macOS 的 zsh 配置文件 `~/.zshrc`：

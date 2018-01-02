@@ -266,8 +266,98 @@ macOS 下的浏览器（Safari & Chrome）等应用默认遵循系统偏好设�
 1. proxychains4+sslocal  
 2. `export all_proxy=socks5://127.0.0.1:1080`  
 
+主要涉及以下3个变量：
+
+- **http_proxy**(HTTP_PROXY)  
+- **https_proxy**(HTTPS_PROXY)，如果未设置，一般采用 http_proxy  
+- **all_proxy**(ALL_PROXY)，如果未设置，一般采用 http_proxy  
+
+### git 设置代理
+终端执行 `git help config` 查看 *git config* 子命令帮助，其中 `CONFIGURATION FILE | Variables` 部分有关于 **http.proxy**（涵盖 https.proxy 和 all_proxy）的说明：
+
+```shell
+# git help config
+
+CONFIGURATION FILE
+
+   Variables
+
+       http.proxy
+           Override the HTTP proxy, normally configured using the http_proxy,
+           https_proxy, and all_proxy environment variables (see curl(1)). In addition
+           to the syntax understood by curl, it is possible to specify a proxy string
+           with a user name but no password, in which case git will attempt to acquire
+           one in the same way it does for other credentials. See gitcredentials(7)
+           for more information. The syntax thus is
+           [protocol://][user[:password]@]proxyhost[:port]. This can be overridden on
+           a per-remote basis; see remote.<name>.proxy
+```
+
+#### 设置全局代理
+
+```shell
+git config --global http.proxy http://dev-proxy.oa.com:8080/
+git config --global https.proxy http://dev-proxy.oa.com:8080/
+```
+
+[设置git使用socks5代理](https://gist.github.com/bluethon/45766d0a4541ab633e32a49b6c4e4bdd)：
+
+```shell
+git config --global http.proxy 'socks5://127.0.0.1:1080'
+git config --global https.proxy 'socks5://127.0.0.1:1080'
+```
+
+#### 取消全局代理
+
+```shell
+git config --global --unset http.proxy
+git config --global --unset https.proxy
+```
+
+### curl 设置代理
+执行 `curl --help | grep proxy` 或 `man curl` 可查看 proxy 相关的说明。
+
+```shell
+# man curl
+
+ENVIRONMENT
+       The  environment  variables  can be specified in lower case or upper case. The lower case version has prece-
+       dence. http_proxy is an exception as it is only available in lower case.
+
+       Using an environment variable to set the proxy has the same effect as using the -x, --proxy option.
+
+
+       http_proxy [protocol://]<host>[:port]
+              Sets the proxy server to use for HTTP.
+
+       HTTPS_PROXY [protocol://]<host>[:port]
+              Sets the proxy server to use for HTTPS.
+
+       [url-protocol]_PROXY [protocol://]<host>[:port]
+              Sets the proxy server to use for [url-protocol], where the protocol is a protocol that curl  supports
+              and as specified in a URL. FTP, FTPS, POP3, IMAP, SMTP, LDAP etc.
+
+       ALL_PROXY [protocol://]<host>[:port]
+              Sets the proxy server to use if no protocol-specific proxy is set.
+
+       NO_PROXY <comma-separated list of hosts>
+              list of host names that shouldn't go through any proxy. If set to a asterisk '*' only, it matches all
+              hosts.
+
+              Since 7.53.0, this environment variable disable the proxy even if specify -x, --proxy option. That is
+              NO_PROXY=direct.example.com  curl  -x http://proxy.example.com http://direct.example.com accesses the
+              target URL directly, and NO_PROXY=direct.example.com curl  -x  http://proxy.example.com  http://some-
+              where.example.com accesses the target URL through proxy.
+
+```
+
+同 bash 终端通用代理变量：`http_proxy`、`HTTPS_PROXY` 和 `ALL_PROXY`。  
+`NO_PROXY` 设置不走代理的例外（Exclude/Bypass）。  
+
+也可在执行 curl 命令时携带 `-x(--proxy)` 选项指定代理。
+
 ### brew 设置代理
-以下为 `man brew` 的 *`USING HOMEBREW BEHIND A PROXY`* 章节：
+`man brew` 中的 *`USING HOMEBREW BEHIND A PROXY`* 章节有介绍 homebrew 命令设置代理变量的说明：
 
 ```shell
 USING HOMEBREW BEHIND A PROXY
@@ -291,14 +381,18 @@ USING HOMEBREW BEHIND A PROXY
 
 ```
 
-**方法1**：每次执行 brew 命令之前设置 http 和 https 代理
+> [如果 brew install 撞墙](http://leegorous.net/blog/2012/08/10/how-to-skip-download-in-brew-install/)  
+> [让 Homebrew 走代理更新](https://www.logcg.com/archives/1617.html)  
+> [homebrew使用socks-proxy](http://blog.suchasplus.com/2014/10/homebrew-using-socks-proxy.html)  
+
+**方法1**：每次执行 brew 命令之前设置 http 和 https（可选） 代理
 
 ```shell
 export http_proxy="http://<host>:<port>"
-export https_proxy="http://<host>:<port>"
+export https_proxy="http://<host>:<port>" # 可选，默认同 http_proxy
 ```
 
-**方法2**：简单点写设置 ALL_PROXY 变量
+**方法2**：或设置 ALL_PROXY 变量
 
 ```shell
 export ALL_PROXY=http://<host>:<port>
@@ -307,13 +401,63 @@ export ALL_PROXY=http://<host>:<port>
 > 也可将以上添加到 bash profile(`.bashrc`) 或者 zsh profile(`.zshrc`) 中。
 
 ### Sublime Text 设置代理
+控制面板（<kbd>⌘</kbd><kbd>⇧</kbd><kbd>P</kbd>）输入 Preferences: Package Control Settings - Default 打开 Package Control 默认配置文件：
 
+`~/Library/Application Support/Sublime Text 3/Packages/Package Control/Package Control.sublime-settings`
 
-### [设置git使用socks5代理](https://gist.github.com/bluethon/45766d0a4541ab633e32a49b6c4e4bdd)
+其中有关于 **channels**、**repositories**、**代理** 相关的配置参数说明：
+
+```json
+	// A list of URLs that each contain a JSON file with a list of repositories.
+	// The repositories from these channels are placed in order after the
+	// repositories from the "repositories" setting
+	"channels": [
+		"https://packagecontrol.io/channel_v3.json"
+	],
+
+	// A list of URLs that contain a packages JSON file. These repositories
+	// are placed in order before repositories from the "channels"
+	// setting
+	"repositories": [],
+
+	// An HTTP proxy server to use for requests. Not normally used on Windows
+	// since the system proxy configuration is utilized via WinINet. However,
+	// if WinINet is not working properly, this will be used by the Urllib
+	// downloader, which acts as a fallback.
+	"http_proxy": "",
+	// An HTTPS proxy server to use for requests - this will inherit from
+	// http_proxy if it is set to "" or null and http_proxy has a value. You
+	// can set this to false to prevent inheriting from http_proxy. Not
+	// normally used on Windows since the system proxy configuration is
+	// utilized via WinINet. However, if WinINet is not working properly, this
+	// will be used by the Urllib downloader, which acts as a fallback.
+	"https_proxy": "",
+
+	// Username and password for both http_proxy and https_proxy. May be used
+	// with WinINet to set credentials for system-level proxy config.
+	"proxy_username": "",
+	"proxy_password": "",
+
+```
+
+同 bash 终端通用代理变量：`http_proxy`，`https_proxy`。  
+当没有设置 https_proxy 时，将采用 http_proxy 的配置（如果有的话）。
+
+控制面板（<kbd>⌘</kbd><kbd>⇧</kbd><kbd>P</kbd>）输入 Preferences: Package Control Settings - User 打开 Package Control 用户配置文件：
+
+`~/Library/Application\ Support/Sublime\ Text 3/Packages/User/Package\ Control.sublime-settings` ：
+
+其中可以添加 **channels**、**repositories**、**代理** 等配置参数：
 
 ```shell
-git config --global http.proxy 'socks5://127.0.0.1:1080'
-git config --global https.proxy 'socks5://127.0.0.1:1080'
+	"channels":
+	[
+		"https://packagecontrol.io/channel_v3.json",
+		"https://wilon.github.io/static/channel_v3.json"
+	],
+	
+	"http_proxy": "http://<host>:<port>",
+	"https_proxy": "https://<host>:<port>",
 ```
 
 ### 其他应用代理

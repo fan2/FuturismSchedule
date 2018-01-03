@@ -56,7 +56,8 @@ Windows cmd 代理：[设置](http://blog.csdn.net/lovelyelfpop/article/details/
 
 > [**How to Configure a Proxy Server on a Mac**](https://www.howtogeek.com/293444/how-to-configure-a-proxy-server-on-a-mac/)  
 
-### networksetup
+### 命令行工具
+#### networksetup
 系统网络管理命令 networksetup：
 
 ```shell
@@ -118,12 +119,12 @@ Usage: networksetup -listvalidMTUrange <hardwareport or device name>
 
 ```
 
-#### networkservices
+##### networkservices
 查看本机安装的设备硬件端口和名称：
 
 ```shell
 # 列举设备，只查看设备的 Hardware Port 信息
-faner@THOMASFAN-MB0:~|⇒  networksetup -listallnetworkservices
+faner@MBP-FAN:~|⇒  networksetup -listallnetworkservices
 An asterisk (*) denotes that a network service is disabled.
 USB-Serial Controller
 Wi-Fi
@@ -132,7 +133,7 @@ Thunderbolt Ethernet
 Bluetooth PAN
 
 # 列举设备，查看设备的 Hardware Port 和 Device 信息
-faner@THOMASFAN-MB0:~|⇒  networksetup -listnetworkserviceorder
+faner@MBP-FAN:~|⇒  networksetup -listnetworkserviceorder
 An asterisk (*) denotes that a network service is disabled.
 (1) USB-Serial Controller
 (Hardware Port: USB-Serial Controller, Device: usbserial)
@@ -150,7 +151,7 @@ An asterisk (*) denotes that a network service is disabled.
 (Hardware Port: Bluetooth PAN, Device: en3)
 ```
 
-#### proxy
+##### proxy
 执行 `networksetup -help | grep proxy` 可查看代理相关的操作接口。
 
 ```shell
@@ -220,20 +221,96 @@ Usage: networksetup -setsocksfirewallproxystate <networkservice> <on off>
 执行 `networksetup -getautoproxyurl Wi-Fi` 查看无线网卡（Wi-Fi）的 `自动代理配置` 的 URL 信息：
 
 ```shell
-faner@THOMASFAN-MB0:~|⇒  networksetup -getautoproxyurl Wi-Fi
-URL: http://<host>:<port>/proxy.pac
+faner@MBP-FAN:~|⇒  networksetup -getautoproxyurl Wi-Fi
+URL: http://<host>[:port]/proxy.pac
 Enabled: Yes
 ```
 
-执行 `networksetup -getsocksfirewallproxy Wi-Fi` 查看无线网卡（Wi-Fi）的 `SOCKS 代理` 信息：
+执行 `networksetup -getwebproxy Wi-Fi` 查看无线网卡（Wi-Fi）的 `网页代理(HTTP)` 的配置信息：
+
+```shell
+faner@MBP-FAN:~|⇒  networksetup -getwebproxy Wi-Fi
+Enabled: Yes
+Server: <host>
+Port: <port>
+Authenticated Proxy Enabled: 0
+```
+
+执行 `networksetup -getsocksfirewallproxy Wi-Fi` 查看无线网卡（Wi-Fi）的 `SOCKS 代理` 配置信息：
 
 ```shell
 # 获取 SOCKS 代理
-faner@THOMASFAN-MB0:~|⇒  networksetup -getsocksfirewallproxy Wi-Fi
+faner@MBP-FAN:~|⇒  networksetup -getsocksfirewallproxy Wi-Fi
 Enabled: Yes
 Server: 127.0.0.1
 Port: 1080
 Authenticated Proxy Enabled: 0
+```
+
+#### scutil
+除了强大的 **networksetup** 命令可用于查看设置网络配置（包括代理）外，还可以使用 **scutil** 命令来查看代理等网络配置信息。
+
+```shell
+# scutil --help
+faner@MBP-FAN:~|⇒  scutil --help
+usage: scutil
+	interactive access to the dynamic store.
+
+   or: scutil --proxy
+	show "proxy" configuration.
+
+   or: scutil --nwi
+	show network information
+
+# man scutil
+faner@MBP-FAN:~|⇒  man scutil
+
+SCUTIL(8)                 BSD System Manager's Manual                SCUTIL(8)
+
+NAME
+     scutil -- Manage system configuration parameters
+
+OPTIONS
+
+     --proxy
+         Reports the current proxy configuration.
+```
+
+以下为 `自动代理配置`（Automatic Proxy Configuration）信息
+
+```shell
+# <host> 为代理的 domain 或 IP 地址，端口可选。
+faner@MBP-FAN:~|⇒  scutil --proxy
+<dictionary> {
+  ProxyAutoConfigEnable : 1
+  ProxyAutoConfigURLString : http://<host>[:port]/proxy.pac
+}
+```
+
+以下为 `网页代理(HTTP)`（Web Proxy(HTTP)）配置信息：
+
+```shell
+# <host> 为代理的 domain 或 IP 地址
+faner@MBP-FAN:~|⇒  scutil --proxy
+<dictionary> {
+  HTTPEnable : 1
+  HTTPPort : <port>
+  HTTPProxy : <host>
+}
+```
+
+以下为 `SOCKS 代理`（SOCKS Proxy）配置信息：
+
+```shell
+faner@MBP-FAN:~|⇒  scutil --proxy
+<dictionary> {
+  HTTPEnable : 0
+  HTTPSEnable : 0
+  ProxyAutoConfigEnable : 0
+  SOCKSEnable : 1
+  SOCKSPort : 1080
+  SOCKSProxy : 127.0.0.1
+}
 ```
 
 ### 浏览器代理
@@ -266,53 +343,11 @@ macOS 下的浏览器（Safari & Chrome）等应用默认遵循系统偏好设�
 1. proxychains4+sslocal  
 2. `export all_proxy=socks5://127.0.0.1:1080`  
 
-主要涉及以下3个变量：
+主要涉及以下3个 shell 环境变量：
 
 - **http_proxy**(HTTP_PROXY)  
-- **https_proxy**(HTTPS_PROXY)，如果未设置，一般采用 http_proxy  
-- **all_proxy**(ALL_PROXY)，如果未设置，一般采用 http_proxy  
-
-### git 设置代理
-终端执行 `git help config` 查看 *git config* 子命令帮助，其中 `CONFIGURATION FILE | Variables` 部分有关于 **http.proxy**（涵盖 https.proxy 和 all_proxy）的说明：
-
-```shell
-# git help config
-
-CONFIGURATION FILE
-
-   Variables
-
-       http.proxy
-           Override the HTTP proxy, normally configured using the http_proxy,
-           https_proxy, and all_proxy environment variables (see curl(1)). In addition
-           to the syntax understood by curl, it is possible to specify a proxy string
-           with a user name but no password, in which case git will attempt to acquire
-           one in the same way it does for other credentials. See gitcredentials(7)
-           for more information. The syntax thus is
-           [protocol://][user[:password]@]proxyhost[:port]. This can be overridden on
-           a per-remote basis; see remote.<name>.proxy
-```
-
-#### 设置全局代理
-
-```shell
-git config --global http.proxy http://dev-proxy.oa.com:8080/
-git config --global https.proxy http://dev-proxy.oa.com:8080/
-```
-
-[设置git使用socks5代理](https://gist.github.com/bluethon/45766d0a4541ab633e32a49b6c4e4bdd)：
-
-```shell
-git config --global http.proxy 'socks5://127.0.0.1:1080'
-git config --global https.proxy 'socks5://127.0.0.1:1080'
-```
-
-#### 取消全局代理
-
-```shell
-git config --global --unset http.proxy
-git config --global --unset https.proxy
-```
+- **https_proxy**(HTTPS_PROXY)，如果未设置，一般采用 http_proxy；  
+- **all_proxy**(ALL_PROXY)，如果设置，则 http、https、ftp 等所有协议均采用该代理。  
 
 ### curl 设置代理
 执行 `curl --help | grep proxy` 或 `man curl` 可查看 proxy 相关的说明。
@@ -355,6 +390,87 @@ ENVIRONMENT
 `NO_PROXY` 设置不走代理的例外（Exclude/Bypass）。  
 
 也可在执行 curl 命令时携带 `-x(--proxy)` 选项指定代理。
+
+### git 设置代理
+根据 git 官网网站的安装指南（[Installing Git](https://git-scm.com/book/eo/v1/Ekkomenci-Installing-Git)）介绍：
+
+> To install Git, you need to have the following libraries that Git depends on: **curl**, zlib, openssl, expat, and libiconv.
+
+git 依赖 curl。
+
+```shell
+# macOS
+faner@MBP-FAN:~|⇒  brew info git
+git: stable 2.15.1 (bottled), HEAD
+Distributed revision control system
+https://git-scm.com
+Not installed
+From: https://mirrors.ustc.edu.cn/homebrew-core.git/Formula/git.rb
+==> Dependencies
+Optional: pcre2 ✘, gettext ✔, openssl ✔, curl ✘
+==> Requirements
+Optional: perl >= 5.6 ✔
+==> Options
+--with-blk-sha1
+	Compile with the block-optimized SHA1 implementation
+--with-curl
+	Use Homebrew's version of cURL library
+
+# CentOS
+[root@vcentos ~]# yum deplist git
+
+  dependency: libcurl.so.4()(64bit)
+   provider: libcurl.x86_64 7.29.0-42.el7_4.1
+
+# raspbian
+pi@raspberrypi:~ $ apt-cache depends git
+git
+  PreDepends: dpkg
+  Depends: libc6
+  Depends: libcurl3-gnutls
+
+```
+
+终端执行 `git help config` 查看 git 子命令 config 的帮助，其中 `CONFIGURATION FILE | Variables` 部分有关于 **http.proxy**（涵盖 https.proxy 和 all_proxy）的说明：
+
+```shell
+# git help config
+
+CONFIGURATION FILE
+
+   Variables
+
+       http.proxy
+           Override the HTTP proxy, normally configured using the http_proxy,
+           https_proxy, and all_proxy environment variables (see curl(1)). In addition
+           to the syntax understood by curl, it is possible to specify a proxy string
+           with a user name but no password, in which case git will attempt to acquire
+           one in the same way it does for other credentials. See gitcredentials(7)
+           for more information. The syntax thus is
+           [protocol://][user[:password]@]proxyhost[:port]. This can be overridden on
+           a per-remote basis; see remote.<name>.proxy
+```
+
+#### 设置全局代理
+
+```shell
+git config --global http.proxy http://<host>[:port]/
+git config --global https.proxy http://<host>[:port]/
+```
+
+[设置git使用socks5代理](https://gist.github.com/bluethon/45766d0a4541ab633e32a49b6c4e4bdd)：
+
+```shell
+git config --global http.proxy 'socks5://127.0.0.1:1080'
+git config --global https.proxy 'socks5://127.0.0.1:1080'
+```
+
+#### 取消全局代理
+
+```shell
+git config --global --unset http.proxy
+git config --global --unset https.proxy
+```
 
 ### brew 设置代理
 `man brew` 中的 *`USING HOMEBREW BEHIND A PROXY`* 章节有介绍 homebrew 命令设置代理变量的说明：
@@ -492,11 +608,11 @@ macQQ代理设置：
 [**Shadowshocks+Proxifier 系统全局代理的正确姿势**](http://blackwolfsec.cc/2016/09/19/Proxifier_Shadowshocks/)  
 
 ```shell
-faner@THOMASFAN-MB0:~|⇒  brew cask search proxifier
+faner@MBP-FAN:~|⇒  brew cask search proxifier
 ==> Exact Match
 caskroom/cask/proxifier
 
-faner@THOMASFAN-MB0:~|⇒  brew cask info proxifier  
+faner@MBP-FAN:~|⇒  brew cask info proxifier  
 proxifier: 2.21
 https://www.proxifier.com/mac/
 Not installed
@@ -506,7 +622,7 @@ Proxifier
 ==> Artifacts
 Proxifier.app (App)
 
-faner@THOMASFAN-MB0:~|⇒  brew cask audit proxifier
+faner@MBP-FAN:~|⇒  brew cask audit proxifier
 audit for proxifier: passed
 ```
 
@@ -516,13 +632,13 @@ audit for proxifier: passed
 [如何用 Privoxy 辅助翻墙？](https://program-think.blogspot.com/2014/12/gfw-privoxy.html)  
 
 ```shell
-faner@THOMASFAN-MB0:~|⇒  brew search privoxy
+faner@MBP-FAN:~|⇒  brew search privoxy
 ==> Searching local taps...
 privoxy
 ==> Searching taps on GitHub...
 ==> Searching blacklisted, migrated and deleted formulae...
 
-faner@THOMASFAN-MB0:~|⇒  brew info privoxy  
+faner@MBP-FAN:~|⇒  brew info privoxy  
 privoxy: stable 3.0.26 (bottled)
 Advanced filtering web proxy
 https://www.privoxy.org/
@@ -549,13 +665,13 @@ Or, if you don't want/need a background service you can just run:
 [proxychains+shadowsocks神器](http://shawnelee88.github.io/2015/07/10/proxychains-shadowsocks%E7%A5%9E%E5%99%A8/)  
 
 ```shell
-faner@THOMASFAN-MB0:~|⇒  brew search proxychains
+faner@MBP-FAN:~|⇒  brew search proxychains
 ==> Searching local taps...
 proxychains-ng
 ==> Searching taps on GitHub...
 ==> Searching blacklisted, migrated and deleted formulae...
 
-faner@THOMASFAN-MB0:~|⇒  brew info proxychains-ng
+faner@MBP-FAN:~|⇒  brew info proxychains-ng
 proxychains-ng: stable 4.12 (bottled), HEAD
 Hook preloader
 https://sourceforge.net/projects/proxychains-ng/

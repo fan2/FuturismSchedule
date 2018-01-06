@@ -465,6 +465,8 @@ git config --global http.proxy 'socks5://127.0.0.1:1080'
 git config --global https.proxy 'socks5://127.0.0.1:1080'
 ```
 
+也可不指定 `--global` 选项，只针对当前 git repo 设置代理信息（http.proxy）。
+
 #### 取消全局代理
 
 ```shell
@@ -565,7 +567,7 @@ export ALL_PROXY=http://<host>:<port>
 
 其中可以添加 **channels**、**repositories**、**代理** 等配置参数：
 
-```shell
+```json
 	"channels":
 	[
 		"https://packagecontrol.io/channel_v3.json",
@@ -575,6 +577,15 @@ export ALL_PROXY=http://<host>:<port>
 	"http_proxy": "http://<host>:<port>",
 	"https_proxy": "https://<host>:<port>",
 ```
+
+### python urllib 代理
+以下摘自 [package-control-st3.py](https://gist.github.com/albur/6319642)：
+
+```python
+urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler({'http': 'http://USER:PASS@HOST:PORT', 'https': 'https://USER:PASS@HOST:PORT'})) );
+```
+
+urllib.request.install_opener 调用 build_opener 时创建 ProxyHandler 可设置 http/https 代理参数。
 
 ### 其他应用代理
 

@@ -23,6 +23,21 @@ faner@THOMASFAN-MB0:~|⇒  cd $dir
 faner@THOMASFAN-MB0:~/Library/Application Support/Sublime Text 3/Packages/User|
 ```
 
+## ls
+只列举文件夹：
+
+- `ls -d */`  
+- `ls -al | grep '^d'`：过滤出以 d 开头的（文件夹）  
+
+其他命令：
+
+- `find . -maxdepth 1 -type d`  
+- `tree -d -L 1`  
+
+> [Listing only directories in UNIX](https://stackoverflow.com/questions/3667329/listing-only-directories-in-unix)  
+> [ls to view directories only](https://www.linuxquestions.org/questions/linux-newbie-8/ls-to-view-directories-only-156254/)  
+> [List Directories in Unix and Linux Systems](https://www.cyberciti.biz/faq/linux-list-just-directories-or-directory-names/list-dirs-in-unix-linux/)  
+
 ## [bc](https://en.wikipedia.org/wiki/Bc_(programming_language))
 [bc](https://www.gnu.org/software/bc/manual/html_mono/bc.html)(basic calculator) - An arbitrary precision calculator language  
 

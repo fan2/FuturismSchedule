@@ -1,3 +1,5 @@
+[how to view, edit, unset and delete an environment variable in linux](http://www.lostsaloon.com/technology/how-to-view-edit-and-delete-an-environment-variable-in-linux/)
+
 通过等号（`=`）可赋值修改系统变量 PATH，增加可执行路径：
 
 ```shell

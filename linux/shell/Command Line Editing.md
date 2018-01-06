@@ -88,7 +88,7 @@ yank-pop (M-y)
 
 `M-d`：向前（forward）删除至单词末尾；  
 `C-w` / `M-delete`(backspace)，向后（backward）删除至单词开头；  
-`C-u`：删除至行首 or 删除整行（macOS）；  
+`C-u`：删除至行首（raspbian/CentOS） or 删除整行（macOS）；  
 `C-k`：删除至行末；  
 
 `<C-y>`：召回（yank）`<C-w>`、`<M-d>`、`<C-u>`、`<C-k>` 删除的文本。

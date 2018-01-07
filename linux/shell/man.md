@@ -13,25 +13,32 @@ With respect to the C library, the primary focus is the [GNU](http://www.gnu.org
 ## manpath
 macOS 下的 manpath：
 
-```Shell
+```shell
+# 等效 man -w
 faner@THOMASFAN-MB0:~|⇒  manpath
 /usr/local/share/man:/usr/share/man:/opt/X11/share/man:/Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/share/man:/Applications/Xcode-beta.app/Contents/Developer/usr/share/man:/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/share/man
 ```
 
 raspbian 下的 manpath：
 
-```Shell
+```shell
+# 等效 man -w
 pi@raspberrypi:~$ manpath
 /usr/local/man:/usr/local/share/man:/usr/share/man:/usr/man
+```
 
-pi@raspberrypi:~$ man -w
-/usr/local/man:/usr/local/share/man:/usr/share/man:/usr/man
+CentOS 下的 manpath：
+
+```shell
+# 等效 man -w
+[root@vcentos ~]# manpath
+/usr/local/share/man:/usr/share/man
 ```
 
 ### /usr/share/man/
 以下为 `/usr/share/man/` 下的详细列表：
 
-```Shell
+```shell
 # macOS
 faner@THOMASFAN-MB0:~|⇒  cd /usr/share/man/
 faner@THOMASFAN-MB0:/usr/share/man|⇒  ls
@@ -50,7 +57,7 @@ man1  man5  man8
 ### bash.1
 man子目录后面的数字为 man 手册章节序号。
 
-```Shell
+```shell
 # macOS
 faner@THOMASFAN-MB0:/usr/share/man|⇒  ls man1 | grep bash
 bash.1
@@ -67,7 +74,7 @@ rbash.1.gz
 ### man -w
 `man -w` 命令可以查看 man 手册的 nroff 源文件；加上 `-a`(--all) 选项，则显示所有 section 匹配到的命令说明文档路径。
 
-```Shell
+```shell
 # macOS
 faner@THOMASFAN-MB0:~|⇒  man -w bash
 /usr/share/man/man1/bash.1
@@ -93,7 +100,7 @@ pi@raspberrypi:/usr/share/man$ man -aw shutdown
 
 执行 `ls /usr/share/man/zh_CN` 可知 man 1、5、8 三章节中含有部分中文翻译文档。具体可进一步深入查看 `/zh_CN/man1/` 子目录。
 
-```Shell
+```shell
 pi@raspberrypi:~$ man -L zh_CN man
 MAN(1)                         手册分页显示工具                         MAN(1)
 
@@ -110,14 +117,14 @@ man 默认使用可翻页查看的 less 作为分页器，可指定 `-P pager`�
 - raspbian: By default, man uses pager.  
 - macOS: By default, man uses /usr/bin/less -is.  
 
-```Shell
+```shell
 pi@raspberrypi:~ $ whatis pager
 pager (1)            - opposite of more
 ```
 
 man pager 打开的也是 LESS(1) 的帮助手册。
 
-```Shell
+```shell
 faner@THOMASFAN-MB0:~|⇒  echo $PAGER 
 less
 ```
@@ -143,7 +150,7 @@ less
 
 ## manual page types
 
-```Shell
+```shell
        The table below shows the section numbers of the manual followed by the
        types of pages they contain.
 
@@ -174,7 +181,7 @@ less
 
 `man -f` 命令可查看命令简介，默认显示第一个搜索到的；加上 `-a`(--all) 选项，则显示所有 section 匹配到的命令。
 
-```Shell
+```shell
 # macOS
 faner@THOMASFAN-MB0:~|⇒  man -af shutdown
 servertool(1)            - The Java(TM) IDL Server Tool servertool provides an ease-of-use interface for application programmers to register, unregister, startup and shutdown a server
@@ -261,7 +268,7 @@ PTHREADS(7);
 
 ## Conventional  section
 
-```Shell
+```shell
        A manual page consists of several sections.
 
        Conventional  section  names  include  NAME,  SYNOPSIS,  CONFIGURATION,
@@ -274,7 +281,7 @@ PTHREADS(7);
 ### man man
 [Linux 2.6 - man page for man (linux section 1)](https://www.unix.com/man-page/linux/1/man/)
 
-```Shell
+```shell
 MAN(1)					Manual pager utils				   MAN(1)
 NAME
        man - an interface to the on-line reference manuals
@@ -307,13 +314,13 @@ HISTORY
 
 Raspbian GNU/Linux 9.1 (stretch) 下的 man(1) 版本为最新的：
 
-```Shell
+```shell
 2.7.6.1                           2016-12-12                            MAN(1)
 ```
 
 macOS 下的 man(1) 版本为比较陈旧的：
 
-```Shell
+```shell
                                   September 19, 2005                            man(1)
 ```
 

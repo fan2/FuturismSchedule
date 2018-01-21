@@ -91,7 +91,7 @@ yank-pop (M-y)
 `C-u`：删除至行首（raspbian/CentOS） or 删除整行（macOS）；  
 `C-k`：删除至行末；  
 
-`<C-y>`：召回（yank）`<C-w>`、`<M-d>`、`<C-u>`、`<C-k>` 删除的文本。
+`<C-y>`：召回（yank）粘贴 `<C-w>`、`<M-d>`、`<C-u>`、`<C-k>` 剪切删除（kill）的文本。
 
 ## Completing
 complete (`TAB`)  

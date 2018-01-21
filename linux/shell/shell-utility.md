@@ -221,6 +221,129 @@ faner@THOMASFAN-MB0:~/Downloads/crx|
 
 与官网给出的 SHA1 Checksum 值一致，则说明未被篡改，可放心安装。
 
+## hexdump
+### od
+Linux/Unix（macOS）下的命令行工具 `od` 可按指定进制格式查看文档：
+
+```shell
+pi@raspberrypi:~ $ man od
+
+NAME
+       od - dump files in octal and other formats
+
+SYNOPSIS
+       od [OPTION]... [FILE]...
+       od [-abcdfilosx]... [FILE] [[+]OFFSET[.][b]]
+       od --traditional [OPTION]... [FILE] [[+]OFFSET[.][b] [+][LABEL][.][b]]
+```
+
+**`-A`**, --address-radix=RADIX
+
+> output format for file offsets; RADIX is one of [doxn], for Decimal, Octal, Hex or None  
+>> 输出左侧的地址格式，默认为 o（八进制），可指定为 x（十六进制）。   
+
+**`-j`**, --skip-bytes=BYTES
+
+> skip BYTES input bytes first（跳过开头指定长度的字节）
+
+**`-N`**, --read-bytes=BYTES
+
+> limit dump to BYTES input bytes（只 dump 转译指定长度的内容）
+
+**`-t`**, --format=TYPE
+
+> select output format or formats（定制 dump 输出格式：`[d|o|u|x][C|S|I|L|n]`）
+
+- `[doux]` 可指定有符号十、八、无符号十、十六进制；  
+- `[CSIL]` 可指定 sizeof(char)=1, sizeof(short)=2, sizeof(int)=4, sizeof(long)=8 作为 group_bytes_by_bits；或直接输入数字[1,2,4,8]。
+
+- `a`：Named characters (ASCII)，打印可见 ASCII 字符。
+
+***`-x`***: same as `-t x2`, select hexadecimal 2-byte units
+
+>  默认 group_bytes_by_bits = 16，两个字节（shorts）为一组。  
+
+---
+
+以下示例 hex dump `tuple.h` 文件开头的64字节：
+
+```shell
+# 等效 od -N 64 -A x -t xCa tuple.h
+faner@MBP-FAN:~/Downloads|⇒  od -N 64 -A x -t x1a tuple.h
+0000000    ef  bb  bf  0d  0a  23  70  72  61  67  6d  61  20  6f  6e  63
+           ?   ?   ?  cr  nl   #   p   r   a   g   m   a  sp   o   n   c
+0000010    65  0d  0a  0d  0a  6e  61  6d  65  73  70  61  63  65  20  41
+           e  cr  nl  cr  nl   n   a   m   e   s   p   a   c   e  sp   A
+0000020    73  79  6e  63  54  61  73  6b  0d  0a  7b  0d  0a  0d  0a  2f
+           s   y   n   c   T   a   s   k  cr  nl   {  cr  nl  cr  nl   /
+0000030    2f  20  e5  85  83  e7  bb  84  28  54  75  70  6c  65  29  e6
+           /  sp   ?  85  83   ?   ?  84   (   T   u   p   l   e   )   ?
+0000040
+```
+
+### hexdump
+Linux/Unix（macOS）下的命令行工具 `od` 可按指定进制格式查看文档：
+
+```shell
+pi@raspberrypi:~ $ man hexdump
+
+NAME
+     hexdump, hd — ASCII, decimal, hexadecimal, octal dump
+
+SYNOPSIS
+     hexdump [-bcCdovx] [-e format_string] [-f format_file] [-n length] [-s skip] file ...
+     hd [-bcdovx] [-e format_string] [-f format_file] [-n length] [-s skip] file ...
+```
+
+**`-b`**      One-byte octal display.  
+**`-c`**      One-byte character display.  
+**`-C`**      Canonical hex+ASCII display.  
+**`-d`**      Two-byte decimal display.  
+**`-o`**      Two-byte octal display.  
+**`-x`**      Two-byte hexadecimal display.  
+
+**`-s`** offset: Skip offset bytes from the beginning of the input（跳过开头指定长度的字节）  
+**`-n`** length: Interpret only length bytes of input（ 只 dump 转译指定长度的内容）  
+
+---
+
+可以 hexdump 出 UTF-8 编码的文本文件，通过开头3个字节来判断是否带BOM：
+
+> 如果开头3个字节为 `ef bb bf`，则为带 BOM 编码；否则为不带 BOM 编码。
+
+```shell
+# 等效 hexdump -C litetransfer.cpp | head -n 4
+faner@MBP-FAN:~/Downloads|⇒  hexdump -n 64 -C tuple.h
+00000000  ef bb bf 0d 0a 23 70 72  61 67 6d 61 20 6f 6e 63  |.....#pragma onc|
+00000010  65 0d 0a 0d 0a 6e 61 6d  65 73 70 61 63 65 20 41  |e....namespace A|
+00000020  73 79 6e 63 54 61 73 6b  0d 0a 7b 0d 0a 0d 0a 2f  |syncTask..{..../|
+00000030  2f 20 e5 85 83 e7 bb 84  28 54 75 70 6c 65 29 e6  |/ ......(Tuple).|
+00000040
+```
+
+### strings
+
+```shell
+pi@raspberrypi:~ $ man strings
+
+STRINGS(1)                          GNU Development Tools                          STRINGS(1)
+
+NAME
+       strings - print the strings of printable characters in files.
+
+SYNOPSIS
+       strings [-afovV] [-min-len]
+               [-n min-len] [--bytes=min-len]
+               [-t radix] [--radix=radix]
+               [-e encoding] [--encoding=encoding]
+               [-] [--all] [--print-file-name]
+               [-T bfdname] [--target=bfdname]
+               [-w] [--include-all-whitespace]
+               [-s] [--output-separatorsep_string]
+               [--help] [--version] file...
+
+```
+
 ## pipeline
 ### demo 1
 以下为 [Homebrew](https://docs.brew.sh/) [Installation](https://docs.brew.sh/Installation.html) 脚本：

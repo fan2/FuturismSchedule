@@ -343,33 +343,3 @@ SYNOPSIS
                [--help] [--version] file...
 
 ```
-
-## pipeline
-### demo 1
-以下为 [Homebrew](https://docs.brew.sh/) [Installation](https://docs.brew.sh/Installation.html) 脚本：
-
-```shell
-mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
-```
-
-### demo 2
-```shell
-pi@raspberrypi:~ $ echo $PATH
-/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/games:/usr/games
-pi@raspberrypi:~ $ PATH=$PATH:/usr/local/sbin
-pi@raspberrypi:~ $ echo $PATH 
-/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/games:/usr/games:/usr/local/sbin
-```
-
-如何删除刚才追加重复的 `/usr/local/sbin`？
-
-1. 直接 `PATH=` 赋值修改前的值 `/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/games:/usr/games`。  
-2. `PATH=$(echo $PATH | cut -d : -f 1,3-)` 移除第2项；
-
-### demo 3
-
-how count all lines in all files in current dir and omit empty lines with wc, grep, cut and bc commands
-
-```Shell
-echo `wc -l * | grep total | cut -f2 -d’ ‘` – `grep -in “^$” * | wc -l ` | bc
-```

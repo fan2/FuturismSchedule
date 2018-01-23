@@ -306,20 +306,6 @@ mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master
 
 > 若 `mkdir homebrew` 执行完毕且正确执行（成功创建目录 `homebrew`），则启动执行后面的 `curl -L` 命令。  
 
-#### |
-A `pipeline` is a sequence of one or more commands separated by one of the control operators `|` or `|&`. The format for a pipeline is:
-
-```shell
-[time [-p]] [ ! ] command [ [|⎪|&] command2 ... ]
-```
-
-The standard output of *`command`* is connected via a pipe to the standard input of *`command2`*.  
-If **`|&`** is used, *`command`*'s standard error, in addition to its standard output, is connected to *`command2`*'s standard input through the pipe; it is shorthand for `2>&1 |`.  
-
-```shell
-mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
-```
-
 ## zsh
 终端执行以下命令可通过 curl 从 github 下载安装流行的 Zsh（兼容 bash） 配置 [oh-my-zsh](http://ohmyz.sh/)：
 

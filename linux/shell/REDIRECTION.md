@@ -33,6 +33,21 @@ $ find /home -name .bashrc > list 2>&1
 $ find /home -name .bashrc &> list
 ```
 
+**案例**：`ls 2>&1 > dirlist` 
+
+1. 先执行 `2>&1`，stderr 被复制到 stdout，在控制台输出；  
+2. 在执行 `ls > dirlist`，只有 stdout 才会被重定向到 dirlist 文件。  
+
+### tee
+双向重定向：同时将数据送与文件与控制台（stdout）。  
+输出到控制台的部分可以传导给下个命令继续处理。
+
+```shell
+# 将 ls -l 结果追加到文件，同时输出到控制台用more分页显示。
+faner@MBP-FAN:~|⇒  ls -l / | tee -a ~/homefile | more
+```
+
+
 ## <, <<
 输入导向就是将原本应由键盘输入的数据源改为文件。
 
@@ -43,7 +58,7 @@ $ find /home -name .bashrc &> list
 cat > catfile < ~/.bashrc
 ```
 
-当输入 `eof` 时，则结束输入。
+`<<` 用于设定终止输入的控制字符串，以下示例中当输入 `eof` 时，则结束输入。
 
 ```shell
 # 用 stdin 替代键盘的输入以创建新文件

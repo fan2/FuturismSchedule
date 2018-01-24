@@ -23,7 +23,11 @@ A `pipeline` is a sequence of one or more commands separated by one of the contr
 The standard output of *`command`* is connected via a pipe to the standard input of *`command2`*.  
 If **`|&`** is used, *`command`*'s standard error, in addition to its standard output, is connected to *`command2`*'s standard input through the pipe; it is shorthand for `2>&1 |`.  
 
+`ls -al /etc | less`：列举 `/etc` 目录，然后导向 less 使可翻页查看。
+
 ## grep
+grep 过滤筛选出符合条件的行。
+
 执行 `grep -V` 查看版本信息：
 
 ```shell
@@ -36,9 +40,47 @@ There is NO WARRANTY, to the extent permitted by law.
 
 ```shell
 
-执行 `grep --help` 可查看简要帮助。
+执行 `grep --help` 可查看简要帮助（Usage）。
 
-执行 `man grep` 可查看详细帮助手册：
+```shell
+
+Regexp selection and interpretation:
+# 忽略大小写敏感
+  -i, --ignore-case         ignore case distinctions
+  -w, --word-regexp         force PATTERN to match only whole words
+  -x, --line-regexp         force PATTERN to match only whole lines
+
+Miscellaneous:
+# 匹配补集，过滤出不包含 '查找字符串' 的行
+  -v, --invert-match        select non-matching lines
+
+Output control:
+# 最多查找条目，相当于 grep | head -n NUM
+  -m, --max-count=NUM       stop after NUM matches
+  -b, --byte-offset         print the byte offset with output lines
+
+# 顺便打印行号
+  -n, --line-number         print line number with output lines
+      --line-buffered       flush output on every line
+
+  -a, --text                equivalent to --binary-files=text
+
+# 仅仅打印匹配的行数 
+  -c, --count               print only a count of matching lines per FILE
+
+# 查找结果上下文
+Context control:
+# 顺便打印查找结果上面 NUM 行
+  -B, --before-context=NUM  print NUM lines of leading context
+# 顺便打印查找结果下面 NUM 行
+  -A, --after-context=NUM   print NUM lines of trailing context
+# 顺便打印查找结果上面和下面各 NUM 行
+  -C, --context=NUM         print NUM lines of output context
+  -NUM                      same as --context=NUM
+
+```
+
+执行 `man grep` 可查看详细帮助手册（Manual Page）：
 
 ```shell
 pi@raspberrypi:~ $ man grep
@@ -58,7 +100,233 @@ DESCRIPTION
        By default, grep prints the matching lines.
 ```
 
-`svn log --search fan -l 100`（`svn log -l 100 | grep fan`）：从最近100条日志中查找 fan 提交的记录。  
+### ls
+`ls -al | grep '^d'`：过滤出 ls 结果中以 d 开头的（即文件夹）。  
+
+### svn log
+`svn log -l 100 | grep fan`（`svn log --search fan -l 100`）：从最近100条日志中查找 fan 提交的记录。
+
+### file
+
+```shell
+# 查找 src/ 下所有文件编码为 ISO-8859 的文件个数
+faner@MBP-FAN:~/Downloads/src|⇒  find . -type f -exec file {} \; | grep -c 'ISO-8859'
+15
+```
+
+## cut
+cut 可以基于分隔符（separator/delimiter）将行内数据进行切割，分解出所需的信息列。
+
+执行 `cut --version` 查看版本信息：
+
+```shell
+pi@raspberrypi:~ $ cut --version
+cut (GNU coreutils) 8.26
+Copyright (C) 2016 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Written by David M. Ihnat, David MacKenzie, and Jim Meyering.
+```
+
+执行 `cut --help` 可查看简要帮助（Usage）。
+
+```shell
+-c, --characters=LIST   select only these characters
+-d, --delimiter=DELIM   use DELIM instead of TAB for field delimiter
+-f, --fields=LIST       select only these fields;
+```
+
+执行 `man cut` 可查看详细帮助手册（Manual Page）：
+
+```shell
+pi@raspberrypi:~ $ man cut
+
+CUT(1)                                  User Commands                                  CUT(1)
+
+NAME
+       cut - remove sections from each line of files
+
+SYNOPSIS
+       cut OPTION... [FILE]...
+
+DESCRIPTION
+       Print selected parts of lines from each FILE to standard output.
+
+       With no FILE, or when FILE is -, read standard input.
+
+       Mandatory arguments to long options are mandatory for short options too.
+```
+
+### PATH
+PATH 环境变量是以 `:` 分隔多个路径，可以使用 cut 命令提取其中部分路径。
+
+```shell
+faner@MBP-FAN:~|⇒  echo $PATH
+/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin
+faner@MBP-FAN:~|⇒  echo $PATH | cut -d ':' -f 3  
+/bin
+faner@MBP-FAN:~|⇒  echo $PATH | cut -d ':' -f 5
+/sbin
+faner@MBP-FAN:~|⇒  echo $PATH | cut -d ':' -f 3,5
+/bin:/sbin
+```
+
+### enca
+
+enca 执行结果输出行格式为 `file: iconv charset`：
+
+```shell
+faner@MBP-FAN:~/Downloads/include|⇒  enca -L zh_CN -i *
+UtilcFunctions.h: ASCII
+WifiPhotoIf.h: UTF-8
+liteif.h: GBK
+litelog.h: UTF-8
+litenet.h: ASCII
+litestd.h: UTF-8
+litetime.h: ASCII
+
+# 提取第1列：文件名称
+faner@MBP-FAN:~/Downloads/include|⇒  enca -L zh_CN -i * | cut -d ':' -f 1
+UtilcFunctions.h
+WifiPhotoIf.h
+liteif.h
+litelog.h
+litenet.h
+litestd.h
+litetime.h
+
+# 提取第2列：字符编码(注意行首有空格)
+faner@MBP-FAN:~/Downloads/include|⇒  enca -L zh_CN -i * | cut -d ':' -f 2
+ ASCII
+ UTF-8
+ GBK
+ UTF-8
+ ASCII
+ UTF-8
+ ASCII
+```
+
+### file
+file 执行结果输出行格式为 `file: description & charset`：
+
+```shell
+faner@MBP-FAN:~/Downloads/include|⇒  file *
+UtilcFunctions.h: c program text, ASCII text
+WifiPhotoIf.h:    c program text, UTF-8 Unicode text
+liteif.h:         c program text, ISO-8859 text, with CRLF line terminators
+litelog.h:        c program text, UTF-8 Unicode (with BOM) text
+litenet.h:        c program text, ASCII text, with CRLF, LF line terminators
+litestd.h:        c program text, UTF-8 Unicode text, with CRLF line terminators
+litetime.h:       c program text, ASCII text, with CRLF line terminators
+
+# 先以 : 分割第1列，再以 , 分割第2列，获取编码部分
+faner@MBP-FAN:~/Downloads/include|⇒  file * | cut -d ':' -f 2 | cut -d ',' -f 2
+ ASCII text
+ UTF-8 Unicode text
+ ISO-8859 text
+ UTF-8 Unicode (with BOM) text
+ ASCII text
+ UTF-8 Unicode text
+ ASCII text
+```
+
+### export
+export 声明变量排列整齐，可据此以字符为单位提取固定字符位置区间：
+
+```shell
+# 获取 export 前4条
+pi@raspberrypi:~ $ export | head -n 4
+declare -x DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/1000/bus"
+declare -x HOME="/home/pi"
+declare -x INFINALITY_FT_AUTOHINT_HORIZONTAL_STEM_DARKEN_STRENGTH="10"
+declare -x INFINALITY_FT_AUTOHINT_INCREASE_GLYPH_HEIGHTS="true"
+
+# 提取12个字符及其后的部分（移除行首的11个字符(declare -x )）
+## 12为起始位置，-后面未指定结束位置，表示至行尾
+pi@raspberrypi:~ $ export | head -n 4 | cut -c 12-
+DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/1000/bus"
+HOME="/home/pi"
+INFINALITY_FT_AUTOHINT_HORIZONTAL_STEM_DARKEN_STRENGTH="10"
+INFINALITY_FT_AUTOHINT_INCREASE_GLYPH_HEIGHTS="true"
+```
+
+其他像 ps、last 等命令输出都由空白（空格或tab 制表符）控制排版格式，连续空白较难合适分割。
+
+### grep & cut
+grep 和 cut  综合示例：
+
+```shell
+faner@MBP-FAN:~/Downloads/include|⇒  file *
+UtilcFunctions.h: c program text, ASCII text
+WifiPhotoIf.h:    c program text, UTF-8 Unicode text
+liteif.h:         c program text, ISO-8859 text, with CRLF line terminators
+litelog.h:        c program text, UTF-8 Unicode (with BOM) text
+litenet.h:        c program text, ASCII text, with CRLF, LF line terminators
+litestd.h:        c program text, UTF-8 Unicode text, with CRLF line terminators
+litetime.h:       c program text, ASCII text, with CRLF line terminators
+
+# 过滤出编码为 ISO-8859 的文件
+faner@MBP-FAN:~/Downloads/include|⇒  file * | grep ISO-8859 | cut -d ':' -f 1
+liteif.h
+```
+
+## wc,sort,uniq
+### wc
+**wc** - print newline, word, and byte counts for each file
+
+```shell
+-c, --bytes
+      print the byte counts
+
+-m, --chars
+      print the character counts
+
+-w, --words
+      print the word counts
+
+-l, --lines
+      print the newline counts
+```
+
+### sort
+**sort** - sort lines of text files
+
+### uniq
+**uniq** - report or omit repeated lines
+
+统计 `mars/mars/stn/src` 目录下类数（同名的 h/cc）
+
+```shell
+faner@MBP-FAN:~/Projects/git/framework/mars/mars/stn/src|master⚡ 
+⇒  ls | cut -d '.' -f 1 | uniq -c
+   2 anti_avalanche
+   2 dynamic_timeout
+   2 flow_limit
+   2 frequency_limit
+   2 longlink
+   2 longlink_connect_monitor
+   2 longlink_identify_checker
+   2 longlink_speed_test
+   2 longlink_task_manager
+   2 net_channel_factory
+   2 net_check_logic
+   2 net_core
+   2 net_source
+   2 netsource_timercheck
+   2 proxy_test
+   2 shortlink
+   1 shortlink_interface
+   2 shortlink_task_manager
+   2 signalling_keeper
+   2 simple_ipport_sort
+   2 smart_heartbeat
+   1 special_ini
+   1 task_profile
+   2 timing_sync
+   2 zombie_task_manager
+```
 
 ## sed
 执行 `sed --version` 查看版本信息：
@@ -78,9 +346,9 @@ General help using GNU software: <http://www.gnu.org/gethelp/>.
 E-mail bug reports to: <bug-sed@gnu.org>.
 ```
 
-执行 `sed --help` 可查看简要帮助。
+执行 `sed --help` 可查看简要帮助（Usage）。
 
-执行 `man sed` 可查看详细帮助手册：
+执行 `man sed` 可查看详细帮助手册（Manual Page）：
 
 ```shell
 pi@raspberrypi:~ $ man sed
@@ -105,43 +373,6 @@ DESCRIPTION
 
 `svn log -v | sed -n '/fan/,/-----$/ p'` 
 
-## cut
-执行 `cut --version` 查看版本信息：
-
-```shell
-pi@raspberrypi:~ $ cut --version
-cut (GNU coreutils) 8.26
-Copyright (C) 2016 Free Software Foundation, Inc.
-License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>.
-This is free software: you are free to change and redistribute it.
-There is NO WARRANTY, to the extent permitted by law.
-
-Written by David M. Ihnat, David MacKenzie, and Jim Meyering.
-```
-
-执行 `cut --help` 可查看简要帮助。
-
-执行 `man cut` 可查看详细帮助手册：
-
-```shell
-pi@raspberrypi:~ $ man cut
-
-CUT(1)                                  User Commands                                  CUT(1)
-
-NAME
-       cut - remove sections from each line of files
-
-SYNOPSIS
-       cut OPTION... [FILE]...
-
-DESCRIPTION
-       Print selected parts of lines from each FILE to standard output.
-
-       With no FILE, or when FILE is -, read standard input.
-
-       Mandatory arguments to long options are mandatory for short options too.
-```
-
 ## xargs
 执行 `xargs --version` 查看版本信息：
 
@@ -156,9 +387,9 @@ There is NO WARRANTY, to the extent permitted by law.
 Written by Eric B. Decker, James Youngman, and Kevin Dalley.
 ```
 
-执行 `xargs --help` 可查看简要帮助。
+执行 `xargs --help` 可查看简要帮助（Usage）。
 
-执行 `man xargs` 可查看详细帮助手册：
+执行 `man xargs` 可查看详细帮助手册（Manual Page）：
 
 ```shell
 pi@raspberrypi:~ $ man xargs
@@ -180,7 +411,8 @@ DESCRIPTION
 
 ## demos
 ### demo 1
-[Homebrew](https://docs.brew.sh/) [Installation](https://docs.brew.sh/Installation.html) 脚本，基于 `&&` 递进执行相关命令：创建目录，下载并解压。
+  
+- [Homebrew](https://docs.brew.sh/) [Installation](https://docs.brew.sh/Installation.html) 脚本，基于 `&&` 递进执行相关命令：创建目录，下载并解压。
 
 ```shell
 mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
@@ -217,3 +449,8 @@ how count all lines in all files in current dir and omit empty lines with wc, gr
 echo `wc -l * | grep total | cut -f2 -d’ ‘` – `grep -in “^$” * | wc -l ` | bc
 ```
 
+### demo.todo
+- 针对当前（指定）目录下的文件执行 **`file`** 命令，过滤出编码为 ASCII,UTF-8 之外的所有文件。  
+	> grep -v；正则或；  
+- 针对当前（指定）目录下的文件执行 **`file`** 命令，过滤出编码为 *`ISO-8859`* 的文件，执行 **`iconv`** 或 **`enca`** 将以上文件都转码为 *`UTF-8`*。  
+	> cut grep 结果集切出符合条件的文件集；针对文件集进行批量转码。  

@@ -24,10 +24,20 @@ faner@THOMASFAN-MB0:~/Library/Application Support/Sublime Text 3/Packages/User|
 ```
 
 ## ls
+`ls -ld`: 显示当前文件夹(`.`)信息。  
+
+`ls -lS`：按大小（**降序**）列出文件和文件夹详细信息。  
+`ls -lSr`：按大小**升序**列出文件和文件夹详细信息。  
+
+`ls -lt`：按修改时间（**降序**）列出文件和文件夹详细信息。  
+`ls -ltr`：按修改时间**升序**列出文件和文件夹详细信息。  
+
+`ls -lR`：递归列举当前及所有子文件夹。
+
 只列举文件夹：
 
 - `ls -d */`  
-- `ls -al | grep '^d'`：过滤出以 d 开头的（文件夹）  
+- `ls -l | grep '^d'`：过滤出以 d 开头的（文件夹）  
 
 其他命令：
 
@@ -37,6 +47,27 @@ faner@THOMASFAN-MB0:~/Library/Application Support/Sublime Text 3/Packages/User|
 > [Listing only directories in UNIX](https://stackoverflow.com/questions/3667329/listing-only-directories-in-unix)  
 > [ls to view directories only](https://www.linuxquestions.org/questions/linux-newbie-8/ls-to-view-directories-only-156254/)  
 > [List Directories in Unix and Linux Systems](https://www.cyberciti.biz/faq/linux-list-just-directories-or-directory-names/list-dirs-in-unix-linux/)  
+> [first two results from ls command](https://stackoverflow.com/questions/10520120/first-two-results-from-ls-command)  
+
+### file count
+[Counting files in a directory from the terminal](http://hints.macworld.com/article.php?story=20010508182132282)  
+
+```shell
+# （递归）统计当前目录下(.)文件夹数量
+## 比 ls -lR | grep '^d' 多1个
+faner@MBP-FAN:~/Downloads/src|⇒  find . -type d -print | wc -l
+       7
+
+# （递归）统计当前目录下(.)文件数量
+## 等效于 ls -lR | grep -c '^-'
+faner@MBP-FAN:~/Downloads/src|⇒  find . -type f -print | wc -l
+       93
+```
+
+### file size
+[How to Get the Size of a Directory from Command Line](http://osxdaily.com/2017/03/09/get-size-directory-command-line/)  
+
+进入指定文件夹执行 `du -sh`
 
 ## [bc](https://en.wikipedia.org/wiki/Bc_(programming_language))
 [bc](https://www.gnu.org/software/bc/manual/html_mono/bc.html)(basic calculator) - An arbitrary precision calculator language  

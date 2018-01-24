@@ -280,8 +280,8 @@ pi@raspberrypi:/lib/modules/4.9.59-v7+/kernel $ ls | wc -l
 
 鉴于反单引号容易打错或弄错，建议使用 **`$(uname -r)`** 这种解引用格式。
 
-#### && / ||
-使用空格或分号（`;`）可执行无相关性的连续命令：
+#### ;, &&, ||
+使用空格或分号（**`;`**）可执行无相关性的连续命令：
 
 ```
 faner@THOMASFAN-MB0:~|⇒  test1='test 1' test2='test 2'
@@ -294,7 +294,7 @@ test 1
 test 2
 ```
 
-`&&` 和 `||` 则可连续执行相关性的命令。
+**`&&`** 和 **`||`** 则可连续执行相关性的命令。
 
 `command1 || command2`：在逻辑上只要有第一条命令执行成功就不会执行第二条命令，只有第一条命令执行失败才会启动执行第二条命令。
 
@@ -304,7 +304,9 @@ test 2
 mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master
 ```
 
-> 若 `mkdir homebrew` 执行完毕且正确执行（成功创建目录 `homebrew`），则启动执行后面的 `curl -L` 命令。  
+`mkdir homebrew` 正确执行完毕，即成功创建目录 `homebrew`，才会启动执行后面的 `curl -L` 命令。  
+
+这些符号为 BASH 的 token(control operator)。
 
 ## zsh
 终端执行以下命令可通过 curl 从 github 下载安装流行的 Zsh（兼容 bash） 配置 [oh-my-zsh](http://ohmyz.sh/)：

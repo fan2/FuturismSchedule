@@ -109,7 +109,7 @@ MAN(1)                         手册分页显示工具                         
 ```
 
 ## man pager help
-man 默认使用可翻页查看的 less 作为分页器，可指定 `-P pager`（`--pager=pager`） 选项来修改输出分页器程序。
+man 默认使用可翻页查看的 **less** 作为分页器，可指定 `-P pager`（`--pager=pager`） 选项来修改输出分页器程序。
 
 > This option overrides the `$MANPAGER` environment variable, which in turn overrides the `$PAGER` environment variable.
 

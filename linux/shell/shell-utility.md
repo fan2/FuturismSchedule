@@ -226,6 +226,17 @@ faner@THOMASFAN-MB0:~/Downloads/crx|
 Linux/Unix（macOS）下的命令行工具 `od` 可按指定进制格式查看文档：
 
 ```shell
+pi@raspberrypi:~ $ od --version
+od (GNU coreutils) 8.26
+Copyright (C) 2016 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Written by Jim Meyering.
+```
+
+```shell
 pi@raspberrypi:~ $ man od
 
 NAME
@@ -252,7 +263,7 @@ SYNOPSIS
 
 **`-t`**, --format=TYPE
 
-> select output format or formats（定制 dump 输出格式：`[d|o|u|x][C|S|I|L|n]`）
+> select output format or formats（dump 输出的级联复合格式：`[d|o|u|x][C|S|I|L|n]`）
 
 - `[doux]` 可指定有符号十、八、无符号十、十六进制；  
 - `[CSIL]` 可指定 sizeof(char)=1, sizeof(short)=2, sizeof(int)=4, sizeof(long)=8 作为 group_bytes_by_bits；或直接输入数字[1,2,4,8]。
@@ -282,7 +293,7 @@ faner@MBP-FAN:~/Downloads|⇒  od -N 64 -A x -t x1a tuple.h
 ```
 
 ### hexdump
-Linux/Unix（macOS）下的命令行工具 `od` 可按指定进制格式查看文档：
+Linux/Unix（macOS）下的命令行工具 `hexdump` 可按指定进制格式查看文档：
 
 ```shell
 pi@raspberrypi:~ $ man hexdump

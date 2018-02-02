@@ -3,7 +3,7 @@ cd（change directory）：切换文件目录。
 
 - `cd` / `cd ~`：进入当前用户的家目录（$HOME）；  
 - `cd ..`：返回上级目录；  
-- `cd -`：返回上次访问目录。  
+- `cd -`：返回上次访问目录（相当于 `cd $OLDPWD`），再次执行在近两次目录之间切换。  
 
 切换到带有空格的路径，需要加转义字符（反斜杠<kbd>\\</kbd>）来标识空格。
 
@@ -22,6 +22,100 @@ faner@THOMASFAN-MB0:~|⇒  dir="/Users/faner/Library/Application Support/Sublime
 faner@THOMASFAN-MB0:~|⇒  cd $dir
 faner@THOMASFAN-MB0:~/Library/Application Support/Sublime Text 3/Packages/User|
 ```
+
+### pushd & popd
+`cd -` 可在近两次目录之间切换，当涉及3个以上的工作目录需要切换时，可以使用 pushd 和 popd 命令。
+
+macOS 的 zsh 命令行输入 push 然后 tab 可以查看所有 push 相关命令：
+
+```shell
+faner@MBP-FAN:~|⇒  push
+pushd   pushdf  pushln
+```
+
+- 其中 **pushdf** 表示切换到当前 Finder 目录（`pushd` to the current Finder directory）。  
+- 关于 **pushln** 可参考 zsh-manual [Shell Builtin Commands](http://bolyai.cs.elte.hu/zsh-manual/zsh_toc.html#TOC65) 中的说明。  
+
+> 在 macOS 终端中执行 `man pushd` 或 `man popd` 可知，他们为 BASH 内置命令（Shell builtin commands）。
+
+**`pushd`** 和 **`popd`** 可以用于在多个目录（directory）之间进行切换（push/pop）而无需复制并粘贴目录路径。 
+
+`pushd` 和 `popd` 以栈的方式来运作，后进先出（Last In First Out, LIFO）。目录路径被存储在栈中，然后用 push 和 pop 操作在目录之间进行切换。
+
+```shell
+
+# 执行 dirs -c 清理栈之后，只剩当前目录
+faner@MBP-FAN:~|⇒  dirs
+~
+
+# 将 ~/Downloads 目录压栈
+faner@MBP-FAN:~|⇒  pushd Downloads 
+~/Downloads ~
+
+# 将 ~/Documents 目录压栈
+faner@MBP-FAN:~/Downloads|⇒  pushd ../Documents 
+~/Documents ~/Downloads ~
+
+# 依次执行 pushd ../Movies、pushd ../Pictures、pushd ../AppData、pushd ../Applications、pushd ../Desktop
+
+# 将 ~/Music 目录压栈
+faner@MBP-FAN:~/Desktop|⇒  pushd ../Music 
+~/Music ~/Desktop ~/Applications ~/AppData ~/Pictures ~/Movies ~/Documents ~/Downloads ~
+```
+
+**`dirs`**：查看当前 Shell 窗口操作过的目录栈记录，索引0表示栈顶。
+
+ 选项 | 含义
+-----|------
+-p  | 每行显示一条记录
+-v  | 每行显示一条记录，同时展示该记录在栈中的index
+-c  | 清空目录栈
+
+```shell
+# 查看当前栈，0为栈顶，8为栈底
+faner@MBP-FAN:~/Music|⇒  dirs -v
+0   ~/Music
+1   ~/Desktop
+2   ~/Applications
+3   ~/AppData
+4   ~/Pictures
+5   ~/Movies
+6   ~/Documents
+7   ~/Downloads
+8   ~
+```
+
+- 不带参数输入 **pushd** 会将栈顶目录和下一目录对调，相当于 `cd -` 的效果。  
+
+	> pushd 还可以带索引选项 +n，**切换**到当前栈中从栈底开始计数的某个目录。
+
+- 不带参数输入 **popd** 会移除栈顶（当前）目录，切换到上一次访问的目录。  
+
+	> popd 还可以带索引选项 +n，移除当前栈中从栈底开始计数的某个目录。
+
+对于 `pushd +n` 和 `popd +n`，索引顺序与 `dirs -v` 相反，从栈底开始计数；  
+反过来 `pushd -n` 和 `popd -n` 索引顺序与 `dirs -v` 相同，从栈顶开始计数。
+
+```shell
+# 从栈底（索引为0）右往左数第3个目录 ~/Movies 重新压入栈顶，相当于切换到该目录
+faner@MBP-FAN:~/Music|⇒  pushd +3
+~/Movies ~/Documents ~/Downloads ~ ~/Music ~/Desktop ~/Applications ~/AppData ~/Pictures
+
+# 从栈顶（索引为-0）左往右数第3个目录 ~ 移除出栈
+faner@MBP-FAN:~/Movies|⇒  popd -3
+~/Movies ~/Documents ~/Downloads ~/Music ~/Desktop ~/Applications ~/AppData ~/Pictures
+
+# 从栈顶（索引为-0）左往右数第3个目录 ~/Music 重新压入栈顶，相当于切换到该目录
+faner@MBP-FAN:~/Movies|⇒  pushd -3
+~/Music ~/Desktop ~/Applications ~/AppData ~/Pictures ~/Movies ~/Documents ~/Downloads
+
+# 从栈底（索引为0）右往左数第3个目录 ~/Pictures 移除出栈
+faner@MBP-FAN:~/Music|⇒  popd +3
+~/Music ~/Desktop ~/Applications ~/AppData ~/Movies ~/Documents ~/Downloads
+```
+
+[Linux中的pushd和popd](https://www.jianshu.com/p/53cccae3c443)  
+[在命令行中使用pushd和popd进行快速定位](http://blog.sina.com.cn/s/blog_b6b704ef0102wjdk.html)  
 
 ## ls
 `ls -ld`: 显示当前文件夹(`.`)信息。  

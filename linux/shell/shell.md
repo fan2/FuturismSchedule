@@ -338,3 +338,22 @@ zsh 5.2 (x86_64-apple-darwin16.0)
 2. 输入 bash 进入 bash 命令环境，然后再执行命令或脚本：`bash-3.2$ ./startup.sh`；通过快捷键 <C-d> 或输入 exit 退回默认 Shell（zsh）。  
 3. Shell | New Command（<kbd>⇧</kbd><kbd>⌘</kbd><kbd>N</kbd>）输入 `/bin/bash`，新建 bash shell 临时窗口。  
 4. 在终端执行 `chsh -s /bin/bash` 命令（重启生效）将 Shell 切回默认的 bash。  
+
+### [plugin.zsh](https://github.com/robbyrussell/oh-my-zsh/wiki/Plugins)
+#### osx
+
+| :-------------- | :----------------------------------------------- |
+| `tab`           | Open the current directory in a new tab<br/>相当于<kbd>⌘</kbd>+<kbd>T</kbd>          |
+| `split_tab`     | Split the current terminal tab horizontally      |
+| `vsplit_tab`    | Split the current terminal tab vertically        |
+| `ofd`           | Open the current directory in a Finder window<br/>相当于 `open .`   |
+| `pfd`           | Return the path of the frontmost Finder window   |
+| `pfs`           | Return the current Finder selection              |
+| `cdf`           | `cd` to the current Finder directory             |
+| `pushdf`        | `pushd` to the current Finder directory          |
+| `quick-look`    | Quick-Look a specified file                      |
+| `man-preview`   | Open a specified man page in Preview app<br/>在preview中生成指定命令的PDF格式man page        |
+| `showfiles`     | Show hidden files                                |
+| `hidefiles`     | Hide the hidden files                            |
+| `itunes`        | Control iTunes. User `itunes -h` for usage details |
+| `spotify`       | Control Spotify and search by artist, album, track and etc.|

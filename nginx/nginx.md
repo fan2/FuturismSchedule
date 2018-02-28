@@ -1,6 +1,7 @@
 [facebook/proxygen](https://github.com/facebook/proxygen)  
 [Proxygen：Facebook开源的 C++ HTTP 框架](http://blog.jobbole.com/83496/)
 
+《学习 Nginx HTTP Server》 - 清华大学出版社 - 陶利军 译
 
 [nginx/nginx](https://github.com/nginx/nginx)  
 [Configuring HTTPS servers](http://nginx.org/en/docs/http/configuring_https_servers.html)

@@ -189,6 +189,12 @@ pi@raspberrypi:~ $ echo $testString
 define string in shell command line
 ```
 
+引述包含空格的文件名：
+
+```shell
+mv "a ~file name.txt" another.txt
+```
+
 #### double quotes
 单引号将 `$` 视作普通字符，不会替代解引用变量值：
 
@@ -279,6 +285,8 @@ pi@raspberrypi:/lib/modules/4.9.59-v7+/kernel $ ls | wc -l
 2. 将上述结果代入 cd 命令的目录中，得到实际命令 `/lib/modules/4.9.59-v7+/kernel`。  
 
 鉴于反单引号容易打错或弄错，建议使用 **`$(uname -r)`** 这种解引用格式。
+
+相比反引号，`$()` 可以区分左右，因此支持嵌套。
 
 #### ;, &&, ||
 使用空格或分号（**`;`**）可执行无相关性的连续命令：

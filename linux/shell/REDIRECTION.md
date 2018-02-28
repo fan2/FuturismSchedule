@@ -23,6 +23,8 @@ $ find /home -name .bashrc > list_right 2> list_error
 $ find /home -name .bashrc 2> /dev/null
 ```
 
+> `clang -dM -E -arch i386 -x c /dev/null` ？
+
 如何将正确和错误的数据都写入同一文件呢？
 
 ```shell

@@ -12,6 +12,12 @@ pi@raspberrypi:~ $ PATH=$PATH:/usr/local/sbin
 pi@raspberrypi:~ $ PATH=${PATH}:/usr/local/sbin
 ```
 
+关于 PATH 变量，参考 `PARAMETERS | Shell Variables`：
+
+**PATH**: The search path for commands.  
+
+> It is a colon-separated list of directories in which the shell looks for commands (see COMMAND EXECUTION below).
+
 ## 自定义变量（local variable）
 通过等号（`=`）可自定义变量，但是变量的作用域只局限于当前 shell 进程：
 

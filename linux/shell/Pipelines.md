@@ -64,7 +64,11 @@ Output control:
 
   -a, --text                equivalent to --binary-files=text
 
-# 仅仅打印匹配的行数 
+# 只列举（不）符合条件的文件名
+  -L, --files-without-match  print only names of FILEs containing no match
+  -l, --files-with-matches  print only names of FILEs containing matches
+
+# 仅仅打印匹配的行数
   -c, --count               print only a count of matching lines per FILE
 
 # 查找结果上下文
@@ -434,10 +438,16 @@ pi@raspberrypi:~ $ echo $PATH
 执行 `PATH=$(echo $PATH | cut -d : -f 1,3-)` 可移除第2项；
 
 ### demo 3
+查找当前目录及其子目录下所有的 `.o` 文件，然后通过管道 xargs 作为参数传递给 `rm -rf`  [递归删除子目录下所有.o后缀文件](http://blog.163.com/sweet_hard/blog/static/66656838201162294812840/)：
+
+```shell
+find . -name "*.o"  | xargs rm -f
+```
+
 查找当前目录下的 `.svn` 目录，然后通过管道 xargs 作为参数传递给 `rm -rf` 执行删除。
 
 ```shell
-find . -type d -name ".svn"|xargs rm -rf
+find . -type d -name ".svn" | xargs rm -rf
 ```
 
 ### demo 4

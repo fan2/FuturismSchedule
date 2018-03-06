@@ -101,6 +101,33 @@ DESCRIPTION
        grep searches the named input FILEs for lines containing a match to the given PATTERN.
        If no files are specified, or if the file “-” is given, grep searches standard  input.
        By default, grep prints the matching lines.
+
+       In  addition,  the  variant  programs  egrep, fgrep and rgrep are the same as grep -E,
+       grep -F, and grep -r, respectively.  These variants are deprecated, but  are  provided
+       for backward compatibility.
+
+OPTIONS
+   Generic Program Information
+       --help Output a usage message and exit.
+
+       -V, --version
+              Output the version number of grep and exit.
+
+   Matcher Selection
+       -E, --extended-regexp
+              Interpret PATTERN as an extended regular expression (ERE, see below).
+
+       -F, --fixed-strings
+              Interpret  PATTERN as a list of fixed strings (instead of regular expressions),
+              separated by newlines, any of which is to be matched.
+
+       -G, --basic-regexp
+              Interpret PATTERN as a basic regular expression (BRE, see below).  This is  the
+              default.
+
+       -P, --perl-regexp
+              Interpret  the pattern as a Perl-compatible regular expression (PCRE).  This is
+              highly experimental and grep -P may warn of unimplemented features.
 ```
 
 ### ls

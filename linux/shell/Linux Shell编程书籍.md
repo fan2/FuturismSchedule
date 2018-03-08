@@ -21,6 +21,26 @@
 [第1版](http://download.csdn.net/download/machen_smiling/9612846) @CSDN  
 [第2版](http://download.csdn.net/download/johnllon/8997403) @CSDN  
 
+## [Linux命令行与shell脚本编程大全(第3版)](https://book.douban.com/subject/26854226/)
+作者: [美]布鲁姆，布雷斯纳汉  
+出版社: 人民邮电出版社  
+译者: 门佳 / 武海峰  
+出版年: 2016-8-1  
+页数: 605  
+定价: CNY 109.00  
+
+[pdf](http://download.csdn.net/download/chuweijiong3375/10209734) @CSDN  
+
+## [Linux Shell编程艺术](https://book.douban.com/subject/26609383/)
+作者: 张泽  
+出版社: 电子工业出版社  
+出版年: 2014-1  
+页数: 476  
+定价: 88.00元  
+
+[pdf](http://download.csdn.net/download/frank_20080215/8878059) @CSDN  
+[@jd](https://item.jd.com/10984615903.html)
+
 ## [Linux Shell脚本攻略(第2版)](https://book.douban.com/subject/25791952/)
 豆瓣评分: 8.1  
 
@@ -34,26 +54,6 @@
 
 [mobi](http://download.csdn.net/download/woaielf/9708883) / [pdf](http://download.csdn.net/download/jingerppp/9964353)  @CSDN  
 [@jd](https://item.jd.com/11381298.html)  
-
-## [Linux Shell编程艺术](https://book.douban.com/subject/26609383/)
-作者: 张泽  
-出版社: 电子工业出版社  
-出版年: 2014-1  
-页数: 476  
-定价: 88.00元  
-
-[pdf](http://download.csdn.net/download/frank_20080215/8878059) @CSDN  
-[@jd](https://item.jd.com/10984615903.html)
-
-## [Linux命令行与shell脚本编程大全(第3版)](https://book.douban.com/subject/26854226/)
-作者: [美]布鲁姆，布雷斯纳汉  
-出版社: 人民邮电出版社  
-译者: 门佳 / 武海峰  
-出版年: 2016-8-1  
-页数: 605  
-定价: CNY 109.00  
-
-[pdf](http://download.csdn.net/download/chuweijiong3375/10209734) @CSDN  
 
 ## 其他
 《[Linux 命令行大全](https://item.jd.com/11196146.html)》  

@@ -97,7 +97,7 @@ litetime.h:       text/x-c; charset=us-ascii
 过滤出当前目录下文件编码为 `ISO-8859` 的文件信息：
 
 ```shell
-⇒  file * | grep ISO-8859
+⇒  file * | grep 'ISO-8859'
 ./litetransfer.cpp: c program text, ISO-8859 text, with CRLF line terminators
 ./tuple.h: C++ source text, ISO-8859 text, with CRLF line terminators
 ```
@@ -105,13 +105,13 @@ litetime.h:       text/x-c; charset=us-ascii
 除了 file 本身是作用于当前目录，也可以指定 maxdepth 为 1  执行 find 查找当前目录下的文件（`-type` 为 f），然后再执行 grep 过滤：
 
 ```
-find . -maxdepth 1 -type f -exec file {} \; | grep ISO-8859
-find . -maxdepth 1 -type f | xargs file | grep ISO-8859
+find . -maxdepth 1 -type f -exec file {} \; | grep 'ISO-8859'
+find . -maxdepth 1 -type f | xargs file | grep 'ISO-8859'
 ```
 
 若 find 不指定 maxdepth，则会递归查找当前目录及其子目录下的所有文件：
 
-`find . -type f | xargs file | grep ISO-8859`
+`find . -type f | xargs file | grep 'ISO-8859'`
 
 ---
 
@@ -439,10 +439,10 @@ done
 首先利用管道批量查找过滤出混合中文编码的文件：
 
 ```shell
-find . -type f | xargs file | grep ISO-8859 | cut -d ':' -f 1
-find . -type f | xargs file -I | grep iso-8859 | cut -d ':' -f 1
-find . -type f | xargs enca -L zh_CN -m | grep GB2312 | cut -d ':' -f 1
-find . -type f | xargs enca -L zh_CN -i | grep GBK | cut -d ':' -f 1
+find . -type f | xargs file | grep 'ISO-8859' | cut -d ':' -f 1
+find . -type f | xargs file -I | grep 'iso-8859' | cut -d ':' -f 1
+find . -type f | xargs enca -L zh_CN -m | grep 'GB2312' | cut -d ':' -f 1
+find . -type f | xargs enca -L zh_CN -i | grep 'GBK' | cut -d ':' -f 1
 ```
 
 > 1. 利用 `find` 命令查找当前文件夹及其子目录下的所有文件；  
@@ -453,7 +453,54 @@ find . -type f | xargs enca -L zh_CN -i | grep GBK | cut -d ':' -f 1
 
 ```shell
 faner@MBP-FAN:~/Classes/module/liteTransfer/src2|
-⇒  find . -type f | xargs file | grep ISO-8859 | cut -d ':' -f 1 | xargs enca -L zh_CN -x utf-8
+⇒  find . -type f | xargs file | grep 'ISO-8859' | cut -d ':' -f 1 | xargs enca -L zh_CN -x utf-8
+```
+
+#### GB18030_2_UTF-8.sh
+
+鉴于以上一句复合命令没有中间结果输出，可采用 Shell 脚本实现批处理筛检转码并输出有效信息。
+
+```
+#!/bin/bash
+fileCount=$(find . -type f | xargs file | grep 'ISO-8859' | wc -l)
+if [ $fileCount -gt 0 ]
+then
+    echo "########################################"
+    echo "find/grep $fileCount files encoding with ISO-8859 before convert"
+    echo "########################################"
+
+    read -p "Are you sure you want to convert the $fileCount files' encoding to UTF-8? <y/N> " prompt
+    if [[ $prompt == "y" || $prompt == "Y" || $prompt == "yes" || $prompt == "Yes" ]]
+    then
+        find . -type f | xargs file | grep 'ISO-8859' | while read fileInfoLine;
+        do
+            echo $fileInfoLine              # 打印符号条件的行信息
+            fileName=${fileInfoLine%%:*}    # 取相对文件名（路径）
+            #echo $fileName
+
+            # 方案1：先备份再转码覆盖
+            iconv -f GB18030 -t UTF-8 $fileName > ${fileName}.utf8
+            #mv $fileName ${fileName}.18030 # 可选备份。如不执行，等效于方案2。
+            mv ${fileName}.utf8 $fileName
+
+            # 方案2：直接转码覆盖
+            # enca -L zh_CN -x utf-8 $fileName
+        done
+        # 方案1
+        #echo "########################################"
+        #echo "被转码的源文件备份如下："
+        #echo "########################################"
+        #find . -type f -name "*.18030"
+        # 方案2
+        echo "########################################"
+        find . -type f | xargs file | grep 'ISO-8859' | echo "find/grep $(wc -l) files encoding with ISO-8859 after convert."
+        echo "########################################"
+    else
+        exit 0
+    fi
+else
+    echo "find/grep no files encoding with ISO-8859!"
+fi
 ```
 
 ### Sublime Text 3

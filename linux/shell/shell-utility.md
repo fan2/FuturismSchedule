@@ -128,10 +128,11 @@ faner@MBP-FAN:~/Music|⇒  popd +3
 
 `ls -lR`：递归列举当前及所有子文件夹。
 
-只列举文件夹：
+### ls only file/dir
 
-- `ls -d */`  
-- `ls -l | grep '^d'`：过滤出以 d 开头的（文件夹）  
+- `ls -d */`：通配符语法  
+- `ls -l | grep '^d'`：grep 正则表达式，过滤出以 d 开头的**文件夹**  
+- `ls -al | grep '^[^d]'`：grep 正则表达式，过滤出非 d 开头的**文件**  
 
 其他命令：
 

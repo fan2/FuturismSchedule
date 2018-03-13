@@ -80,7 +80,13 @@ end-of-history (M->)
 
 - raspbian 下输入 `history N` 列显结尾（最近）的 N 条历史输入记录。  
 - macOS 下输入 `history N` 列显开头的 N 条历史输入记录。
-	> 可通过管道将 `history` 导向 `tail -n N` 选取列显结尾（最近）的 N 条历史输入记录：`history | tail -n 10`。  
+
+可通过管道将 `history` 导向 `tail -n N` 选取列显结尾（最近）的 N 条历史输入记录：
+
+```shell
+# 查看最近10条输入命令记录
+faner@MBP-FAN:~|⇒  history | tail -n 10
+```
 
 ## Event Designators
 针对 history list，支持以下前缀为 `!` 的 Event Designators：
@@ -102,7 +108,27 @@ end-of-history (M->)
 - `!!`：选定上一条命令；  
 - `!n`：选定编号为 n 的历史记录；  
 - `!-n`：选定编号为 -n（最近第 n-1 条） 的历史记录；  
-- `!string`：选定最近历史记录中匹配 string 关键字的历史记录。  
+- `!string`：选定最近历史记录中匹配以 string 开头的历史记录；  
+- `!?string`：选定最近历史记录中包含 string 开头的历史记录；  
+
+```shell
+# 最近一条以 curl 开头的命令
+faner@MBP-FAN:~|⇒  !curl
+faner@MBP-FAN:~|⇒  curl http://linux.vbird.org/linux_basic/0330regularex/regular_express.txt -o regular_express.txt
+
+# 最近一条包含 curl 的命令
+faner@MBP-FAN:~|⇒  !?curl
+faner@MBP-FAN:~|⇒  curl http://linux.vbird.org/linux_basic/0330regularex/regular_express.txt -o regular_express.txt
+```
+
+更复杂的可以基于 grep 正则查找符合某些规定的历史命令记录：
+
+```shell
+# 查找包含 curl 且以 regular_express.txt 结尾的历史命令
+faner@MBP-FAN:~|⇒  history | grep 'curl.*regular_express.txt$' 
+ 9950  curl http://linux.vbird.org/linux_basic/0330regularex/regular_express.txt
+ 9953  curl http://linux.vbird.org/linux_basic/0330regularex/regular_express.txt -o regular_express.txt
+```
 
 ## Search
 

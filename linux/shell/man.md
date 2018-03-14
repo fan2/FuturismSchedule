@@ -326,3 +326,54 @@ macOS 下的 man(1) 版本为比较陈旧的：
 
 ## [man.vim](http://www.vim.org/scripts/script.php?script_id=5615)  
 [vim-man](https://github.com/vim-utils/vim-man)  
+
+## [On Viewing `man` Pages](https://scriptingosx.com/2017/04/on-viewing-man-pages/)
+
+[Open man Page in Preview and Save as PDF](http://osxdaily.com/2010/09/27/open-any-man-page-in-preview-and-save-as-pdf/)  
+[View Terminal ‘man’ Pages In Preview / PDF](http://www.mactricksandtips.com/2012/01/view-terminal-man-pages-in-preview-pdf.html)  
+[Use Preview to view formatted man pages ](http://hints.macworld.com/article.php?story=20051225101106519)  
+[Can man pages be converted to html and/or pdf format?](https://apple.stackexchange.com/questions/315272/can-man-pages-be-converted-to-html-and-or-pdf-format)  
+
+### X-man
+```shell
+faner@MBP-FAN:~|⇒  open x-man-page://sed
+```
+
+### man -t
+
+```shell
+# man man
+       -t     Use  /usr/bin/groff  -Tps  -mandoc -c to format the manual page, passing
+              the output to stdout.  The default output format of /usr/bin/groff  -Tps
+              -mandoc  -c  is  Postscript,  refer to the manual page of /usr/bin/groff
+              -Tps -mandoc -c for ways to pick an alternate format.
+```
+
+`man -t` 选项利用 groff 工具将 man page 转换为 PostScript 格式。
+
+#### Preview
+`man -t` 结果重定向到 open 使用 Preview.app 打开。
+
+```shell
+faner@MBP-FAN:~|⇒  man -t sed | open -fa "Preview"
+faner@MBP-FAN:~|⇒  man -t sed | open -f -a /Applications/Preview.app
+```
+
+open 的 `-fa` 选项表示 piping output to open(`-f`) and specifies the application(`-a`)，可参考 man open。
+
+#### pstopdf
+**pstopdf** -- convert PostScript input into a PDF document.
+
+```shell
+# 调用 pstopdf 将 man -t 的 PostScript 转换为 PDF 
+faner@MBP-FAN:~|⇒  man -t sed | pstopdf -i -o man_sed.pdf
+```
+
+### Bwana
+A man page reader for your browser
+
+The following are the three main commands you need to know to work with Bwana:
+
+- `man:command` -- used as URL in the browser to call man page.  
+- `man:` -- bring up index  
+- `man:index_refresh` -- reload index from source pages  

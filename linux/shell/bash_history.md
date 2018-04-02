@@ -8,6 +8,7 @@
 
 [history 增加详细历史记录](http://www.cnblogs.com/jjzd/p/5798603.html)  
 [Linux 用户登录后精确命令记录](http://blog.csdn.net/lixiaohuiok111/article/details/34428161)  
+[让 history 命令显示日期和时间](http://ju.outofmemory.cn/entry/340737)  
 
 [Linux下history命令用法](http://blog.sina.com.cn/s/blog_5caa94a00100gyls.html)  
 [Linux下history命令配置及高级应用](http://blog.itpub.net/29306197/viewspace-1062708/)  

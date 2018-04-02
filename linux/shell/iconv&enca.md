@@ -7,6 +7,7 @@
 > GB2312是GBK的子集，GBK是GB18030的子集。
 
 ## UTF-8 BOM
+
 BOM（Byte Order Mark），意为字节序标记。
 
 BOM 在 UTF-16 中用来表示高低字节序列。在字节流之前有 BOM 表示采用低字节序列（低字节在前面）。
@@ -140,9 +141,11 @@ Press "Cancel" to choose another encoding manually.
 底部状态栏编码显示为 `Western(Windows 1252)`
 
 ### enca 命令
+
 `enca` 命令可查看、转换文件的编码。
 
 #### 安装 enca
+
 macOS 通过包管理器 brew 可搜索安装 enca 工具包：
 
 ```shell
@@ -247,6 +250,7 @@ litetime.h: ASCII
 > 无法检测 BOM 信息？
 
 ### Editor File Inspector
+
 用 Vim 打开文件，执行底行命令 `:set fileencoding ?` 可查看当前文件编码，貌似检测不准确？
 
 > 具体编码格式可查询关键字 encoding-names 和 encoding-values。
@@ -269,6 +273,7 @@ Sublime Text 3 默认不在状态栏显示编码格式，`~/Library/Application 
 ![sublime_text_3](https://i.stack.imgur.com/FNvMj.jpg) 
 
 ## 中文显示乱码问题
+
 Xcode 代码文档的默认编码通常是中英文混排的 `No Explicit Encoding`。  
 但老版本的 Xcode 对带 BOM 头的 UTF8 文件编码无法识别，使用了 GBK 编码的文件在 Xcode 下也无法识别的，从而导致 [Xcode 下的中文显示可能乱码](http://linyehui.me/2014/07/09/convert-gbk-to-utf8-on-mac/)。
 
@@ -282,6 +287,7 @@ VS2015 只支持带 BOM 的 UTF-8，否则无法识别其中的中文部分；XC
 > [Visual Studio 2015 中如何使文件默认保存为 UTF - 8 编码格式？](https://www.zhihu.com/question/37252051)  
 
 ## 文件编码格式转换
+
 [Visual Studio C/C++](http://zcodes.net/2016/09/29/visual-studio-cpp-encoding.html) 可以 [将新建的源码文件的编码格式自动设置成UTF8](http://blog.csdn.net/maxwoods/article/details/44828295)，或从其他格式 [更改编码格式为 UTF-8](http://blog.csdn.net/caroline_wendy/article/details/13169837)。
 
 对于某些在 Xcode 中文乱码问题，通过右侧栏的 Text Settings | Text Encoding 选择 `Simplified Chinese(Mac OS)` 可正确显示。
@@ -399,6 +405,7 @@ litetime.h: 7bit ASCII characters
 当输入中文等其他语言字符后，则编码将显示为 `UTF-8 Unicode text`。  
 
 #### [iconv 批量更改文件编码](http://blog.csdn.net/longxibendi/article/details/5889110)  
+
 将当前执行目录下所有的 php 文件 `$file` 从 GB18030 转码为 utf8 文件 `$file.new`，然后将 `$file.new` 重命名为 `$file`，即覆盖源文件。
 
 ```shell
@@ -503,7 +510,8 @@ else
 fi
 ```
 
-### Sublime Text 3
+## UTF8 with BOM
+
 [Set Encoding of File to UTF8 With BOM in Sublime Text 3](https://stackoverflow.com/questions/21289157/set-encoding-of-file-to-utf8-with-bom-in-sublime-text-3)  
 
 使用 iconv 命令将所有 GB18030 字符都转换为 UTF8 后，再使用 Sublime Text 3 打开文件，通过菜单 File | Save with Encoding 选择 `UTF8 with BOM`：
@@ -531,12 +539,53 @@ litetime.h: Universal transformation format 8 bits; UTF-8
   CRLF line terminators
 ```
 
-#### Line Endings
+## Line Endings
+### 回车换行
+
+以下摘自《[我的电脑生涯（2）：ASCII码](http://blog.sina.com.cn/s/blog_4a20485e0102dr82.html)》：
+
+> 使用过机械式英文打字机的人都知道，当一行字符快打完的时候，打字机会发出“叮”的一声铃响，提醒打字员别再不停地击键了，否则字符就打到纸外面去了。此时，打字员要用手把打字机的滑车推到最左边，这个动作称为“[**回车**](https://zh.wikipedia.org/wiki/%E5%9B%9E%E8%BD%A6%E7%AC%A6)”。  
+
+>> **`\r`**（ASCII 码为 0x0d）：本义是光标重新回到本行开头，r 即 **r**eturn，控制字符可以写成 CR（[Carriage Return](https://en.wikipedia.org/wiki/Carriage_return)）；  
+
+> 仅仅回车是不够的，如果此时打字员继续打字，字符就会重叠在刚才已经打过字的这一行上面，所以打字员还要用手把纸卷滚筒向前转一下，这个动作叫“[**换行**](https://zh.wikipedia.org/wiki/%E6%8F%9B%E8%A1%8C)”。  
+
+>> **`\n`**（ASCII 码为 0x0a）：本义是光标往下一行（不一定到下一行行首），n 及 **n**ewline，控制字符可以写成 LF（[Line Feed](https://en.wikipedia.org/wiki/Newline)）。  
+
+在计算机上编辑文本，每当按下 enter(return) 键，系统会在行末（EOL）插入不可见的结束符（invisible **Line Ending**）标记换行，同时光标自动移动到下一行首。
+
+在非英语系国家的键盘上，回车键会用 <kbd>↵</kbd>（U+21B5、`&crarr;`）符号表示，形象直观地说明了该键的功能。
+
+尽管回车换行这两个概念也被挪到了计算机上，但是早期存储器较贵，一些科学家认为在每行结尾加两个额外的字符来标识行末太浪费存储，加一个即可。
+
+具体到文本编码中，不同的操作系统在敲下 enter 键时插入的不可见行末结束符有所不同。具体分为[三大流派](https://zhuanlan.zhihu.com/p/25503610)：
+
+- 在 Windows 系统下，`\r\n` 这两个字符连在一起标识行末，本义表示回车换行；  
+- 在 UNIX 类系统（包括最新的 macOS）中，换行符 `\n` 标识行末，表示光标移到下一行并回到行首；  
+- 在已经退出历史舞台的 Mac OS  9 及更古，`\r` 标识行末，表示回到本行开头并往下一行。  
+
 Xcode 右侧的 Line Endings：
 
 - macOS/Unix(LF)  
 - Classic Mac OS(CR)  
 - Windows(CRLF)  
+
+在终端命令行中使用 `od -A x -t xCa tuple.h` 或 `hexdump -C tuple.h`，或在 Sublime Text 下使用 hexviewer 可查看 tuple.h 文件的十六进制码，以查验行末结束符。
+
+在 vim 下底行模式输入命令 `:set fileformat ?` 可查询当前文档的 EOL 格式；问号可换为 unix/dos 设置具体格式。
+
+Unix/macOS 系统下的文件在 Windows 中打开，所有文字都会变成一行；  
+而 Windows 下的文件在 Unix/macOS 下打开的话，在每行的结尾可能会多出一个 `^M` 符号。  
+
+### vim 编辑替换
+
+在 vim 下执行 `:%s/\r//g` 可将DOS文件中的回车符 `^M` 替换为空（即删除）。  
+dos2unix 批量替换方案：`find ./ -type f print0 | xargs -0 sed -i 's/^M$//'`。  
+
+> [Vim 中如何去掉 ^M 字符？](https://www.zhihu.com/question/22130727)  
+> [vim linux下查找显示^M并且删除](http://www.cnblogs.com/juandx/p/5663064.html)  
+
+### Sublime Text 3 编辑替换
 
 Sublime Text 的 `~/Library/Application Support/Sublime Text 3/Packages/Default/Preferences.sublime-settings`
 
@@ -551,7 +600,7 @@ Sublime Text 的 `~/Library/Application Support/Sublime Text 3/Packages/Default/
 ```
 
 `default_line_ending`: 默认 line ending 跟随系统，macOS 下是 LF。  
-`show_line_endings`: 默认不在状态栏显示当前 Line Ending，可以 `Preferences > Settings - Users` 打开 `~/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings`，在其中设置 
+`show_line_endings`: 默认不在状态栏显示当前 Line Ending，可以 `Preferences > Settings - Users` 打开 `~/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings`，在其中设置：
 
 ```json
     "show_line_endings": true,
@@ -564,7 +613,6 @@ Sublime Text 的 `~/Library/Application Support/Sublime Text 3/Packages/Default/
 - CR：Mac OS 9 Line Endings(CR)  
 
 可以点击选择切换，将 `litenet.h`,`litestd.h`,`litetime.h` 这3个文件的 Line Ending 都切换为 Unix(LF)。
-
 
 [Difference between CR LF, LF and CR line break types?](https://stackoverflow.com/questions/1552749/difference-between-cr-lf-lf-and-cr-line-break-types)  
 

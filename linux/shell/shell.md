@@ -1,8 +1,9 @@
 
 # Shells
+
 终端执行 `cat /etc/shells` 查看支持的 shell：
 
-```Shell
+```shell
 # macOS
 faner@THOMASFAN-MB0:~|⇒  cat /etc/shells
 # List of acceptable shells for chpass(1).
@@ -29,7 +30,7 @@ cat /etc/shells
 
 终端执行 `env | grep 'SHELL'` 或 `echo $SHELL` 可查看当前账户正在使用的 shell：
 
-```Shell
+```shell
 pi@raspberrypi:~$ env | grep 'SHELL'
 SHELL=/bin/bash
 
@@ -38,6 +39,7 @@ faner@THOMASFAN-MB0:~|⇒  echo $SHELL
 ```
 
 ## bash
+
 macOS（BSD）、raspbian（Debian） 系统默认 Shell 均为 `/bin/bash`。
 
 > [Bash Keyboard Shortcuts](https://ss64.com/osx/syntax-bashkeyboard.html) @ss64  
@@ -49,7 +51,7 @@ macOS（BSD）、raspbian（Debian） 系统默认 Shell 均为 `/bin/bash`。
 
 输入 `bash --version` 查看 bash 版本信息：
 
-```Shell
+```shell
 # macOS
 faner@THOMASFAN-MB0:~|⇒  bash --version
 bash --version
@@ -70,6 +72,7 @@ There is NO WARRANTY, to the extent permitted by law.
 输入执行 `man bash` 或 `man 1 bash` 可以查看 bash 的说明文档——[GNU Bash manual](https://www.gnu.org/software/bash/manual/) | [Bash Reference Manual](https://www.gnu.org/software/bash/manual/bashref.html)。
 
 ### PROMPTING
+
 When executing interactively, **bash** *displays* the <u>primary</u> prompt **PS1** when it is ready to read a command,  
 
 > PS1 stands for "Prompt String One" or "Prompt Statement One", the first prompt string (that you see at a command line).  
@@ -91,17 +94,19 @@ and the <u>secondary</u> prompt **PS2** when it needs more *input* to complete a
 > [Linux下PS1、PS2、PS3、PS4使用详解](http://os.51cto.com/art/201205/334954.htm)  
 
 ### command type
+
 bash 内置的 **type** 命令可以查看某个命令是否为 bash 的内置命令。
 
 例如 cd、ECHO(1) 命令为 bash 内置：
 
-```Shell
+```shell
 pi@raspberrypi:~$ type -t cd
 builtin
 
 pi@raspberrypi:~$ type -a cd
 cd is a shell builtin
 
+# macOS 下对应 -w 选项
 pi@raspberrypi:~$ type -t echo
 builtin
 
@@ -110,21 +115,51 @@ echo is a shell builtin
 echo is /bin/echo
 ```
 
-type（和 cd）命令的说明内含在 bash 的 man page 中（`type [-aftpP] name [name ...]`），没有对应的 manual page entry。
+type（和 cd）命令的说明内含在 bash 的 man page 中（`type [-aftpP] name [name ...]`），没有对应的 manual page entry，且不支持 `-h(--help)` 选项查看帮助。
 
-```Shell
+```shell
+# 以下为 raspbian 下的测试
+
 pi@raspberrypi:~$ man type
 No manual entry for type
 
 pi@raspberrypi:~$ man cd
 No manual entry for cd
+
+# 以下为 macOS 下的测试
+
+faner@MBP-FAN:~|⇒  type -h
+type: bad option: -h
+faner@MBP-FAN:~|⇒  type --help
+type: bad option: -h
+
+faner@MBP-FAN:~|⇒  cd -h
+cd: no such file or directory: -h
+faner@MBP-FAN:~|⇒  cd --help
+cd: no such file or directory: --help
 ```
+
+利用 tab 键的自动补齐功能，在 macOS 终端输入 `type -` 再按下 tab 键，即可列举出所有可能的备选输入项及其概要说明：
+
+```shell
+faner@MBP-FAN:~|⇒  type -
+-S  -- show steps in the resolution of symlinks
+-a  -- print all occurrences in path
+-f  -- output contents of functions
+-m  -- treat the arguments as patterns
+-p  -- always do a path search
+-s  -- print symlink free path as well
+-w  -- print command type
+-
+```
+
+---
 
 ECHO(1) 命令有 manual page，可执行 `man echo` 或  `man 1 echo` 查看。
 
 SU(1)、SUDO(8)、NANO(1)、VIM(1)、SSH(1)、rsync(1)、SFTP(1)、IFCONFIG(8) 为外部命令：
 
-```Shell
+```shell
 pi@raspberrypi:~$ type -t sudo
 file
 pi@raspberrypi:~$ type -p sudo
@@ -157,25 +192,83 @@ ifconfig is /sbin/ifconfig
 - `C-_` / `<C-x>u` = Undo  
 
 ### Special characters
-#### single quotes
-bash shell 中可通过等号（equality sign）赋值定义变量，但是等号前后左侧变量名和右值只能为单符号，不能含有空格。
+
+bash shell 中可通过等号（equality sign）赋值定义变量，右值如果没有引号（单/双）引用，默认都是按照字符串类型。
 
 ```shell
-pi@raspberrypi:~ $ testString=define string in shell command line
--bash: string: command not found
+faner@MBP-FAN:~|⇒  testString=define                             
+faner@MBP-FAN:~|⇒  echo $testString
+define
 ```
 
-以上第一个空格将截出 `testString=define` 命令1，string 为命令2，由于找不到 `string` 命令而报错。
+但是当右值句段遇到 **元字符**（metacharacter） 时，将自动截取第一段分组作为右值，后续句段将按照新的命令解析执行。
 
-当然，我们可以用反斜杠 `\` 转义显式定义空格。
+关于 bash shell 的元字符参考 `man 1 bash` 中 DEFINITIONS 部分的定义：
 
 ```shell
+DEFINITIONS
+
+metacharacter
+ A character that, when unquoted, separates words. One of the following:
+
+| & ; ( ) < > space tab newline
+```
+
+以下第一个空格将右值截段，实际有效的赋值命令1为 `testString=define` ，正常有效执行；  
+string 为命令2，由于找不到 `string` 命令而提示报错。
+
+```shell
+faner@MBP-FAN:~|⇒  testString=define string in shell command line
+zsh: command not found: string
+faner@MBP-FAN:~|⇒  echo $testString 
+define
+```
+
+如果每个分组都为有效可执行命令，一般会依次执行。
+
+> 参考下文的 `test1='test 1' test2='test 2'` 测试用例。  
+
+但以下示例忽略了第一条赋值命令，而只执行了第2条 cd 命令？
+
+```shell
+faner@MBP-FAN:~|⇒  testShellVar=string cd ~/Downloads
+faner@MBP-FAN:~/Downloads|⇒  echo $testShellVar
+
+faner@MBP-FAN:~/Downloads|⇒  
+```
+
+---
+
+另外一种常见写法是利用单反斜杠 `\\` 转义掉空格等元字符含义，显式声明采用原生字符义。
+
+```shell
+# 原义空格
 pi@raspberrypi:~ $ testString=define\ string\ in\ shell\ command\ line
 pi@raspberrypi:~ $ echo $testString 
 define string in shell command line
+
+# 原义空格和分号
+faner@MBP-FAN:~|⇒  testShellVar=string\;\ cd\ ~/Downloads
+faner@MBP-FAN:~|⇒  echo $testShellVar 
+string; cd ~/Downloads
+faner@MBP-FAN:~|⇒  
 ```
 
-另外一种编程语言中常见的定义字符串的方式是通过单引号或双引号来封闭定义。
+#### QUOTING
+
+除了利用单反斜杠 `\\` 转义掉空格等元字符含义，显式声明采用原生字符义外，一种更普适的方案是**引用**。
+
+通过单引号（`'single_quoting'`）或双引号（`"double_quoting"`）来封闭引用是编程语言中常见的字符串定义方式。
+
+```obc-c
+QUOTING
+
+Quoting is used to remove the special meaning of certain characters or words to the shell. Quoting can be used to disable special treatment for special characters, to prevent reserved words from being recognized as such, and to prevent parameter expansion.
+
+Each of the metacharacters listed above under DEFINITIONS has special meaning to the shell and must be quoted if it is to represent itself.
+```
+
+定义包含空格和分号等元字符的字符串：
 
 ```shell
 # 单引号定义字符串
@@ -184,19 +277,38 @@ pi@raspberrypi:~ $ echo $testString
 define string in shell command line
 
 # 双引号重定义字符串
-pi@raspberrypi:~ $ testString="define string in shell command line"
-pi@raspberrypi:~ $ echo $testString 
-define string in shell command line
+faner@MBP-FAN:~|⇒  testShellVar="string cd ~/Downloads"
+faner@MBP-FAN:~|⇒  echo $testShellVar 
+string cd ~/Downloads
 ```
 
 引述包含空格的文件名：
 
 ```shell
+# 单引号引用
+mv 'a ~file name.txt' another.txt
+
+# 双引号引用
 mv "a ~file name.txt" another.txt
 ```
 
-#### double quotes
-单引号将 `$` 视作普通字符，不会替代解引用变量值：
+##### exception
+
+通过单引号闭包的字符串中的所有字符都采用原义，但是中间不能出现单引号自身，即使采用反斜杠（backslash）也无法转义（escape）。
+
+```shell
+Enclosing characters in single quotes preserves the literal value of each character within the quotes. A single quote may not occur between single quotes, even when preceded by a backslash.
+```
+
+通过双引号闭包的字符串中的 $、\`、\\ 等字符将具有特殊意义。
+
+```shell
+Enclosing characters in double quotes preserves the literal value of all characters within the quotes, with the exception of $, `, \, and, when history expansion is enabled, !.
+```
+
+###### $
+
+单引号将其闭包字符串中的 `$` 视作普通字符，不会替代解引用变量值：
 
 ```shell
 pi@raspberrypi:~ $ varLANG='env LANG=$LANG'
@@ -204,7 +316,7 @@ pi@raspberrypi:~ $ echo $varLANG
 env LANG=$LANG
 ```
 
-双引号可识别 shell 的特殊字符 `$`，解引用变量值并替换。
+双引号可识别闭包字符串中的特殊字符 `$`，解引用变量值并替换。
 
 ```shell
 pi@raspberrypi:~ $ varLC_CTYPE="LC_CTYPE = $LC_CTYPE"
@@ -263,7 +375,8 @@ faner@THOMASFAN-MB0:/usr/local/Homebrew/Library/Taps/homebrew/homebrew-core|mast
 ⇒  
 ```
 
-#### backtick quotes
+###### \`
+
 在 shell 命令中，往往需要将其他命令执行结果作为输入信息，此时可使用 “\`command\`” 或 “$(command)” 引用 command 执行结果。
 
 Linux Distributions 都可能拥有多个内核版本，且几乎 distribution 的所有内核版本都不相同。  
@@ -288,7 +401,8 @@ pi@raspberrypi:/lib/modules/4.9.59-v7+/kernel $ ls | wc -l
 
 相比反引号，`$()` 可以区分左右，因此支持嵌套。
 
-#### ;, &&, ||
+#### Lists(;, &&, ||)
+
 使用空格或分号（**`;`**）可执行无相关性的连续命令：
 
 ```
@@ -300,13 +414,26 @@ test 2
 faner@THOMASFAN-MB0:~|⇒  echo $test1;echo $test2
 test 1
 test 2
+
+faner@MBP-FAN:~|⇒  testShellVar=string; cd ~/Downloads
+faner@MBP-FAN:~/Downloads|⇒  echo $testShellVar 
+string
+faner@MBP-FAN:~/Downloads|⇒ 
 ```
+
+> Commands separated by a `;` are executed sequentially
 
 **`&&`** 和 **`||`** 则可连续执行相关性的命令。
 
+> AND and OR lists are sequences of one or more pipelines separated by the **&&** and **||** control operators, respectively. AND and OR lists are executed with left associativity.
+
 `command1 || command2`：在逻辑上只要有第一条命令执行成功就不会执行第二条命令，只有第一条命令执行失败才会启动执行第二条命令。
 
+> command2 is executed if and only if command1 returns a non-zero exit status.
+
 `command1 && command2`：只有在第一条命令执行成功时才会启动执行第二条命令。
+
+> command2 is executed if, and only if, command1 returns an exit status of zero.
 
 ```shell
 mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master
@@ -317,15 +444,16 @@ mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master
 这些符号为 BASH 的 token(control operator)。
 
 ## zsh
+
 终端执行以下命令可通过 curl 从 github 下载安装流行的 Zsh（兼容 bash） 配置 [oh-my-zsh](http://ohmyz.sh/)：
 
-```Shell
+```shell
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 ```
 
 输入 `zsh --version` 查看 zsh 版本信息：
 
-```Shell
+```shell
 faner@THOMASFAN-MB0:~|⇒  zsh --version
 zsh --version
 zsh 5.2 (x86_64-apple-darwin16.0)
@@ -340,6 +468,7 @@ zsh 5.2 (x86_64-apple-darwin16.0)
 > [oh my zsh 相比 bash 的优势](https://www.zhihu.com/question/29977255)  
 
 ### zsh 下切回 bash
+
 如果在 zsh 下执行 sh 脚本（例如 `./startup.sh`）报错，可以按照以下任何一种方式解决：
 
 1. 指定在 bash 下执行脚本：`bash ./startup.sh`。  
@@ -348,6 +477,7 @@ zsh 5.2 (x86_64-apple-darwin16.0)
 4. 在终端执行 `chsh -s /bin/bash` 命令（重启生效）将 Shell 切回默认的 bash。  
 
 ### [plugin.zsh](https://github.com/robbyrussell/oh-my-zsh/wiki/Plugins)
+
 #### osx
 
 | :-------------- | :----------------------------------------------- |

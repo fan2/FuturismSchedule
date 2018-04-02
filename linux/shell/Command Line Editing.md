@@ -1,8 +1,10 @@
 # Command Line Editing
+
 > [Bash Reference Manual](https://www.gnu.org/software/bash/manual/bashref.html#Command-Line-Editing)  
 >> [8 Command Line Editing](https://www.gnu.org/software/bash/manual/bashref.html#Command-Line-Editing)  
 
 ## readline
+
 The GNU Readline Library: [Library for command-line editing](https://tiswww.case.edu/php/chet/readline/rltop.html)
 
 在 BASH(1) 的 man page 输入 `/^READLINE`（`^` 为 vim 中的行首字元位置），可搜索 READLINE 相关的说明（the READLINE section of the bash(1) man page）。
@@ -16,6 +18,7 @@ Line editing can be enabled at any time using the `-o emacs` or `-o vi` options 
 >>> [8.2 Readline Interaction](https://www.gnu.org/software/bash/manual/bashref.html#Readline-Interaction)  
 
 ## Moving
+
 BASH(1) 的 man page 中输入 `/Commands for Moving` 即可定位到对应章节。
 
 [emacs-compatible keybindings](https://stackoverflow.com/questions/81272/is-there-any-way-in-the-os-x-terminal-to-move-the-cursor-word-by-word)
@@ -44,10 +47,12 @@ redraw-current-line
 
 `<C-l>`：滚动屏幕将当前行置顶，同 clear 命令。不清除缓冲区，可继续下拉滚动翻看过往记录。
 
-←/→：`<C-b>`/`<C-f>`  
-⌥+←/→：`<M-b>`/`<M-f>`  
+- `<C-b>`/`<C-f>`（←/→）：按**字符**为单位移动  
+- `<M-b>`/`<M-f>`（⌥+←/→）：按**单词**为单位移动  
+- `<C-a>`/`<C-e>`：定位句**首/尾**  
 
 ## Editing
+
 BASH(1) 的 man page 中输入 `/Commands for Changing Text` 即可定位到对应章节。
 
 ```Shell
@@ -55,9 +60,11 @@ delete-char (C-d)
       Delete the character at point. If this function is bound to the same character as the tty EOF character, as C-d commonly is, see above for the effects.
 ```
 
-`C-h`：delete char backward.
+- `C-h`：delete char backward（向左回删一个**字符**）.  
+- `C-d`：delete-char (forward)（向右删除一个**字符**）.  
 
 ## Killing and Yanking
+
 BASH(1) 的 man page 中输入 `/Killing and Yanking` 即可定位到对应章节。
 
 ```Shell
@@ -86,18 +93,20 @@ yank-pop (M-y)
       Rotate  the  kill  ring,  and  yank the new top.  Only works following yank or yank-pop.
 ```
 
-`M-d`：向前（forward）删除至单词末尾；  
-`C-w` / `M-delete`(backspace)，向后（backward）删除至单词开头；  
-`C-u`：删除至行首（raspbian/CentOS） or 删除整行（macOS）；  
-`C-k`：删除至行末；  
+- `C-w` / `M-delete`(backspace)，向后（backward）删除至**单词**开头；  
+- `M-d`：向前（forward）删除至**单词**末尾；  
+- `C-u`：删除至**行首**（raspbian/CentOS） or 删除整行（macOS）；  
+- `C-k`：删除至**行末**；  
 
 `<C-y>`：召回（yank）粘贴 `<C-w>`、`<M-d>`、`<C-u>`、`<C-k>` 剪切删除（kill）的文本。
 
 ## Completing
+
 complete (`TAB`)  
 possible-completions (`M-?`)  
 possible-filename-completions (`C-x /`)  
 possible-variable-completions (`C-x $`)  
 
 ## Keyboard Macros
+
 BASH(1) 的 man page 中输入 `/Keyboard Macros` 即可定位到对应章节。

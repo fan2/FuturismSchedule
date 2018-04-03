@@ -1,3 +1,5 @@
+BASH Command History 是按照输入时间由远到近尾部追加的，编号越小时间越久远，最近输入的上一条命令编号最大。
+
 # history
 在 BASH(1) 的 man page 输入 `/^HISTORY` 可以查看内建 history 命令的帮助说明部分。
 
@@ -52,7 +54,7 @@ HISTFILESIZE=2000
 > 也可修改 system-wide 级别的配置`/etc/profile`，但 `/etc/profile` 会被 `~/.bash_profile` 修改覆盖， `~/.bash_profile` 会被 `~/.bashrc` 修改覆盖。  
 
 ## rolling
-在终端按下 `C-p`/`C-n`（↑/↓，同 `<M-p>`/`<M-n>`）可以调出上一条/下一条历史命令。
+在终端按下 `C-p`/`C-n`（**↑**/↓，同 `<M-p>`/`<M-n>`）可以调出上一条/下一条历史命令。
 
 ```Shell
 previous-history (C-p)
@@ -109,8 +111,8 @@ faner@MBP-FAN:~|⇒  history | tail -n 10
 - `!!`：选定上一条命令；  
 - `!n`：选定编号为 n 的历史记录；  
 - `!-n`：选定编号为 -n（最近第 n-1 条） 的历史记录；  
-- `!string`：选定最近历史记录中匹配以 string 开头的历史记录；  
-- `!?string`：选定最近历史记录中包含 string 开头的历史记录；  
+- `!string`：选定最近历史记录中以 string 开头的历史记录；  
+- `!?string`：选定最近历史记录中包含 string 的历史记录；  
 
 ```shell
 # 最近一条以 curl 开头的命令

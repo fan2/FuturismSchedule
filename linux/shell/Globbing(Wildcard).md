@@ -10,7 +10,7 @@ In computer programming, in particular in a Unix-like environment, **glob patter
 
 For example, the Unix command `mv *.txt textfiles/` moves (`mv`) all files with names ending in `.txt` from the current directory to the directory `textfiles`. Here, `mv *.txt textfiles/`, `*` is a wildcard standing for "any string of characters" and `*.txt` is a glob pattern.  
 The other common wildcard is the question mark (`?`), which stands for *one* character.
-
+
 The most common wildcards are `*`, `?`, and `[…]`.
 
 > Bash 中常用通配符只有3个: `*`, `?`, `[...]`。  

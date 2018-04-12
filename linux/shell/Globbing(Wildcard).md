@@ -11,10 +11,25 @@ In computer programming, in particular in a Unix-like environment, **glob patter
 For example, the Unix command `mv *.txt textfiles/` moves (`mv`) all files with names ending in `.txt` from the current directory to the directory `textfiles`. Here, `mv *.txt textfiles/`, `*` is a wildcard standing for "any string of characters" and `*.txt` is a glob pattern.  
 The other common wildcard is the question mark (`?`), which stands for *one* character.
 
-The most common wildcards are `*`, `?`, and `[…]`.
+The most common wildcards are `*`, `?`, and `[list]`.
 
-> Bash 中常用通配符只有3个: `*`, `?`, `[...]`。  
+> Bash 中常用通配符只有3个: `*`, `?`, `[list]`。  
 >> `**`：出现在路径中，匹配任意级别目录。  
+
+- **`*`**（asterisk）: match any number of any characters  
+
+	> matches zero or more of any character in a name, including spaces or other strange characters.  
+
+- **`?`**（question mark）：match only one single character, any character  
+
+	> matches exactly one of any character in a name, including a space or other strange character.  
+	>> The GLOB pattern `???*` matches non-hidden names that are three or more characters long.  
+
+- **`[list]`**（square brackets）：match single characters from a list  
+
+	> match exactly one character in a name from a list of characters.  
+	>> `[aA]`: it matches any one-character name that is either a or A.  
+	>> `[a][A]`: only matches aA.  
 
 ## [man 7 GLOB](http://man7.org/linux/man-pages/man7/glob.7.html)
 

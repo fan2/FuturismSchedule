@@ -644,6 +644,7 @@ sudo pip --proxy http://web-proxy.mydomain.com install somepackage
 [Proxifier实现全局代理（Windows）](http://www.leesven.com/5028.html)  
 [让windows所有软件通过代理上网——Proxifier](https://www.douban.com/note/183877949/)  
 [configuring Proxifier in Mac OS](https://thesafety.us/proxy-setup-proxifier-macos)  
+[proxifier 配合 shadowsocks 上网](http://gooday.xyz/proxifier%E6%B3%A8%E5%86%8C%E7%A0%81%E4%BB%A5%E5%8F%8A%E9%85%8D%E5%90%88shadowsocks%E4%B8%8A%E7%BD%91/)  
 [**Shadowshocks+Proxifier 系统全局代理的正确姿势**](http://blackwolfsec.cc/2016/09/19/Proxifier_Shadowshocks/)  
 
 ```shell

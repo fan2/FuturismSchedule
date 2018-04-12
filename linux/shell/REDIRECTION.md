@@ -5,6 +5,7 @@
 数据流重定向就是将某个命令执行后本应输出到控制台的结果数据传导到指定的地方，例如文件或打印机之类的设备。
 
 ## >, >>
+
 输出导向，分别是 **替换** 与 **累加**
 
 1. 标准输入（stdin）：代码为0，使用 `<` 或 `<<`；  
@@ -41,6 +42,7 @@ $ find /home -name .bashrc &> list
 2. 在执行 `ls > dirlist`，只有 stdout 才会被重定向到 dirlist 文件。  
 
 ### tee
+
 双向重定向：同时将数据送与文件与控制台（stdout）。  
 输出到控制台的部分可以传导给下个命令继续处理。
 
@@ -49,8 +51,16 @@ $ find /home -name .bashrc &> list
 faner@MBP-FAN:~|⇒  ls -l / | tee -a ~/homefile | more
 ```
 
+**经典示例**：
+
+执行 `shadowsocks.sh` 脚本安装 shadowsocks，将执行的 stdout 和 stderr 在控制台输出，并同时写入日志文件 shadowsocks.log： 
+
+```shell
+./shadowsocks.sh 2>&1 | tee shadowsocks.log
+```
 
 ## <, <<
+
 输入导向就是将原本应由键盘输入的数据源改为文件。
 
 `cat > catfile` 将创建 `catfile` 文件，同时需要从键盘输入内容。
@@ -68,4 +78,5 @@ cat > catfile << "eof"
 ```
 
 ## demos
+
 `enca -L zh_CN -x UTF-8 < file1 > file2`

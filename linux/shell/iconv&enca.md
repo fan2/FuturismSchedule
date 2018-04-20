@@ -564,18 +564,22 @@ litetime.h: Universal transformation format 8 bits; UTF-8
 - 在 UNIX 类系统（包括最新的 macOS）中，换行符 `\n` 标识行末，表示光标移到下一行并回到行首；  
 - 在已经退出历史舞台的 Mac OS  9 及更古，`\r` 标识行末，表示回到本行开头并往下一行。  
 
-Xcode 右侧的 Line Endings：
+两大主流操作系统阵营采用不同的 Line Endings，造成的后果是：
 
-- macOS/Unix(LF)  
-- Classic Mac OS(CR)  
-- Windows(CRLF)  
+- Unix/macOS 系统下的文件在 Windows 中打开，所有文字都会变成一行；  
+- 而 Windows 下的文件在 Unix/macOS 下打开的话，在每行的结尾可能会多出一个 `^M` 符号。  
 
-在终端命令行中使用 `od -A x -t xCa tuple.h` 或 `hexdump -C tuple.h`，或在 Sublime Text 下使用 hexviewer 可查看 tuple.h 文件的十六进制码，以查验行末结束符。
+---
 
-在 vim 下底行模式输入命令 `:set fileformat ?` 可查询当前文档的 EOL 格式；问号可换为 unix/dos 设置具体格式。
+1. Xcode 右侧的 Line Endings：
 
-Unix/macOS 系统下的文件在 Windows 中打开，所有文字都会变成一行；  
-而 Windows 下的文件在 Unix/macOS 下打开的话，在每行的结尾可能会多出一个 `^M` 符号。  
+	- macOS/Unix(LF)  
+	- Classic Mac OS(CR)  
+	- Windows(CRLF)  
+
+2. 在 vim 下底行模式输入命令 `:set fileformat ?` 可查询当前文档的 EOL 格式；问号可换为 unix/dos 设置具体格式。  
+3. 在终端命令行中使用 `od -A x -t xCa tuple.h` 或 `hexdump -C tuple.h`，或在 Sublime Text 下使用 hexviewer 可查看 tuple.h 文件的十六进制码，以查验行末结束符。  
+4. 在 python 中（sublime text 控制台）执行 `import os;os.linesep` 可以查看行分隔符（`line separator in text files`）。  
 
 ### vim 编辑替换
 

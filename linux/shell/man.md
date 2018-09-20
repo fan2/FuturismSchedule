@@ -1,5 +1,6 @@
 
 # man
+
 [Linux Man Pages](https://www.linux.org/docs/)  
 [善用 man 指令查詢 Linux 線上手冊（Man Page）](https://blog.gtwang.org/linux/linux-man-page-command-examples/)  
 
@@ -11,11 +12,12 @@ With respect to the C library, the primary focus is the [GNU](http://www.gnu.org
 - [Changelog](http://man7.org/linux/man-pages/changelog.html)  
 
 ## manpath
+
 macOS 下的 manpath：
 
 ```shell
 # 等效 man -w
-faner@THOMASFAN-MB0:~|⇒  manpath
+faner@MBP-FAN:~|⇒  manpath
 /usr/local/share/man:/usr/share/man:/opt/X11/share/man:/Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/share/man:/Applications/Xcode-beta.app/Contents/Developer/usr/share/man:/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/share/man
 ```
 
@@ -36,12 +38,13 @@ CentOS 下的 manpath：
 ```
 
 ### /usr/share/man/
+
 以下为 `/usr/share/man/` 下的详细列表：
 
 ```shell
 # macOS
-faner@THOMASFAN-MB0:~|⇒  cd /usr/share/man/
-faner@THOMASFAN-MB0:/usr/share/man|⇒  ls
+faner@MBP-FAN:~|⇒  cd /usr/share/man/
+faner@MBP-FAN:/usr/share/man|⇒  ls
 man1   man4   man5   man6   man7   man8   man9   mann   whatis
 
 # raspbian
@@ -55,11 +58,12 @@ man1  man5  man8
 ```
 
 ### bash.1
+
 man子目录后面的数字为 man 手册章节序号。
 
 ```shell
 # macOS
-faner@THOMASFAN-MB0:/usr/share/man|⇒  ls man1 | grep bash
+faner@MBP-FAN:/usr/share/man|⇒  ls man1 | grep bash
 bash.1
 bashbug.1
 
@@ -76,10 +80,10 @@ rbash.1.gz
 
 ```shell
 # macOS
-faner@THOMASFAN-MB0:~|⇒  man -w bash
+faner@MBP-FAN:~|⇒  man -w bash
 /usr/share/man/man1/bash.1
 
-faner@THOMASFAN-MB0:~|⇒  man -aw shutdown
+faner@MBP-FAN:~|⇒  man -aw shutdown
 /usr/share/man/man8/shutdown.8
 /Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/share/man/man8/shutdown.8
 /Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/share/man/man2/shutdown.2
@@ -94,6 +98,7 @@ pi@raspberrypi:/usr/share/man$ man -aw shutdown
 ```
 
 ### man -L
+
 -L 选项可指定帮助文档的语系。
 
 > -L locale, --locale=locale
@@ -108,35 +113,47 @@ MAN(1)                         手册分页显示工具                         
        man - 在线参考手册的接口
 ```
 
-## man pager help
+## man pager
+
 man 默认使用可翻页查看的 **less** 作为分页器，可指定 `-P pager`（`--pager=pager`） 选项来修改输出分页器程序。
 
 > This option overrides the `$MANPAGER` environment variable, which in turn overrides the `$PAGER` environment variable.
 
-- linux: By default, man uses less.  
-- raspbian: By default, man uses pager.  
-- macOS: By default, man uses /usr/bin/less -is.  
+- **linux**: By default, man uses `less`.  
+- **raspbian**: By default, man uses `pager`.  
+- **macOS**: By default, man uses `/usr/bin/less -is`.  
 
 ```shell
 pi@raspberrypi:~ $ whatis pager
 pager (1)            - opposite of more
+
+pi@raspberrypi:~ $ echo $PAGER
+less
+
+# man less
+pi@raspberrypi:~ $ whatis less
+less (1)             - opposite of more
 ```
 
 man pager 打开的也是 LESS(1) 的帮助手册。
 
 ```shell
-faner@THOMASFAN-MB0:~|⇒  echo $PAGER 
+faner@MBP-FAN:~|⇒  echo $PAGER
 less
+
+# man less
+faner@MBP-FAN:~ $ whatis less
+less(1)                  - opposite of more
 ```
 
 可见 man pager 默认是基于 less 的，而 less 基于 more，more 则是基于 vi 的。  
 
 - Interactive commands for ***more*** are based on **vi**(1).  
-- Commands for ***less*** are based on both **more** and **vi**.  
+- Commands of ***less*** are based on both **more** and **vi**.  
 
 也即 man 是基于 **vi-style** 的。  
 
----
+### help
 
 在查看 man page 时，输入 `:h` 可打开查看 man-page viewer 的操作帮助说明（SUMMARY OF **LESS** COMMANDS）。
 
@@ -147,6 +164,38 @@ less
 - MISCELLANEOUS COMMANDS  
 - OPTIONS  
 - LINE EDITING  
+
+### status line
+
+`man/less/vi` 中输入 **`=`** 可以调出 [bottom status / prompt line](https://askubuntu.com/questions/905322/man-pages-how-to-always-show-total-lines-and-percentage-in-the-bottom-status) 查看阅读进度：
+
+```shell
+# raspbian
+Downloads/NSURLSession.h lines 3-63/1002 byte 1933/47129 4%  (press RETURN)
+```
+
+关于 less 底栏状态行的配置，可参考 [constantly display status line in less](https://unix.stackexchange.com/questions/298329/constantly-display-status-line-in-less)：
+
+可在 `~/.zshrc` 或 `~/.bash_profile`(`~/bashrc`) 中配置 LESS，source 重启生效：
+
+```shell
+# less to prompt even more verbosely than more
+LESS='-Pslines %lt-%lb (%Pt-%Pb \%) bytes %bt-%bb file %f'; export LESS
+```
+
+**说明**：`%l`, `%P`, `%b` for **lines**, **percentage** and **bytes**, trailing `t` and `b` for "**top**" and "**bottom**" of screen.  
+
+`less $ZSH_CUSTOM/scripts/vimman/vimman.zsh` 底栏状态：
+
+```shell
+lines 39-95 (20-49 %) bytes 959-2253 file /Users/faner/.oh-my-zsh/custom/scripts/vimman/vimman.zsh
+```
+
+可以改良为 `LESS='-Pslines %lt-%lb bytes %bt-%bb %Pb\% of file %f';`
+
+**注意**：man 查看手册，底部 `%f` 为空。
+
+> [Make the less Command More Powerful](https://www.topbug.net/blog/2016/09/27/make-gnu-less-more-powerful/)
 
 ## manual page types
 
@@ -183,7 +232,7 @@ less
 
 ```shell
 # macOS
-faner@THOMASFAN-MB0:~|⇒  man -af shutdown
+faner@MBP-FAN:~|⇒  man -af shutdown
 servertool(1)            - The Java(TM) IDL Server Tool servertool provides an ease-of-use interface for application programmers to register, unregister, startup and shutdown a server
 shutdown(8)              - close down the system at a given time
 upsshutdown(8)           - UPS emergency low power shutdown script
@@ -324,8 +373,9 @@ macOS 下的 man(1) 版本为比较陈旧的：
                                   September 19, 2005                            man(1)
 ```
 
-## [man.vim](http://www.vim.org/scripts/script.php?script_id=5615)  
-[vim-man](https://github.com/vim-utils/vim-man)  
+## [man.vim](http://www.vim.org/scripts/script.php?script_id=5615)
+
+[vim-man](https://github.com/vim-utils/vim-man)：View man pages in vim
 
 ## [On Viewing `man` Pages](https://scriptingosx.com/2017/04/on-viewing-man-pages/)
 
@@ -335,6 +385,7 @@ macOS 下的 man(1) 版本为比较陈旧的：
 [Can man pages be converted to html and/or pdf format?](https://apple.stackexchange.com/questions/315272/can-man-pages-be-converted-to-html-and-or-pdf-format)  
 
 ### X-man
+
 ```shell
 faner@MBP-FAN:~|⇒  open x-man-page://sed
 ```
@@ -352,6 +403,7 @@ faner@MBP-FAN:~|⇒  open x-man-page://sed
 `man -t` 选项利用 groff 工具将 man page 转换为 PostScript 格式。
 
 #### Preview
+
 `man -t` 结果重定向到 open 使用 Preview.app 打开。
 
 ```shell
@@ -361,7 +413,10 @@ faner@MBP-FAN:~|⇒  man -t sed | open -f -a /Applications/Preview.app
 
 open 的 `-fa` 选项表示 piping output to open(`-f`) and specifies the application(`-a`)，可参考 man open。
 
+zsh 中启用 `osx` 插件，支持 **`man-preview`** 命令调用预览打开 man page（Open a specified man page in Preview app）。例如 `man-preivew sed`。
+
 #### pstopdf
+
 **pstopdf** -- convert PostScript input into a PDF document.
 
 ```shell
@@ -370,6 +425,7 @@ faner@MBP-FAN:~|⇒  man -t sed | pstopdf -i -o man_sed.pdf
 ```
 
 ### Bwana
+
 A man page reader for your browser
 
 The following are the three main commands you need to know to work with Bwana:

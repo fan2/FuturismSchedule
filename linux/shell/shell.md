@@ -93,6 +93,29 @@ and the <u>secondary</u> prompt **PS2** when it needs more *input* to complete a
 > [shell PS1 PS2 PS3 PS4界面提示符](http://blog.csdn.net/misskissc/article/details/8144283)  
 > [Linux下PS1、PS2、PS3、PS4使用详解](http://os.51cto.com/art/201205/334954.htm)  
 
+#### PS2
+
+当输入命令未结束即换行时（continued commands more than one line），将换行以 PS2（**`>`**）提示续行输入：
+
+例如 `telnet`：
+
+```shell
+faner@MBP-FAN % telnet
+telnet>
+```
+
+例如 `echo` 一半：
+
+```shell
+{18-09-16 16:46}[]MBP-FAN:~ faner% echo 'hello
+quote> world
+quote> '
+hello
+world
+
+{18-09-16 17:14}[]MBP-FAN:~ faner%
+```
+
 ### command type
 
 bash 内置的 **type** 命令可以查看某个命令是否为 bash 的内置命令。

@@ -6,6 +6,7 @@
 [Bash Extended Globbing](http://www.linuxjournal.com/content/bash-extended-globbing)  
 
 ## [glob](https://en.wikipedia.org/wiki/Glob_(programming))
+
 In computer programming, in particular in a Unix-like environment, **glob patterns** specify sets of filenames with [wildcard characters](https://en.wikipedia.org/wiki/Wildcard_characters).
 
 For example, the Unix command `mv *.txt textfiles/` moves (`mv`) all files with names ending in `.txt` from the current directory to the directory `textfiles`. Here, `mv *.txt textfiles/`, `*` is a wildcard standing for "any string of characters" and `*.txt` is a glob pattern.  
@@ -13,23 +14,34 @@ The other common wildcard is the question mark (`?`), which stands for *one* cha
 
 The most common wildcards are `*`, `?`, and `[list]`.
 
-> Bash 中常用通配符只有3个: `*`, `?`, `[list]`。  
->> `**`：出现在路径中，匹配任意级别目录。  
+### wildcards
 
-- **`*`**（asterisk）: match any number of any characters  
+Bash 中常用通配符只有3个: `*`, `?`, `[list]`。  
 
-	> matches zero or more of any character in a name, including spaces or other strange characters.  
+> `**`：出现在路径中，匹配任意级别目录。  
 
-- **`?`**（question mark）：match only one single character, any character  
+#### *
 
-	> matches exactly one of any character in a name, including a space or other strange character.  
-	>> The GLOB pattern `???*` matches non-hidden names that are three or more characters long.  
+**`*`**（asterisk）: match any number of any characters  
 
-- **`[list]`**（square brackets）：match single characters from a list  
+> matches zero or more of any character in a name, including spaces or other strange characters.  
 
-	> match exactly one character in a name from a list of characters.  
-	>> `[aA]`: it matches any one-character name that is either a or A.  
-	>> `[a][A]`: only matches aA.  
+#### ?
+
+**`?`**（question mark）：match only one single character, any character  
+
+> matches exactly one of any character in a name, including a space or other strange character.  
+
+- The GLOB pattern `???*` matches non-hidden names that are three or more characters long.  
+
+#### [list]
+
+**`[list]`**（square brackets）：match single characters from a list  
+
+> match exactly one character in a name from a list of characters.  
+
+- `[aA]`: it matches any one-character name that is either a or A.  
+- `[a][A]`: only matches aA.  
 
 ## [man 7 GLOB](http://man7.org/linux/man-pages/man7/glob.7.html)
 
@@ -38,9 +50,10 @@ NOTES | Regular expressions of man 7 glob
 Note that wildcard patterns are not regular expressions, although they are a bit similar.  
 First of all, they match ***filenames***, rather than ***text***, and secondly, the conventions are not the same: for example, in a regular expression '*' means  zero  or  more copies of the **preceding** thing.
 
-Now  that regular expressions have bracket expressions where the negation is indicated by a '^', POSIX has declared the effect of a wildcard pattern  "[^...]"  to  be undefined.
+Now  that regular expressions have bracket expressions where the negation is indicated by a '^', POSIX has declared the effect of a wildcard pattern  "[\^...]"  to  be undefined.
 
 ## [Advanced Bash-Scripting Guide](http://tldp.org/LDP/abs/html/)
+
 [Globbing](http://tldp.org/LDP/abs/html/globbingref.html) & [Wildcards](http://tldp.org/LDP/GNU-Linux-Tools-Summary/html/x11655.htm)
 
 Bash itself cannot recognize Regular Expressions.  
@@ -52,6 +65,7 @@ Instead, globbing recognizes and expands *wild cards*.
 Bash performs filename expansion on unquoted command-line arguments.
 
 ## Globbing & RE
+
 通配符是用来匹配**文件名**的，正则表达式则是用来匹配**文件内容**（文本字符串）的。
 
 通配符多用在文件名上，比如 `ls`，`find`，`cp` 等等；  

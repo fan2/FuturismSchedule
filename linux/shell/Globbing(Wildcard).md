@@ -33,7 +33,7 @@ In computer programming, in particular in a Unix-like environment, **glob patter
 For example, the Unix command `mv *.txt textfiles/` moves (`mv`) all files with names ending in `.txt` from the current directory to the directory `textfiles`. Here, `mv *.txt textfiles/`, **`*`** is a wildcard standing for "any string of characters" and `*.txt` is a glob pattern.
 
 The other common wildcard is the question mark (**`?`**), which stands for *one* character.
-
+
 The most common wildcards are `*`, `?`, and `[list]`.
 
 ### wildcards
@@ -230,7 +230,7 @@ The Bash shell also supports **Extended Globbing** which allows other pattern ma
 通配符是用来匹配 **文件名** 的，正则表达式则是用来匹配 **文件内容**（文本字符串）的。
 
 BASH 所做的是扩展文件名，基于通配符（globbing/wildcard patterns），并非正则表达式。  
-通配符多用在文件名匹配上，比如 `ls`、`find`、`cp`、`rm` 等命令可通配查找出符合匹配条件的文件进行操作。  
+通配符多用在文件名匹配上，比如 `ls`、`find`、`cp`、`rm` 等命令可通配查找出符合匹配条件的文件进行操作。  
 
 BASH 本身没有正则表达式的功能，在脚本里使用正则表达式的是命令（grep,sed）和工具包（awk），它们可以解析正则表达式。  
 针对文件内容的文本过滤工具 `grep`(-G,-e,-E),`awk`,`sed` 等，都是基于正则表达式。  

@@ -253,7 +253,7 @@ Now that regular expressions have bracket expressions where the negation is indi
 
 通配及正则表达式都支持对字符集范围的匹配和排除匹配。范围匹配表达式都为 `[abc]` 格式，但是排除匹配略有不同。
 
-传统 POSIX 中对于通配字符集排除匹配基于 `!` 的 `[!abc]` 格式，现代大部分通配及正则表达式中，都支持 **`[^abc]`** 格式排除匹配。
+传统 POSIX 中对于通配字符集排除匹配基于 `!` 的 `[!abc]` 格式，现代大部分通配及正则表达式中，都支持 **`[^abc]`** 格式排除匹配。
 
 ## references
 

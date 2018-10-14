@@ -36,7 +36,9 @@ The other common wildcard is the question mark (**`?`**), which stands for *one*
 
 The most common wildcards are `*`, `?`, and `[list]`.
 
-### wildcards
+### [wildcards](https://en.wikipedia.org/wiki/Wildcard_character)
+
+In software, a **wildcard character** is a kind of **placeholder** represented by a single character, such as an asterisk (`*`), which can be interpreted as a number of literal characters or an empty string. It is often used in file searches so the full name need not be typed.
 
 Bash 中常用通配符只有3个: `*`, `?`, `[list]`。  
 
@@ -235,6 +237,8 @@ BASH 所做的是扩展文件名，基于通配符（globbing/wildcard patterns�
 BASH 本身没有正则表达式的功能，在脚本里使用正则表达式的是命令（grep,sed）和工具包（awk），它们可以解析正则表达式。  
 针对文件内容的文本过滤工具 `grep`(-G,-e,-E),`awk`,`sed` 等，都是基于正则表达式。  
 
+Wildcards are more limited in what they can pattern, as they have fewer metacharacters and a simple language-base.
+
 ### Equivalence
 
 | glob        | regexp  | 说明                         |
@@ -260,3 +264,5 @@ Now that regular expressions have bracket expressions where the negation is indi
 [Linux命令ls通配符的使用](http://www.kivixv.com/2016/05/10/linux/Linux%E5%91%BD%E4%BB%A4ls%E9%80%9A%E9%85%8D%E7%AC%A6%E7%9A%84%E4%BD%BF%E7%94%A8/)  
 [shell中的正则表达式和通配符](https://www.jianshu.com/p/49d5ee46de47) [@github](https://fengyalv.github.io/Blogs/shell/shell%E8%84%9A%E6%9C%AC%E4%B8%AD%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F.html)  
 [**Linux基础概要**](https://www.gitbook.com/book/abcfy2/linux_basic) 之 [通配符](https://abcfy2.gitbooks.io/linux_basic/content/first_sense_for_linux/command_learning/wildcard.html) & [正则表达式](https://abcfy2.gitbooks.io/linux_basic/content/regular_expression/index.html)  
+
+**python**: [glob](https://docs.python.org/3/library/glob.html?highlight=glob#module-glob) - Filename globbing utility.

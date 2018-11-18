@@ -6,6 +6,8 @@ The concept arose in the 1950s when the American mathematician Stephen Cole Klee
 
 Since the 1980s, different syntaxes for writing regular expressions exist, one being the [POSIX](https://en.wikipedia.org/wiki/POSIX) standard and another, widely used, being the [Perl](https://en.wikipedia.org/wiki/Perl) syntax.
 
+[**Regular-Expressions.info**](https://www.regular-expressions.info/) - The Premier website about Regular Expressions
+
 ## references
 
 [正则表达式参考手册](http://harttle.land/2016/07/18/intro-to-regexp.html) - [PCRE表达式全集@wiki](https://zh.wikipedia.org/wiki/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F)  
@@ -57,7 +59,9 @@ MDN: [en](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Glob
 **`BRE`** requires that the metacharacters `( )` and `{ }` be designated `\(\)` and `\{\}`, whereas Extended Regular Syntax (`ERE`) does not.  
 ***`ERE`*** adds **`?`**, **`+`**, and **`|`**, and it removes the need to escape the metacharacters `( )` and `{ }`, which are required in `BRE`.  
 
-### [PCRE](https://en.wikipedia.org/wiki/Regular_expression#Perl_and_PCRE)
+### [Perl and PCRE](https://en.wikipedia.org/wiki/Regular_expression#Perl_and_PCRE)
+
+https://pcre.org/
 
 Perl 的正则表达式（Perl Regular Expressions），又叫 Perl RegEx，简称 `PRE`。  
 Perl 兼容格式的正则表达式（Perl Compatible Regular Expressions），简称 `PCRE`。  
@@ -114,6 +118,10 @@ OPTIONS
 默认选项是 `-G`(`--basic-regexp`)，即 **BRE**。  
 如果要支持 **`?`**, **`+`** 和 **`|`**，则需要显式指定 `-E` 选项，即执行 **ERE**。
 
+### [ripgrep](https://github.com/BurntSushi/ripgrep)
+
+ripgrep recursively searches directories for a regex pattern
+
 ## regex online
 
 [regexr](https://regexr.com/)  
@@ -163,6 +171,10 @@ OPTIONS
 | [^aeiou]  | 匹配除了 aeiou 这几个字母以外的任意字符          |
 
 ## vscode extensions
+
+vscode 1.29.0 基于 [ripgrep](https://github.com/BurntSushi/ripgrep) 实现支持 multiline search。
+
+vscode 默认是 `search.useRipgrep`（Deprecated），建议采用 **`search.usePCRE2`**，支持 [lookaround](https://www.regular-expressions.info/lookaround.html) 和 [backreferences](https://www.regular-expressions.info/backref.html) 等特性。
 
 ### [Regex Railroad Diagrams](https://marketplace.visualstudio.com/items?itemName=kogai.regex-railroad-diagrams)
 

@@ -1,4 +1,4 @@
-# [pthread_join实现原理](http://km.oa.com/articles/show/206566)
+# pthread_join实现原理
 
 [pthread_join()的阻塞性问题](http://bbs.chinaunix.net/thread-2096295-1-1.html)
 

@@ -32,6 +32,7 @@
 - `~/.bashrc` 没有上述规则，它是 bash shell 打开的时候载入的。  
 
 ## /etc/profile
+
 全局（公有）配置，不管是哪个用户，登录时都会读取该文件。
 
     ➜  /etc  cat profile
@@ -51,6 +52,7 @@
 > **建议不修改这个文件**
 
 ## /etc/bashrc
+
 全局（公有）配置，bash shell执行时，不管是何种方式，都会读取此文件。
 
     ➜  /etc  cat bashrc
@@ -71,6 +73,7 @@
 > 请不要在 `~/.bashrc` 中设置 PATH ，否则会导致 PATH 中目录的意外增长。因为每次打开一个新的 shell终端窗口，都会读取 `~/.bashrc`。  
 
 ## /etc/paths
+
 编辑 paths，将环境变量添加到 paths文件中 ，一行一个路径。
 
     ➜  ~  cat /etc/paths
@@ -83,6 +86,7 @@
 > 全局建议修改这个文件
 
 ## ~/.bash_profile
+
 当 bash shell 是以 login 方式执行时，才会读取此文件，该文件仅仅执行一次。
 
 > 一般在这个文件中添加**用户级**环境变量

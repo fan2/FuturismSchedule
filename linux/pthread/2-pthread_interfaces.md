@@ -23,7 +23,9 @@
 [Posix线程编程指南(5)——杂项](http://www.ibm.com/developerworks/cn/linux/thread/posix_threadapi/part5/index.html)  
 
 ## [POSIX 线程接口——pthread](http://blog.csdn.net/tommy_wxie/article/details/8545253)
+
 ### 创建线程
+
 POSIX 通过 `pthread_create()` 函数创建线程，API 定义如下：
 
      int
@@ -43,19 +45,23 @@ POSIX 通过 `pthread_create()` 函数创建线程，API 定义如下：
 `pthread_create()` 中的 attr 参数是一个结构指针，结构中的元素分别对应着新线程的运行属性，主要包括以下几项：
 
 #### __detachstate
+
 表示新线程是否与进程中其他线程脱离同步，如果置位则新线程不能用 `pthread_join()` 来同步，且在退出时自行释放所占用的资源。缺省为 **`PTHREAD_CREATE_JOINABLE`** 状态。
 
 这个属性也可以在线程创建并运行以后用 **`pthread_detach()`** 来设置，而一旦设置为 `PTHREAD_CREATE_DETACH` 状态（不论是创建时设置还是运行时设置）则不能再恢复到 `PTHREAD_CREATE_JOINABLE` 状态。
 
 #### __schedpolicy
+
 表示新线程的调度策略，主要包括 `SCHED_OTHER`（正常、非实时）、`SCHED_RR`（实时、轮转法）和 `SCHED_FIFO`（实时、先入先出）三种，缺省为`SCHED_OTHER`，后两种调度策略仅对超级用户有效。运行时可以用过 **`pthread_setschedparam()`** 来改变。
 
 __schedparam，一个 struct sched_param 结构，目前仅有一个 sched_priority 整型变量表示线程的运行优先级。这个参数仅当调度策略为实时（即 `SCHED_RR` 或 `SCHED_FIFO`）时才有效，并可以在运行时通过  **`pthread_setschedparam()`** 函数来改变，缺省为 0。
 
 #### __inheritsched
+
 有两种值可供选择：`PTHREAD_EXPLICIT_SCHED` 和  `PTHREAD_INHERIT_SCHED`，前者表示新线程使用显式指定调度策略和调度参数（即 attr 中的值），而后者表示继承调用者线程的值。缺省为 **`PTHREAD_EXPLICIT_SCHED`**。
 
 #### __scope
+
 表示线程间竞争 CPU 的范围，也就是说线程优先级的有效范围。POSIX的标准中定义了两个值：`PTHREAD_SCOPE_SYSTEM` 和 `PTHREAD_SCOPE_PROCESS`，前者表示与系统中所有线程一起竞争 CPU 时间，后者表示仅与同进程中的线程竞争CPU。目前 Linux Threads 仅实现了 `PTHREAD_SCOPE_SYSTEM` 一值。
 
 `pthread_attr_t` 结构中还有一些值，但不使用 `pthread_create()` 来设置。
@@ -65,6 +71,7 @@ __schedparam，一个 struct sched_param 结构，目前仅有一个 sched_prior
 > [pthread 的属性和TLS](http://www.cnblogs.com/lidabo/p/5009249.html)
 
 ### 线程创建的Linux实现
+
 Linux 线程在核内是以_轻量级_进程的形式存在的，拥有独立的进程表项，而所有的创建、同步、删除等操作都在核外 pthread 库中进行。
 
 pthread 库使用一个管理线程（__pthread_manager()，每个进程独立且唯一）来管理线程的创建和终止，为线程分配线程ID，发送线程相关的信号（比如Cancel），而主线程（`pthread_create()`）的调用者则通过管道将请求信息传给管理线程。

@@ -12,16 +12,6 @@
 
 ![pthread_create & pthread_join sequence](http://g.hiphotos.baidu.com/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=63a8b923e7dde711f3df4ba4c686a57e/a50f4bfbfbedab64b58544e6f536afc379311e24.jpg)
 
-[POSIX Threads Programming](https://computing.llnl.gov/tutorials/pthreads/)  
-[POSIX 多线程程序设计](http://www.cnblogs.com/mywolrd/archive/2009/02/05/1930707.html)
-
-[pthreads 的基本用法——介绍 POSIX 线程](http://www.ibm.com/developerworks/cn/linux/l-pthred/index.html)  
-[Posix线程编程指南(1)——线程创建与取消](http://www.ibm.com/developerworks/cn/linux/thread/posix_threadapi/part1/index.html)  
-[Posix线程编程指南(2)——线程私有数据](http://www.ibm.com/developerworks/cn/linux/thread/posix_threadapi/part2/index.html)  
-[Posix线程编程指南(3)——线程同步](http://www.ibm.com/developerworks/cn/linux/thread/posix_threadapi/part3/index.html)  
-[Posix线程编程指南(4)——线程终止](http://www.ibm.com/developerworks/cn/linux/thread/posix_threadapi/part4/index.html)  
-[Posix线程编程指南(5)——杂项](http://www.ibm.com/developerworks/cn/linux/thread/posix_threadapi/part5/index.html)  
-
 ## [POSIX 线程接口——pthread](http://blog.csdn.net/tommy_wxie/article/details/8545253)
 
 ### 创建线程

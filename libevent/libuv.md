@@ -102,10 +102,10 @@ Node.js 基于 Google 的 V8 解析引擎和 Marc Lehmann 的 libev 实现，将
 
 **Nodejs事件引擎libuv源码剖析**：
 
-	[高效队列（queue）的实现](http://www.cnblogs.com/chenyangyao/p/libuv.html)  
-	[高效线程池(threadpool)的实现](http://www.cnblogs.com/chenyangyao/p/libuv_threadpool.html)  
-	[句柄(handle)结构的设计剖析](http://www.cnblogs.com/chenyangyao/p/libuv_handle.html)  
-	[请求(request)结构的设计剖析](http://www.cnblogs.com/chenyangyao/p/libuv_req.html)  
+- [高效队列（queue）的实现](http://www.cnblogs.com/chenyangyao/p/libuv.html)  
+- [高效线程池(threadpool)的实现](http://www.cnblogs.com/chenyangyao/p/libuv_threadpool.html)  
+- [句柄(handle)结构的设计剖析](http://www.cnblogs.com/chenyangyao/p/libuv_handle.html)  
+- [请求(request)结构的设计剖析](http://www.cnblogs.com/chenyangyao/p/libuv_req.html)  
 
 ### 应用示例
 

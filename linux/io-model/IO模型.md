@@ -2,6 +2,7 @@
 周末有空闲来在家，艳阳高照酷暑难耐，信手翻阅《UNIX 网络编程 卷1：套接字联网 API》第6章《I/O 复用：select 和 poll 函数》，以下权当学习摘要。
 
 ## 6.2 I/O 模型
+
 Unix 下有5种可用的 I/O 模型：
 
 - 阻塞式I/O（blocking I/O）；  
@@ -18,6 +19,7 @@ Unix 下有5种可用的 I/O 模型：
 I/O 模型的异同点就在这两个处理理阶段上。
 
 ### 6.2.1 阻塞式 I/O 模型
+
 最流行的 I/O 模型是 阻塞式 I/O 模型。默认情形下，所有的套接字都是阻塞的。
 
 ![图6-1_阻塞式IO模型](images/图6-1_阻塞式IO模型.png)
@@ -30,6 +32,7 @@ I/O 模型的异同点就在这两个处理理阶段上。
 > blocking I/O 的特点是在 I/O 执行的两个阶段都被阻塞了。
 
 ### 6.2.2 非阻塞式 I/O 模型
+
 进程把一个套接字设置成非阻塞是在通知内核：当所请求的I/O操作非得把本进程投入睡眠才能完成时，**不要**把本进程投入睡眠，**而是**返回一个错误。
 
 ![图6-2_非阻塞式IO模型](images/图6-2_非阻塞式IO模型.png)
@@ -41,6 +44,7 @@ I/O 模型的异同点就在这两个处理理阶段上。
 > nonblocking I/O 的特点是用户进程需要**不断的主动询问**内核数据是否到来。
 
 ### 6.2.3 I/O 复用模型
+
 有了 I/O 复用模型，我们就可以调用 `select` 或 `poll`，**阻塞**在这两个系统调用中的某一个之上，而**不是**阻塞在真正的I/O系统调用上。
 
 ![图6-3_IO复用模型](images/图6-3_IO复用模型.png)
@@ -53,9 +57,11 @@ I/O 模型的异同点就在这两个处理理阶段上。
 > I/O 多路复用的特点是通过一种机制一个进程能同时监听等待多个文件描述符，而这些文件描述符（套接字描述符）其中的任意一个进入读就绪状态，select/poll 函数就可以返回。
 
 ### 6.2.4 信号驱动式 I/O 模型
+
 略。
 
 ### 6.2.5 异步 I/O 模型
+
 异步 I/O 是由 POSIX 规范定义，演变成当前 POSIX 规范的各种早期标准所定义的*实时*函数中存在的差异已经取得一致。一般来说，这些函数的工作机制是：
 告知内核启动某个操作，并让内核在整个操作（包括将数据从内核复制到用户空间的应用缓冲区）完成后**通知**我们。
 
@@ -69,14 +75,17 @@ I/O 模型的异同点就在这两个处理理阶段上。
 遗憾的是，linux 的网络 I/O 中是不存在异步 I/O 的，第⼆阶段总是阻塞等待数据 copy 完成。真正意义上的⽹络异步 I/O 是 Windows 下的 IOCP（[I/O 完成端口](http://blog.csdn.net/phunxm/article/details/5085944)）模 型。
 
 ### 6.2.6 各种 I/O 模型的比较
+
 图6-6对比了五种不同的 I/O 模型。可以看出，前四种模型的主要区别在于第一阶段，因为它们在第二阶段都是一样的：在数据从内核复制到调用者的缓冲区期间，进程阻塞于 `recvfrom` 调用。相反，异步 I/O 模型在这两个阶段都要处理，从而不同于其他四种模型。
 
 ![图6-6_五种IO模型的比较](images/图6-6_五种IO模型的比较.png)
 
 #### blocking 和 non-blocking 的区别
+
 调用 blocking I/O 会一直阻塞住对应的进程直到操作完成；而 non-blocking I/O 在  kernel 还在准备数据的情况下会立刻返回。
 
 #### synchronous 和 asynchronous 的区别
+
 在说明 synchronous IO 和 asynchronous IO 的区别之前，需要先给出两者的定义。
 POSIX 的定义是这样子的：
 
@@ -87,22 +96,27 @@ POSIX 的定义是这样子的：
 根据以上定义，之前所述的 `blocking I/O`，`non-blocking I/O`，`I/O multiplexing` 和 `signal driven I/O` 都属于 synchronous I/O。
 
 ## 话题探究
+
 ### non-blocking 与 asynchronous 的区别
+
 有人会说，non-blocking I/O 并没有被 block 啊。这里需要明确的是定义中所指的”I/O operation”是指真实的 I/O 操作，就是例子中的 `recvfrom` 这个系统调用（system call）。  
 non-blocking I/O 在执行 `recvfrom` 这个 system call 的时候，如果 kernel 的数据没有准备好，这时候不会 block 进程。但是，当 kernel 中数据准备好的时候，`recvfrom` 会将数据从 kernel 拷贝到用户内存中，这个时候进程是被 block 了，在这段时间内，进程是被 block 的。
 
 non-blocking I/O 仅仅要求处理的**第⼀阶段**不 block 即可，⽽ asynchronous I/O 要求**两个阶段**都不能 block 住。
 
 ### [Reactor 模式和 Proactor 模式](http://blog.csdn.net/tgxallen/article/details/71083779)
+
 在高性能服务器并发模型设计中，Reactor 和 Proactor 是两个经常用到的设计模式：前者用于同步 I/O，后者用于异步 I/O。  
 前者在 I/O 操作就绪的情况下通知用户，用户再采取实际的 I/O 操作；后者是在 I/O 操作完成后通知用户。  
 IOCP 的设计就是 Proactor 模式的完美体现；而 epoll 则很容易实现 Reactor 模式；asio 设计为跨平台，并且在 linux 下采用 epoll。
 
 #### libevent
+
 本质上来讲 libevent 应该是同步的，因为如果看到底层封装的 select 和 epoll 就会发现，里面仍然是个 while 循环在轮询是否准备就绪。
 libevent 本身是一个 Reactor，是同步的。但 libevent 的 bufferevent 是用 Reactor 实现了一个 Proactor，所以 libevent 又是异步的。
 
 #### libuv
+
 当接口可读时，libuv 会调用你的 allocate callback 来申请内存并将读到的内容写入。
 当读取完毕后，libuv 会调用你为这个 socket 设置的回调函数，在参数中带着这个 buffer 信息。你只需要负责处理这个 buffer 并且free 掉就好了。因为是从 buffer 中读取数据，在你的 callback 被调用时数据已经 ready 了，所以程序员也就不用考虑阻塞的问题了。
 
@@ -113,19 +127,15 @@ libuv 用了大量 callback 机制来完成异步 IO 的回调。这些 callback
 当 buffer 抛上来的时候，只需要简单的把 data cast 为预定类型，从而还原确定出读写上下文。
 
 ## 参考
+
 I/O多路复用之 [select](http://www.cnblogs.com/Anker/p/3258674.html)、[poll](http://www.cnblogs.com/Anker/p/3261006.html)、[epoll](http://www.cnblogs.com/Anker/p/3263780.html) 示例及 [总结](http://www.cnblogs.com/Anker/p/3265058.html)  
 [Linux I/O 模式及 select、poll、epoll 详解](https://segmentfault.com/a/1190000003063859)  
+[OSX/iOS中多路I/O复用总结](http://www.tanhao.me/pieces/1777.html/)  
 [再谈 select,iocp,epoll,kqueue 及各种 I/O 复用机制](http://blog.csdn.net/shallwake/article/details/5265287)  
 
-[epoll模型详解](http://blog.chinaunix.net/xmlrpc.php?r=blog/article&uid=28541347&id=4232252)  
-彻底学会使用epoll [一](http://blog.chinaunix.net/xmlrpc.php?r=blog/article&uid=28541347&id=4273856)  [二](http://blog.chinaunix.net/xmlrpc.php?r=blog/article&uid=28541347&id=4285054)  [三](http://blog.chinaunix.net/xmlrpc.php?r=blog/article&uid=28541347&id=4288802) [四](http://blog.chinaunix.net/xmlrpc.php?r=blog/article&uid=28541347&id=4296180) [五](http://blog.chinaunix.net/xmlrpc.php?r=blog/article&uid=28541347&id=4308612) [六](http://blog.chinaunix.net/xmlrpc.php?r=blog/article&uid=28541347&id=4324338)  
+[Linux 下 select & poll 的实现原理简析](http://www.cnblogs.com/lanyuliuyun/p/5011526.html)  
+[linux 内核 select/poll/epoll 源码实现剖析](http://blog.csdn.net/lishenglong666/article/details/45536611)  
 
-[linux 内核 poll/select/epoll 源码实现剖析](http://blog.csdn.net/lishenglong666/article/details/45536611)  
-[linux 下 epoll 如何实现高效处理](http://www.cnblogs.com/debian/archive/2012/02/16/2354469.html)  
-
-[mac 上的 epoll--kqueue](https://zhuanlan.zhihu.com/p/21375144)  
-[FreeBSD Kqueue 的实现原理](http://wangxuemin.github.io/2015/07/30/FreeBSD%20Kqueue%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/)  
-
-[使用 libevent 和 libev 提高网络应用性能——I/O模型演进变化史](http://blog.csdn.net/hguisu/article/details/38638183)  
 [那些年我们追过的网络库](https://bbs.avplayer.org/t/topic/654)  
 [关于网络通信模型的剖析：libevent libev libuv asio](http://blog.csdn.net/tgxallen/article/details/71083779)  
+[使用 libevent 和 libev 提高网络应用性能——I/O模型演进变化史](http://blog.csdn.net/hguisu/article/details/38638183)  

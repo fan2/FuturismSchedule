@@ -2,6 +2,8 @@
 linux - [EPOLL(7)](http://man7.org/linux/man-pages/man7/epoll.7.html)  
 debian/Ubuntu - [EPOLL(7)](https://manpages.debian.org/stretch/manpages/epoll.7.en.html)  
 
+## refs
+
 [epoll 或者 kqueue 的原理是什么？](https://www.zhihu.com/question/20122137/answer/14049112)  
 
 [epoll 前戏](http://www.cnblogs.com/zhanzhao/p/5481169.html) / [epoll 笔记](https://my.oschina.net/pthread/blog/37711)  

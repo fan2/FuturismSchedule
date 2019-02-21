@@ -128,14 +128,13 @@ libuv 用了大量 callback 机制来完成异步 IO 的回调。这些 callback
 
 ## 参考
 
+[说说网络通信模型](https://yq.aliyun.com/articles/567517/)  
+[再谈各种 I/O 复用机制](http://blog.csdn.net/shallwake/article/details/5265287)  
+[使用 libevent 和 libev 提高网络应用性能——I/O模型演进变化史](http://blog.csdn.net/hguisu/article/details/38638183)  
+
 I/O多路复用之 [select](http://www.cnblogs.com/Anker/p/3258674.html)、[poll](http://www.cnblogs.com/Anker/p/3261006.html)、[epoll](http://www.cnblogs.com/Anker/p/3263780.html) 示例及 [总结](http://www.cnblogs.com/Anker/p/3265058.html)  
 [Linux I/O 模式及 select、poll、epoll 详解](https://segmentfault.com/a/1190000003063859)  
 [OSX/iOS中多路I/O复用总结](http://www.tanhao.me/pieces/1777.html/)  
-[再谈 select,iocp,epoll,kqueue 及各种 I/O 复用机制](http://blog.csdn.net/shallwake/article/details/5265287)  
 
 [Linux 下 select & poll 的实现原理简析](http://www.cnblogs.com/lanyuliuyun/p/5011526.html)  
 [linux 内核 select/poll/epoll 源码实现剖析](http://blog.csdn.net/lishenglong666/article/details/45536611)  
-
-[那些年我们追过的网络库](https://bbs.avplayer.org/t/topic/654)  
-[关于网络通信模型的剖析：libevent libev libuv asio](http://blog.csdn.net/tgxallen/article/details/71083779)  
-[使用 libevent 和 libev 提高网络应用性能——I/O模型演进变化史](http://blog.csdn.net/hguisu/article/details/38638183)  

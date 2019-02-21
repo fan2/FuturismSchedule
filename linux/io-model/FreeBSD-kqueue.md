@@ -51,6 +51,11 @@ iOS: [A wrapper around kqueue to monitor changes to files](https://gist.github.c
 
 macOS/iOS: [LightWeightRunLoop](https://github.com/wuyunfeng/LightWeightRunLoop-A-Reactor-Style-NSRunLoop)：A-Reactor-Style-NSRunLoop  
 
+[CFFileDescriptor](https://developer.apple.com/documentation/corefoundation/cffiledescriptor?language=objc)  
+
+> provides an opaque type to monitor file descriptors for read and write activity via CFRunLoop.  
+> monitor kqueue file descriptors for read activity to find out when an event the kqueue is filtering for has occurred.  
+
 ### libuv
 
 

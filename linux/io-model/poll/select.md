@@ -22,3 +22,5 @@ nginx/src/event/
 ## refs
 
 [WinSock三种选择I/O模型](https://blog.csdn.net/phunxm/article/details/5085898)  
+
+select 模式、WSAAsyncSelect 以及 WSAEventSelect 都是通过批量轮询 socket 集合来确定哪些 socket 是当前有效的（即存在待决 I/O 需要处理），好处是防止在在阻塞模式的套接字里被锁死，避免在非阻塞套接字里重复检查 `WSAEWOULDBLOCK` 错误。

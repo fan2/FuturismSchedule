@@ -2,6 +2,12 @@
 
 [CreateIoCompletionPort](https://docs.microsoft.com/zh-cn/windows/desktop/FileIO/createiocompletionport) / [GetQueuedCompletionStatus](https://msdn.microsoft.com/en-us/library/windows/desktop/aa364986(v=vs.85).aspx)  
 
+[重叠I/O 和 完成端口](https://yq.aliyun.com/articles/567517/)  
+
+重叠是指单套接字缓冲区和应用层缓冲区这两个缓冲重叠的意思，这么一重叠就省了不少空间和不少事情。
+
+重叠缓冲是很好的做法，但是对应每个 socket 都要有预分配投递一个缓冲，那么一万个连接就会有一万个缓冲了。
+
 ## libraries
 
 ### libuv

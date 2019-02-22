@@ -39,6 +39,10 @@ documentation: [Programming with Libevent](http://www.wangafu.net/~nickm/libeven
 
 [Event Loop Implementations: libuv and libev](http://www.gevent.org/loop_impls.html#event-loop-implementations-libuv-and-libev)  
 
+### refs
+
+caoshangpa - [libevent 学习笔记](https://blog.csdn.net/caoshangpa/article/category/6460835)  
+
 ## [libev](http://libev.schmorp.de/)
 
 libev - a high performance full-featured event loop written in C, loosely modelled after libevent
@@ -63,6 +67,8 @@ Libev can be small and efficient, but you also need to look elsewhere for an htt
 There is a very related library called `libeio` that does asynchronous I/O, which can be used independently or together with libev, so you can mix and match.
 
 ### [libeio](http://software.schmorp.de/pkg/libeio.html)
+
+AIO library
 
 https://github.com/kindy/libeio
 

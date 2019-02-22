@@ -17,3 +17,7 @@ nginx/src/event/
 [ngx_poll_module.c](https://github.com/nginx/nginx/blob/master/src/event/modules/ngx_poll_module.c)  
 [ngx_win32_poll_module.c](https://github.com/nginx/nginx/blob/master/src/event/modules/ngx_win32_poll_module.c)  
 [ngx_devpoll_module.c](https://github.com/nginx/nginx/blob/master/src/event/modules/ngx_devpoll_module.c)  
+
+### [muduo](https://github.com/chenshuo/muduo)
+
+[PollPoller.cc](https://github.com/chenshuo/muduo/blob/master/muduo/net/poller/PollPoller.cc)  

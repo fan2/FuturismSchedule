@@ -35,8 +35,6 @@ w3cschool - [Boost.Asio 网络编程](https://m.w3cschool.cn/nlzbw/nlzbw-mr5h25y
 
 ## refs
 
-[libuv vs Boost.Asio](http://landcareweb.com/questions/1050/libuvyu-boost-asioxiang-bi-ru-he)  
-
 Proactor 模式需要一个 loop，asio 将其封装为 `io_service`。它不仅是 asio 的核心，更是一切基于 asio 设计的程序的核心。
 
 ### [avplayer.org](https://bbs.avplayer.org/)

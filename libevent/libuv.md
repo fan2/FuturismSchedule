@@ -43,6 +43,8 @@ documentation: [Programming with Libevent](http://www.wangafu.net/~nickm/libeven
 
 caoshangpa - [libevent 学习笔记](https://blog.csdn.net/caoshangpa/article/category/6460835)  
 
+[libevent 源码深度剖析](https://blog.csdn.net/sparkliang/article/category/660506) - [PDF](https://blog.csdn.net/sparkliang/article/details/5202394) @[腾讯云](https://cloud.tencent.com/developer/article/1165034)  
+
 ## [libev](http://libev.schmorp.de/)
 
 libev - a high performance full-featured event loop written in C, loosely modelled after libevent
@@ -124,15 +126,3 @@ Node.js 基于 Google 的 V8 解析引擎和 Marc Lehmann 的 libev 实现，将
 [libuv 高并发异步使用](https://blog.csdn.net/xcw_1987/article/details/79977726)  
 
 基于libuv的TCP设计：[（一）](https://www.cnblogs.com/wqvbjhc/p/3757582.html)、[（二）](https://www.cnblogs.com/wqvbjhc/p/3758141.html)、[（三）](https://www.cnblogs.com/wqvbjhc/p/4175469.html)  
-
-## comparation
-
-[libevent、libev、libuv 综合对比](https://blog.csdn.net/lijinqi1987/article/details/71214974)  
-
-[libev 和 libuv 的 区别](https://gist.github.com/robbie-cao/d541add02a44e5eb7949f5d7b4a0a68f) - [libuv-vs-libev.md](https://gist.github.com/andreybolonin/2413da76f088e2c5ab04df53f07659ea)  
-
-[Boost network performance with libevent and libev](https://www.ibm.com/developerworks/aix/library/au-libev/index.html)  
-
-[那些年我们追过的网络库](https://bbs.avplayer.org/t/topic/654)  
-[关于网络通信模型的剖析：libevent libev libuv asio](http://blog.csdn.net/tgxallen/article/details/71083779)  
-[使用 libevent 和 libev 提高网络应用性能——I/O模型演进变化史](http://blog.csdn.net/hguisu/article/details/38638183)  

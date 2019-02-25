@@ -1,23 +1,41 @@
-# Reactor 模式和 Proactor 模式
+[Linux高性能服务器编程模式](https://rustlang-cn.org/read/rust/2018/Linux%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%BC%8F.html)  
+
+## 两种高效的事件处理模式
 
 [两种高效的事件处理模式](https://www.cnblogs.com/lojunren/p/3852514.html)  
 [Proactor 模式 & Reactor 模式详解](https://my.oschina.net/chaenomeles/blog/744234)  
-[Linux高性能服务器编程模式](https://rustlang-cn.org/read/rust/2018/Linux%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%BC%8F.html)  
 
 在高性能服务器并发模型设计中，Reactor 和 Proactor 是两个经常用到的设计模式：前者用于同步 I/O，后者用于异步 I/O。前者在 I/O 操作就绪的情况下通知用户，用户再采取实际的 I/O 操作；后者是在 I/O 操作完成后通知用户。
 
-## Reactor
+### Reactor
 
 基于 epoll 很容易实现 Reactor 模式。
 
 ![reactor-mode](images/reactor-mode.png)
 
-## Proactor
+### Proactor
 
-IOCP 的设计就是 Proactor 模式的完美体现。
-asio 设计为跨平台，在 windows 下基于 IOCP 实现，在 linux 下采用 epoll 模拟实现 Proactor 模式。
+IOCP 的设计就是 Proactor 模式的完美体现，boost.asio 在 windows 下基于 IOCP 实现。
 
 ![proactor-mode](images/proactor-mode.png)
+
+boost.asio 在 linux 下采用 epoll 模拟实现 Proactor 模式。
+
+![epoll-proactor](images/epoll_proactor.png)
+
+## 两种高效的并发模式
+
+### hsha
+
+半同步/半异步(half-sync/half-async): 同步线程用来处理客户逻辑，异步线程处理I/O事件：
+
+![hsha](images/half-sync_half-async.png)
+
+### Leader/Followers
+
+领导者/追随者(Leader/Followers):领导者/追随者模式是多个工作线程轮流获得事件源集合，轮流监听、分发并处理事件的一种模式。在任意时间点，程序都仅有一个领导者线程，它负责监听I/O事件。而其他线程则都是追随者，它们休眠在线程池中等待成为新的领导者。当前的领导者如果检测到I/O事件，首先要从线程池中推选出新的领导者线程，然后处理I/O事件。此时，新的领导者等待新的I/O事件，而原来的领导者则处理I/O事件，二者实现了并发。 
+
+![leader_followers](images/leader_followers.png)
 
 ## libs
 

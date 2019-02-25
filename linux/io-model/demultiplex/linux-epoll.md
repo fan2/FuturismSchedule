@@ -2,6 +2,24 @@
 linux - [EPOLL(7)](http://man7.org/linux/man-pages/man7/epoll.7.html)  
 debian/Ubuntu - [EPOLL(7)](https://manpages.debian.org/stretch/manpages/epoll.7.en.html)  
 
+## SYNOPSIS
+
+**API**:
+
+`epoll_create`, `epoll_create1` - open an epoll file descriptor  
+`epoll_ctl` - control interface for an epoll file descriptor  
+`epoll_wait`, `epoll_pwait` - wait for an I/O event on an epoll file descriptor  
+
+**SYNOPSIS**:
+
+```c
+#include <sys/epoll.h>
+
+int epoll_create(int size);
+int epoll_create1(int flags);
+int epoll_ctl(int epfd, int op, int fd, struct epoll_event *event);
+```
+
 ## refs
 
 [epoll 或者 kqueue 的原理是什么？](https://www.zhihu.com/question/20122137/answer/14049112)  
@@ -23,9 +41,17 @@ debian/Ubuntu - [EPOLL(7)](https://manpages.debian.org/stretch/manpages/epoll.7.
 
 ## libraries
 
+### libevent
+
+[epoll.c](https://github.com/libevent/libevent/blob/master/epoll.c)  
+[epoll_sub.c](https://github.com/libevent/libevent/blob/master/epoll_sub.c)  
+[epolltable-internal.h](https://github.com/libevent/libevent/blob/master/epolltable-internal.h)  
+
 ### libuv
 
-
+[unix/linux-core.c](https://github.com/libuv/libuv/blob/v1.x/src/unix/linux-core.c)  
+[test/test-poll.c](https://github.com/libuv/libuv/blob/v1.x/test/test-poll.c)  
+[test/test-embed.c](https://github.com/libuv/libuv/blob/v1.x/test/test-embed.c)  
 
 ### nginx
 

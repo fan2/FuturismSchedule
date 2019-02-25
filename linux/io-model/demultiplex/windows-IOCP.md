@@ -10,7 +10,19 @@
 
 ## libraries
 
+### libevent
+
+[iocp-internal.h](https://github.com/libevent/libevent/blob/master/iocp-internal.h)  
+[event_iocp.c](https://github.com/libevent/libevent/blob/master/event_iocp.c)  
+[buffer_iocp.c](https://github.com/libevent/libevent/blob/master/buffer_iocp.c)  
+[regress_iocp](https://github.com/libevent/libevent/blob/master/test/regress_iocp.c)  
+
 ### libuv
+
+libuv 中的文件（[fs-event.c](https://github.com/libuv/libuv/blob/v1.x/src/win/fs-event.c)）、管道（[pipe.c](https://github.com/libuv/libuv/blob/v1.x/src/win/pipe.c)）、套接字（[poll.c](https://github.com/libuv/libuv/blob/v1.x/src/win/poll.c)，[tcp.c](https://github.com/libuv/libuv/blob/v1.x/src/win/tcp.c)，[udp.c](https://github.com/libuv/libuv/blob/v1.x/src/win/udp.c)）等均基于 IOCP 等待 I/O 完成通知。
+
+[core.c](https://github.com/libuv/libuv/blob/v1.x/src/win/core.c)  
+[test-embed.c](https://github.com/libuv/libuv/blob/v1.x/test/test-embed.c)  
 
 ### nginx
 

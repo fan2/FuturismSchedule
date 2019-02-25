@@ -56,9 +56,16 @@ macOS/iOS: [LightWeightRunLoop](https://github.com/wuyunfeng/LightWeightRunLoop-
 > provides an opaque type to monitor file descriptors for read and write activity via CFRunLoop.  
 > monitor kqueue file descriptors for read activity to find out when an event the kqueue is filtering for has occurred.  
 
+### libevent
+
+[kqueue-internal.h](https://github.com/libevent/libevent/blob/master/kqueue-internal.h)  
+[kqueue.c](https://github.com/libevent/libevent/blob/master/kqueue.c)  
+
 ### libuv
 
-
+[unix/kqueue.c](https://github.com/libuv/libuv/blob/v1.x/src/unix/kqueue.c)  
+[unix/stream.c](https://github.com/libuv/libuv/blob/v1.x/src/unix/stream.c)  
+[test/test-poll.c](https://github.com/libuv/libuv/blob/v1.x/test/test-poll.c)  
 
 ### nginx
 
@@ -66,6 +73,12 @@ nginx/src/event/
 
 [ngx_event.h](https://github.com/nginx/nginx/blob/master/src/event/ngx_event.h) - NGX_HAVE_KQUEUE  
 [ngx_kqueue_module.c](https://github.com/nginx/nginx/blob/master/src/event/modules/ngx_kqueue_module.c)  
+
+### mars
+
+微信终端跨平台组件 Mars 早期针对 TARGET_OS_MAC 平台采用 kqueue/kevent 作为 I/O 多路复用器。
+
+[socketselect.cc](https://github.com/Tencent/mars/blob/master/mars/comm/unix/socket/socketselect.cc)
 
 ## refs
 

@@ -1,12 +1,46 @@
 [I/O Completion Ports](https://docs.microsoft.com/zh-cn/windows/desktop/FileIO/i-o-completion-ports)  
 
-[CreateIoCompletionPort](https://docs.microsoft.com/zh-cn/windows/desktop/FileIO/createiocompletionport) / [GetQueuedCompletionStatus](https://msdn.microsoft.com/en-us/library/windows/desktop/aa364986(v=vs.85).aspx)  
-
 [重叠I/O 和 完成端口](https://yq.aliyun.com/articles/567517/)  
 
 重叠是指单套接字缓冲区和应用层缓冲区这两个缓冲重叠的意思，这么一重叠就省了不少空间和不少事情。
 
 重叠缓冲是很好的做法，但是对应每个 socket 都要有预分配投递一个缓冲，那么一万个连接就会有一万个缓冲了。
+
+## SYNOPSIS
+
+```cpp
+HANDLE WINAPI CreateIoCompletionPort(
+  _In_     HANDLE    FileHandle,
+  _In_opt_ HANDLE    ExistingCompletionPort,
+  _In_     ULONG_PTR CompletionKey,
+  _In_     DWORD     NumberOfConcurrentThreads
+);
+
+BOOL WINAPI GetQueuedCompletionStatus(
+  _In_  HANDLE       CompletionPort,
+  _Out_ LPDWORD      lpNumberOfBytes,
+  _Out_ PULONG_PTR   lpCompletionKey,
+  _Out_ LPOVERLAPPED *lpOverlapped,
+  _In_  DWORD        dwMilliseconds
+);
+
+BOOL WINAPI GetQueuedCompletionStatusEx(
+  _In_  HANDLE             CompletionPort,
+  _Out_ LPOVERLAPPED_ENTRY lpCompletionPortEntries,
+  _In_  ULONG              ulCount,
+  _Out_ PULONG             ulNumEntriesRemoved,
+  _In_  DWORD              dwMilliseconds,
+  _In_  BOOL               fAlertable
+);
+```
+
+## DESCRIPTION
+
+**[CreateIoCompletionPort](https://docs.microsoft.com/zh-cn/windows/desktop/FileIO/createiocompletionport)**: Creates an input/output (I/O) completion port and associates it with a specified file handle, or creates an I/O completion port that is not yet associated with a file handle, allowing association at a later time. Associating an instance of an opened file handle with an I/O completion port allows a process to receive notification of the completion of asynchronous I/O operations involving that file handle.
+
+**[GetQueuedCompletionStatus](https://msdn.microsoft.com/en-us/library/windows/desktop/aa364986(v=vs.85).aspx)**: Attempts to dequeue an I/O completion packet from the specified I/O completion port. If there is no completion packet queued, the function waits for a pending I/O operation associated with the completion port to complete. To dequeue multiple I/O completion packets at once, use the `GetQueuedCompletionStatusEx` function.
+
+**[GetQueuedCompletionStatusEx](https://docs.microsoft.com/zh-cn/windows/desktop/FileIO/getqueuedcompletionstatusex-func)**: Retrieves multiple completion port entries simultaneously. It waits for pending I/O operations that are associated with the specified completion port to complete.
 
 ## libraries
 

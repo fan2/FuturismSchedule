@@ -5,8 +5,6 @@ FreeBSD/Darwin - [poll](https://www.freebsd.org/cgi/man.cgi?query=poll)
 linux - [POLL(2)](http://man7.org/linux/man-pages/man2/poll.2.html)  
 debian/Ubuntu - [poll](https://manpages.debian.org/stretch/manpages-dev/poll.2.en.html)  
 
-poll, ppoll - wait for some event on a file descriptor
-
 ## SYNOPSIS
 
 **API**:
@@ -45,17 +43,20 @@ int ppoll(struct pollfd *fds, nfds_t nfds,
 
 `poll()` performs a similar task to `select(2)`: it waits for one of a set of file descriptors to become ready to perform I/O.
 
-相比 select 需要用户按关注事件类型组装三个 FD_SET，`pollfd` 结构直接将 fd 及其关注的事件封装在一起，调用参数及回调管理更直观简洁。
-
 ### ppoll
 
-The relationship between `poll()` and `ppoll()` is analogous to the relationship between `select(2)` and `pselect(2)`: like pselect(2), ppoll() allows an application to **safely** wait until either a file descriptor becomes ready or until a signal is caught.
+The relationship between `poll()` and `ppoll()` is analogous to the relationship between `select(2)` and `pselect(2)`: like pselect(2), ppoll() allows an application to **safely** wait until *either* a file descriptor becomes ready *or* until a signal is caught.
 
 ### vs. select
 
+[Linux select() vs pselect() vs ppoll()](https://stackoverflow.com/questions/9774986/linux-select-vs-ppoll-vs-pselect)  
+[What are the differences between poll and select?](https://stackoverflow.com/questions/970979/what-are-the-differences-between-poll-and-select)  
+[Caveats of select/poll vs. epoll reactors in Twisted](https://stackoverflow.com/questions/2032598/caveats-of-select-poll-vs-epoll-reactors-in-twisted)  
+
 `select()` can monitor only file descriptors numbers that are less than *FD_SETSIZE*; `poll(2)` does **not** have this limitation.  
 
-[What are the differences between poll and select?](https://stackoverflow.com/questions/970979/what-are-the-differences-between-poll-and-select)
+相比 select 需要用户按关注事件类型组装三个 FD_SET，`pollfd` 结构直接将 fd 及其关注的事件封装在一起，调用参数及回调管理更直观简洁。
+此外，select 每次都要重新初始化各个 FD_SET，且 select 返回后需要对前后 FD_SET 进行二次分拣。poll 则直接在 pollfd.revents 中返回发生的事件。
 
 ## refs
 

@@ -13,8 +13,6 @@ Kqueue provides efficient input and output event pipelines between the kernel an
 
 > iOS 不支持？
 
-## equivalent
-
 Kqueue equivalent for other platforms:
 
 - on Solaris, Windows and AIX: [I/O completion ports](https://en.wikipedia.org/wiki/Input/output_completion_port)  
@@ -22,6 +20,49 @@ Kqueue equivalent for other platforms:
 
     - **epoll** system call has similar but not identical semantics. `epoll` notifies when a file descriptor is ready to perform an I/O operation, whereas kqueue & IOCP notify when a requested operation has completed.  
     - **inotify** is a Linux kernel subsystem that notices changes to the filesystem and reports those to applications.
+
+## SYNOPSIS
+
+**API**:
+
+`kqueue`, `kevent` -- kernel event notification mechanism
+
+**SYNOPSIS**:
+
+```c
+#include <sys/event.h>
+
+int
+kqueue(void);
+
+int
+kevent(int kq, const struct kevent *changelist, int nchanges,
+        struct kevent *eventlist, int nevents,
+        const struct timespec *timeout);
+
+struct kevent {
+    uintptr_t   ident;      /* identifier for this event */
+    short       filter;     /* filter for event */
+    u_short     flags;      /* action flags for kqueue */
+    u_int       fflags;     /* filter flag value */
+    int64_t     data;       /* filter data value */
+    void        *udata;     /* opaque user data identifier */
+    uint64_t    ext[4];     /* extensions */
+};
+
+EV_SET(kev, ident, filter, flags, fflags, data, udata);
+```
+
+## DESCRIPTION
+
+The `kqueue()` system call provides a generic method of notifying the user when an event happens or a condition holds, based on the results of small pieces of kernel code termed filters.  
+A kevent is identified by the (ident, filter) pair; there may only be one unique kevent per kqueue.
+
+The `kqueue()` system call creates a new kernel event queue and returns a descriptor.  
+The queue is not inherited by a child created with `fork(2)`. However, if `rfork(2)` is called without the RFFDG flag, then the descriptor table is shared, which will allow sharing of the kqueue between two processes.  
+ The `kevent()` system call is used to register events with the queue, and return any pending events to the user.
+
+The `EV_SET()` macro is provided for ease of initializing a `kevent` structure.
 
 ## libraries
 

@@ -3,7 +3,7 @@
 ## 两种高效的事件处理模式
 
 [两种高效的事件处理模式](https://www.cnblogs.com/lojunren/p/3852514.html)  
-[Proactor 模式 & Reactor 模式详解](https://my.oschina.net/chaenomeles/blog/744234)  
+[高性能IO模型浅析](https://www.cnblogs.com/fanzhidongyzby/p/4098546.html)  
 
 在高性能服务器并发模型设计中，Reactor 和 Proactor 是两个经常用到的设计模式：前者用于同步 I/O，后者用于异步 I/O。前者在 I/O 操作就绪的情况下通知用户，用户再采取实际的 I/O 操作；后者是在 I/O 操作完成后通知用户。
 

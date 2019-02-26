@@ -60,6 +60,8 @@ A file descriptor is considered ***ready*** if it is possible to *perform* a cor
 
 On exit, each of the file descriptor sets is **modified** in place to indicate which file descriptors actually changed status. (Thus, if using `select()` within a loop, the sets must be **reinitialized** before each call.)
 
+> `EINTR`:  A signal occurred before any requested event;
+
 ### timeout
 
 If both fields of the timeval structure are *zero*, then `select()` returns immediately. (This is useful for **polling**.)  
@@ -89,7 +91,7 @@ if ( (nready = select(...)) < 0 ) {
 }
 ```
 
-假设信号处理函数 handle_intr 设置全局标记位 *intr_flag* 然后返回，在第一个 intr_flag 测试和 select 等待之间可能有 `SIGINT` 信号发生，若 select 一直阻塞等待 I/O，又错失 `EINTR` 信号，则永远无法执行到第二个 intr_flag 测试。
+假设信号处理函数 handle_intr 设置全局标记位 *intr_flag* 然后返回，在第一个 intr_flag 测试和 select 等待之间可能有 `SIGINT` 信号发生，若 select 一直阻塞等待 I/O，又错失 `SIGINT` 信号，则永远无法执行到第二个 intr_flag 测试。
 
 究其原因在于存在竞态（race condition），test 和 wait 之间是非原子的，wait 之前收到 `SIGINT` 信号而错失唤醒。  
 

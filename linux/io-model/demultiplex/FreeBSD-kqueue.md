@@ -1,6 +1,4 @@
 
-kqueue, kevent -- kernel event notification mechanism
-
 FreeBSD/Darwin - [KQUEUE(2)](https://www.freebsd.org/cgi/man.cgi?query=kqueue&apropos=0&sektion=0&format=html)  
 
 Ubuntu - [bionic (2) kqueue.2](http://manpages.ubuntu.com/manpages/bionic/man2/kqueue.2.html)

@@ -17,20 +17,19 @@ The following system calls and library functions allow the caller to send a sign
 `kill` - send signal to a process  
 `pthread_kill` - send a signal to a thread asynchronously  
 
-In a *single-threaded* program it is equivalent to `kill(getpid(), sig);`  
-In a *multithreaded* program it is equivalent to `pthread_kill(pthread_self(), sig);`  
+1. In a *single-threaded* program it is equivalent to `kill(getpid(), sig);`  
+2. In a *multithreaded* program it is equivalent to `pthread_kill(pthread_self(), sig);`  
 
-If the signal causes a handler to be called, `raise()` will return **only** after the signal handler has returned.
+If the signal causes a handler to be called, `raise()` will return **only after** the signal handler has returned.
 
 ## signal mask
 
-The signal mask is the set of signals whose delivery is currently **blocked** for the caller.  
+The signal mask is the *set* of signals whose delivery is currently **blocked** for the caller.  
 Each thread in a process has an *independent* signal mask, which indicates the set of signals that the thread is currently *blocking*.
 
 > sigmask=signal mask，意即信号掩码。
 
-A thread can manipulate its signal mask using `pthread_sigmask(3)`.  
-In a traditional single-threaded application, `sigprocmask(2)` can be used to manipulate the signal mask.
+In a traditional single-threaded application, `sigprocmask(2)` can be used to manipulate the signal mask. A thread can manipulate its signal mask using `pthread_sigmask(3)`.  
 
 调用 `sigprocmask`（单线程） 或 `pthread_sigmask`（多线程）可屏蔽掉某些不关心的信号，不做处理。
 
@@ -55,9 +54,9 @@ int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);
 
 #### how
 
-- `SIG_BLOCK`: The set of blocked signals is the **union** of the current set and the set argument.  
-- `SIG_UNBLOCK`: The signals in set are **removed** from the current set of blocked signals. It is permissible to attempt to unblock a signal which is not blocked.  
-- `SIG_SETMASK`: The set of blocked signals is **set** to the argument set.  
+- `SIG_BLOCK`: The set of blocked signals is the **union**（添加） of the current set and the set argument.  
+- `SIG_UNBLOCK`: The signals in set are **removed**（移除） from the current set of blocked signals. It is permissible to attempt to unblock a signal which is not blocked.  
+- `SIG_SETMASK`: The set of blocked signals is **set**（替换） to the argument set.  
 
 ### [pthread_sigmask(3)](http://man7.org/linux/man-pages/man3/pthread_sigmask.3.html)
 
@@ -75,18 +74,52 @@ int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);
 
 The `pthread_sigmask()` function is just like `sigprocmask(2)`, with the difference that its use in **multithreaded** programs is explicitly specified by POSIX.1.
 
+## pending signals
+
+A signal may be blocked, which means that it will **not** be delivered until it is later unblocked.  
+Between the time when it is generated and when it is delivered a signal is said to be **pending**.  
+
+> 从 block 到 unblock 这段时间为挂起状态。
+
+A thread can obtain the set of signals that it currently has pending using [sigpending(2)](http://man7.org/linux/man-pages/man2/sigpending.2.html).
+
+```c
+#include <signal.h>
+
+int sigpending(sigset_t *set);
+```
+
+This set will consist of the **union** of the set of pending process-directed signals and the set of signals pending for the calling thread.  
+
 ## Waiting for a signal to be caught
 
-The following system calls suspend execution of the calling process or thread until a signal is caught (or an unhandled signal terminates the process):
+The following system calls **suspend** execution of the calling process or thread ***until*** a signal is caught (or an unhandled signal terminates the process):
 
-- [pause(2)](http://man7.org/linux/man-pages/man2/pause.2.html): Suspends execution until any signal is caught.  
-- [sigsuspend(2)](http://man7.org/linux/man-pages/man2/sigsuspend.2.html): Temporarily changes the signal mask (see below) and suspends execution until one of the unmasked signals is caught.  
+- [pause(2)](http://man7.org/linux/man-pages/man2/pause.2.html): Suspends execution until *any* signal is caught.  
+- [sigsuspend(2)](http://man7.org/linux/man-pages/man2/sigsuspend.2.html): Temporarily changes the signal mask (see below) and suspends execution until one of the *unmasked* signals is caught.  
 
-只接受处理当前线程 unmask 的信号。
+1. `pause` 会挂起当前进程（线程），直到收到一个（任意）信号。
+
+    > 为了避免一个 C 程序执行完自动终止一闪而过，可以 pause 等待用户按键再退出，以便在控制台看到输出结果。
+
+2. `sigsuspend` 临时改变 sigmask，挂起当前进程（线程），直到收到一个非屏蔽（unmasked）信号。信号被处理后，sigsuspend 返回，restore 之前的 sigmask。  
+
+    > 挂起等待接受到指定信号才唤醒。
 
 ## Asynchronously signal handler
 
-`signal()` 函数和 `sigaction()` 函数为指定信号量安装信号处理器。
+进程不能简单地测试一个变量（如 errno）来判断是否发生了一个信号，而应该告诉内核在此信号发生时应该如何处理。
+
+在某个信号出现时，可以告诉内核按以下3种方式之一进行处理，我们称之为信号的处理或与信号相关的动作。
+
+1. 忽略该信号，但是不能忽略 `SIGKILL`，`SIGSTOP` 和一些由硬件异常产生的信号；  
+2. 捕捉信号，通过系统接口安装用户预定义的信号处理函数，系统内核在收到某种信号时回调绑定函数；  
+3. 系统默认动作。注意，对于大多信号的系统默认动作是终止该进程。
+
+调用 `signal()` 和 `sigaction()` 函数可以为指定信号安装对应的信号处理器。
+
+进程捕捉到信号时，会临时中断正在执行的正常指令序列，转而执行预先绑定的异步回调函数。
+信号处理程序返回后，继续执行之前被中断的正常指令序列，这类似硬件中断处理后的恢复现场。
 
 ### [signal](http://man7.org/linux/man-pages/man2/signal.2.html)
 
@@ -145,6 +178,8 @@ There are two general ways to do this:
 
 * [signalfd(2)](http://man7.org/linux/man-pages/man2/signalfd.2.html) returns a file descriptor that can be used to read information about signals that are delivered to the caller. Each [read(2)](http://man7.org/linux/man-pages/man2/read.2.html) from this file descriptor blocks until one of the signals in the set specified in the signalfd(2) call is delivered to the caller. The buffer returned by read(2) contains a structure describing the signal.
 
+除了可以通过 signal、sigaction 预先安装信号处理器执行异步处理程序外，还可以调用 `sigwait` 同步阻塞等待指定信号到来（尚未处理的 pending 状态）。
+
 ### signalfd
 
 signalfd - create a file descriptor for accepting signals
@@ -159,14 +194,6 @@ signalfd - create a file descriptor for accepting signals
 This provides an *alternative* to the use of a signal handler or `sigwaitinfo(2)`, and has the **advantage** that the file descriptor may be monitored by `select(2)`, `poll(2)`, and `epoll(7)`.
 
 如此一来，信号事件就能和其他I/O事件一样被 I/O 复用器一并处理，即统一事件源。
-
-## pending signals
-
-A signal may be blocked, which means that it will **not** be delivered until it is later unblocked.  
-Between the time when it is generated and when it is delivered a signal is said to be **pending**.
-
-A thread can obtain the set of signals that it currently has pending using [sigpending(2)](http://man7.org/linux/man-pages/man2/sigpending.2.html).  
-This set will consist of the **union** of the set of pending process-directed signals and the set of signals pending for the calling thread.  
 
 ## Interruption by signal handler
 

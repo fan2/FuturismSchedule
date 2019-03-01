@@ -2,6 +2,20 @@
 
 APUE 第10章 信号
 
+## sigset_t
+
+操作 sigset_t 的相关函数参考 [SIGSETOPS(3)](http://man7.org/linux/man-pages/man3/sigsetops.3.html)。
+
+```c
+#include <signal.h>
+
+int sigemptyset(sigset_t *set); // 初始化空集
+int sigfillset(sigset_t *set);  // 初始化全集
+int sigaddset(sigset_t *set, int signum); // 添加信号到集合
+int sigdelset(sigset_t *set, int signum); // 从集合移除信号
+int sigismember(const sigset_t *set, int signum); // 判断信号是否在集合中
+```
+
 ## Sending a signal
 
 The following system calls and library functions allow the caller to send a signal:
@@ -16,6 +30,14 @@ The following system calls and library functions allow the caller to send a sign
 `raise` - send a signal to the caller(process or thread)  
 `kill` - send signal to a process  
 `pthread_kill` - send a signal to a thread asynchronously  
+
+```c
+#include <signal.h>
+
+int raise(int sig);
+int kill(pid_t pid, int sig); // #include <sys/types.h> for pid_t
+int pthread_kill(pthread_t thread, int sig);
+```
 
 1. In a *single-threaded* program it is equivalent to `kill(getpid(), sig);`  
 2. In a *multithreaded* program it is equivalent to `pthread_kill(pthread_self(), sig);`  
@@ -58,9 +80,13 @@ int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);
 - `SIG_UNBLOCK`: The signals in set are **removed**（移除） from the current set of blocked signals. It is permissible to attempt to unblock a signal which is not blocked.  
 - `SIG_SETMASK`: The set of blocked signals is **set**（替换） to the argument set.  
 
+调用 `sigprocmask(0, NULL, &sigset)` 可以获取当前的信号掩码集 sigset_t。
+
 ### [pthread_sigmask(3)](http://man7.org/linux/man-pages/man3/pthread_sigmask.3.html)
 
 `pthread_sigmask` - examine and change mask of blocked signals
+
+调用 `pthread_sigmask(0, NULL, &sigset)` 也可以获取当前的信号掩码集 sigset_t。
 
 #### SYNOPSIS
 
@@ -89,7 +115,7 @@ A thread can obtain the set of signals that it currently has pending using [sigp
 int sigpending(sigset_t *set);
 ```
 
-This set will consist of the **union** of the set of pending process-directed signals and the set of signals pending for the calling thread.  
+This set will consist of the **union** of the set of pending process-directed signals and the **set** of signals pending for the calling thread.  
 
 ## Waiting for a signal to be caught
 
@@ -106,8 +132,15 @@ The following system calls **suspend** execution of the calling process or threa
 
     > 挂起等待接受到指定信号才唤醒。
 
+```c
+#include <signal.h>
+
+int sigsuspend(const sigset_t *mask);
+```
+
 ## Asynchronously signal handler
 
+信号是异步事件的经典实例，产生信号的事件对进程而言是随机出现的。
 进程不能简单地测试一个变量（如 errno）来判断是否发生了一个信号，而应该告诉内核在此信号发生时应该如何处理。
 
 在某个信号出现时，可以告诉内核按以下3种方式之一进行处理，我们称之为信号的处理或与信号相关的动作。
@@ -132,8 +165,8 @@ typedef void (*sighandler_t)(int);
 sighandler_t signal(int signum, sighandler_t handler);
 ```
 
-The behavior of signal() varies across UNIX versions, and has also varied historically across different versions of Linux.  
-Avoid its use: use sigaction(2) instead.
+The behavior of `signal()` varies across UNIX versions, and has also varied historically across different versions of Linux.  
+Avoid its use: use `sigaction(2)` *instead*.
 
 ### [sigaction](http://man7.org/linux/man-pages/man2/sigaction.2.html)
 
@@ -178,7 +211,14 @@ There are two general ways to do this:
 
 * [signalfd(2)](http://man7.org/linux/man-pages/man2/signalfd.2.html) returns a file descriptor that can be used to read information about signals that are delivered to the caller. Each [read(2)](http://man7.org/linux/man-pages/man2/read.2.html) from this file descriptor blocks until one of the signals in the set specified in the signalfd(2) call is delivered to the caller. The buffer returned by read(2) contains a structure describing the signal.
 
-除了可以通过 signal、sigaction 预先安装信号处理器执行异步处理程序外，还可以调用 `sigwait` 同步阻塞等待指定信号到来（尚未处理的 pending 状态）。
+除了可以通过 signal、sigaction 预先安装信号处理器执行异步处理程序外，还可以调用 `sigwait` 同步阻塞等待指定信号的到来（suspends until signal set becomes *pending*）。
+
+```c
+#include <signal.h>
+int sigwait(const sigset_t *set, int *sig);
+```
+
+`sigwait()` is implemented using [sigtimedwait(2)](http://man7.org/linux/man-pages/man2/sigtimedwait.2.html).
 
 ### signalfd
 
@@ -193,7 +233,7 @@ signalfd - create a file descriptor for accepting signals
 `signalfd()` creates a file descriptor that can be used to accept signals targeted at the caller.  
 This provides an *alternative* to the use of a signal handler or `sigwaitinfo(2)`, and has the **advantage** that the file descriptor may be monitored by `select(2)`, `poll(2)`, and `epoll(7)`.
 
-如此一来，信号事件就能和其他I/O事件一样被 I/O 复用器一并处理，即统一事件源。
+如此一来，信号就能和其他I/O事件一样被 I/O 复用器一并等待，即统一事件源。
 
 ## Interruption by signal handler
 
@@ -201,7 +241,7 @@ Interruption of system calls and library functions by signal handlers
 
 If a signal handler is invoked while a system call or library function call is *blocked*, then either:
 
-- the call is automatically restarted after the signal handler returns; or  
+- the call is automatically **restarted** after the signal handler returns; or  
 - the call fails with the error `EINTR`.
 
 ### restartable
@@ -215,11 +255,9 @@ If a signal handler is invoked while a system call or library function call is *
 - 同步设施（sem、mutex、cond）等待（lock 或 wait）；  
 - etc.  
 
-否则，系统调用将会返回错误（errno=`EINTR`）。
-
 ### EINTR
 
-还有一些系统调用或在某些场景下，无论是否设置了 `SA_RESTART` 标记，被信号中断后不会自动重入，直接返回错误。
+还有一些系统调用或在某些场景下，无论是否设置了 `SA_RESTART` 标记，被信号中断后都不会自动重入，而是返回错误（errno=`EINTR`）。
 
 - 等待信号接口：pause(2), sigsuspend(2), sigtimedwait(2), and sigwaitinfo(2)；  
 - 已被设置 `SO_RCVTIMEO` 套接字的可读调用（accept,recv）和可写调用（connect,send）；  
@@ -229,7 +267,18 @@ If a signal handler is invoked while a system call or library function call is *
 
 > 需要注意的是，`sleep(3)` 函数也不会重启，但是不会返回错误，返回剩余时间。
 
-应按需对某些系统调用捕获 `errno=EINTR` 错误，并进行手动重入处理。
+被 sigaction.sa_handler 中断的系统调用必须显式地捕获 `errno=EINTR` 错误，并按需进行手动重入处理。
+
+假定低速设备进行读操作被中断，我们希望重启它。典型的代码序列如下：
+
+```c
+again:
+  if ((n = read(fd, buf, BUFFSIZE)) < 0) {
+    if (errno == EINTR)
+      goto again;
+    /*handle other errors*/
+  }
+```
 
 #### libuv
 

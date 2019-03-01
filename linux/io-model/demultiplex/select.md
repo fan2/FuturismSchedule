@@ -76,13 +76,36 @@ If timeout is *NULL* (no timeout), `select()` can block indefinitely.
 
 关于 pselect 的产生背景和必要性，可参考 UNP 相关章节以及 [select](https://www.cnblogs.com/diegodu/p/3988103.html) vs. [pselect()](https://stackoverflow.com/questions/9774986/linux-select-vs-ppoll-vs-pselect)。
 
-select 函数不仅需要等待 I/O 事件，还需要接受 `EINTR` 软中断。考虑下面的代码片段：
+下面我们来看一段代码：
+
+```c
+int sig_int();      /*my signal handling function*/
+int sig_int_flag;   /*set nonzero when signal occurs*/
+
+int main(int argc, char* argv[]) {
+    signal(SIGINT, sig_int);    /*establish handler*/
+    /*...*/
+    while (sig_int_flag == 0)
+        pause();                /*go to sleep, waiting for signal*/
+    /*...*/
+}
+
+sig_int() {
+    signal(SIGINT, sig_int);    /*reestablish handler for next time*/
+    sig_int_flag = 1;           /*set flag for main loop to examine*/
+}
+```
+
+上述代码的本意是想让 pause 等待 SIGINT 信号唤醒。然而，由于 while 循环和 pause 之间非原子执行，如果测试满足 sig_int_flag==0 后，发生处理了 SIGINT 信号，
+假设后续不再产生 SIGINT 信号，则 pause 将错失中断唤醒而永久休眠！
+
+将 pause 换成 select，来看下面这段代码：
 
 ```c
 if (intr_flag)
     handle_intr();       /*handle the signal*/
 
-if ( (nready = select(...)) < 0 ) {
+if ( (nready = select(...)) < 0 ) { /*go to sleep, waiting for I/O and signal*/
     if (errno == EINTR) {
         if (intr_flag)
             handle_intr();
@@ -90,6 +113,8 @@ if ( (nready = select(...)) < 0 ) {
     /*...*/
 }
 ```
+
+需要明确的是，select 不仅要同步阻塞等待 I/O 事件，还要接受 `EINTR` 软中断。
 
 假设信号处理函数 handle_intr 设置全局标记位 *intr_flag* 然后返回，在第一个 intr_flag 测试和 select 等待之间可能有 `SIGINT` 信号发生，若 select 一直阻塞等待 I/O，又错失 `SIGINT` 信号，则永远无法执行到第二个 intr_flag 测试。
 

@@ -16,7 +16,7 @@ int sigdelset(sigset_t *set, int signum); // 从集合移除信号
 int sigismember(const sigset_t *set, int signum); // 判断信号是否在集合中
 ```
 
-## Sending a signal
+## raise a signal
 
 The following system calls and library functions allow the caller to send a signal:
 
@@ -39,10 +39,15 @@ int kill(pid_t pid, int sig); // #include <sys/types.h> for pid_t
 int pthread_kill(pthread_t thread, int sig);
 ```
 
-1. In a *single-threaded* program it is equivalent to `kill(getpid(), sig);`  
-2. In a *multithreaded* program it is equivalent to `pthread_kill(pthread_self(), sig);`  
+1. In a *single-threaded* program it is equivalent to `kill(getpid(), sig)`;  
+2. In a *multithreaded* program it is equivalent to `pthread_kill(pthread_self(), sig)`;  
 
-If the signal causes a handler to be called, `raise()` will return **only after** the signal handler has returned.
+If the signal causes a handler to be called, **raise()** will return *only after* the signal handler has returned.
+
+### empty signal
+
+POSIX.1 编号为0的信号定义为空信号。指定 sig=0 调用 `kill` 或 `pthread_kill`，不会发出任何信号，可用作错误状态检查，常被用来检测一个特定 进程/线程 是否仍然存活。
+如果目标 进程/线程已经释放，则检测返回 -1 且 errno=`ESRCH`。
 
 ## signal mask
 
@@ -51,7 +56,8 @@ Each thread in a process has an *independent* signal mask, which indicates the s
 
 > sigmask=signal mask，意即信号掩码。
 
-In a traditional single-threaded application, `sigprocmask(2)` can be used to manipulate the signal mask. A thread can manipulate its signal mask using `pthread_sigmask(3)`.  
+In a traditional single-threaded application, **sigprocmask(2)** can be used to manipulate the signal mask.   
+A thread can manipulate its signal mask using **pthread_sigmask(3)**.  
 
 调用 `sigprocmask`（单线程） 或 `pthread_sigmask`（多线程）可屏蔽掉某些不关心的信号，不做处理。
 
@@ -62,6 +68,8 @@ In a traditional single-threaded application, `sigprocmask(2)` can be used to ma
 `sigprocmask`, `rt_sigprocmask` - examine and change blocked signals
 
 **sigprocmask()** is used to fetch and/or change the signal mask of the calling thread.  
+
+`sigprocmask` 接口用于检测获取或设置更改当前信号屏蔽字。
 
 #### SYNOPSIS
 
@@ -100,12 +108,12 @@ int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);
 
 The `pthread_sigmask()` function is just like `sigprocmask(2)`, with the difference that its use in **multithreaded** programs is explicitly specified by POSIX.1.
 
-## pending signals
+### blocked pending
 
-A signal may be blocked, which means that it will **not** be delivered until it is later unblocked.  
-Between the time when it is generated and when it is delivered a signal is said to be **pending**.  
+A signal may be blocked, which means that it will *not* be delivered *until* it is later unblocked.  
+Between the time when it is *generated* and when it is *delivered* a signal is said to be **pending**.  
 
-> 从 block 到 unblock 这段时间为挂起状态。
+> 从信号产生（generation），被阻塞（blocked），直到解除阻塞（unblocked）被投递（delivered）这段时间为挂起状态。
 
 A thread can obtain the set of signals that it currently has pending using [sigpending(2)](http://man7.org/linux/man-pages/man2/sigpending.2.html).
 
@@ -117,20 +125,32 @@ int sigpending(sigset_t *set);
 
 This set will consist of the **union** of the set of pending process-directed signals and the **set** of signals pending for the calling thread.  
 
-## Waiting for a signal to be caught
+## suspend for signal
 
 The following system calls **suspend** execution of the calling process or thread ***until*** a signal is caught (or an unhandled signal terminates the process):
 
 - [pause(2)](http://man7.org/linux/man-pages/man2/pause.2.html): Suspends execution until *any* signal is caught.  
 - [sigsuspend(2)](http://man7.org/linux/man-pages/man2/sigsuspend.2.html): Temporarily changes the signal mask (see below) and suspends execution until one of the *unmasked* signals is caught.  
 
-1. `pause` 会挂起当前进程（线程），直到收到一个（任意）信号。
+### pause for any signal
 
-    > 为了避免一个 C 程序执行完自动终止一闪而过，可以 pause 等待用户按键再退出，以便在控制台看到输出结果。
+**pause()** causes the calling process (or thread) to sleep until a signal is delivered that either terminates the process or causes the invocation of a signal-catching function.  
+**pause()** returns only when a signal was caught and the signal-catching function returned. In this case, **pause()** returns -1, and *errno* is set to `EINTR`.
 
-2. `sigsuspend` 临时改变 sigmask，挂起当前进程（线程），直到收到一个非屏蔽（unmasked）信号。信号被处理后，sigsuspend 返回，restore 之前的 sigmask。  
+`pause` 会挂起当前进程（线程），直到收到任意（非屏蔽？）信号且被处理后才返回。
 
-    > 挂起等待接受到指定信号才唤醒。
+> 为了避免一个 C 程序执行完自动终止一闪而过，可以 pause 等待用户按键再退出，以便在控制台看到输出结果。
+
+### sigsuspend for unmasked signal
+
+**sigsuspend()** temporarily replaces the signal mask of the calling process with the mask given by `mask` and then suspends the process *until* delivery of a signal whose action is to invoke a signal handler or to terminate a process.  
+
+- If the signal terminates the process, then `sigsuspend()` does not return.  
+- If the signal is caught, then `sigsuspend()` returns after the signal handler *returns*, and the signal mask is *restored* to the state before the call to sigsuspend().  
+
+`sigsuspend` 临时改变 sigmask，挂起当前进程（线程），直到收到一个非屏蔽（unmasked）信号。信号被处理后，sigsuspend 返回，restore 之前的 sigmask。  
+
+> 挂起等待接受到指定信号才唤醒。
 
 ```c
 #include <signal.h>
@@ -138,7 +158,66 @@ The following system calls **suspend** execution of the calling process or threa
 int sigsuspend(const sigset_t *mask);
 ```
 
-## Asynchronously signal handler
+### sigwait for sigset
+
+Rather than *asynchronously* catching a signal via a signal handler, it is possible to **synchronously** accept the signal, that is, to ***block*** execution *until* the signal is delivered, at which point the kernel returns information about the signal to the caller.  
+
+There are two general ways to do this:
+
+* [sigwaitinfo(2)](http://man7.org/linux/man-pages/man2/sigwaitinfo.2.html), [sigtimedwait(2)](http://man7.org/linux/man-pages/man2/sigtimedwait.2.html), and [sigwait(3)](http://man7.org/linux/man-pages/man3/sigwait.3.html) suspend execution until one of the signals in a specified set is delivered. Each of these calls returns information about the delivered signal.
+
+* [signalfd(2)](http://man7.org/linux/man-pages/man2/signalfd.2.html) returns a file descriptor that can be used to read information about signals that are delivered to the caller. Each [read(2)](http://man7.org/linux/man-pages/man2/read.2.html) from this file descriptor blocks until one of the signals in the set specified in the signalfd(2) call is delivered to the caller. The buffer returned by read(2) contains a structure describing the signal.
+
+除了可以通过 signal、sigaction 预先安装信号处理器等待异步捕获处理信号外，还可以调用 `sigwait` 同步阻塞等待指定信号的到来。
+
+```c
+#include <signal.h>
+int sigwait(const sigset_t *set, int *sig);
+```
+
+The **sigwait()** function suspends execution of the calling thread *until* one of the signals specified in the signal set set becomes pending. The function accepts the signal (removes it from the pending list of signals), and returns the signal number in `sig`.
+
+`sigwait()` is implemented using [sigtimedwait(2)](http://man7.org/linux/man-pages/man2/sigtimedwait.2.html).
+
+### signalfd
+
+`signalfd` - create a file descriptor for accepting signals
+
+```c
+ #include <sys/signalfd.h>
+
+ int signalfd(int fd, const sigset_t *mask, int flags);
+```
+
+**signalfd()** creates a file descriptor that can be used to accept signals targeted at the caller.  
+This provides an *alternative* to the use of a signal handler or `sigwaitinfo(2)`, and has the **advantage** that the file descriptor may be monitored by `select(2)`, `poll(2)`, and `epoll(7)`.
+
+如此一来，信号就能和其他I/O事件一样被 I/O 复用器一并等待，即统一事件源。
+
+## signal dispositions
+
+Each signal has a current disposition, which determines how the process **behaves** when it is delivered the signal.
+
+The entries in the "Action" column of the tables below specify the default disposition for each signal, as follows:
+
+| action                                                        | desc                                                          |
+| ------------------------------------------------------------- | ------------------------------------------------------------- |
+| Term                                                          | Default action is to terminate the process.                   |
+| Ign                                                           | Default action is to ignore the signal.                       |
+| Core                                                          | Default action is to terminate the process and dump core (see [core(5)](http://man7.org/linux/man-pages/man5/core.5.html)). |
+| Stop                                                          | Default action is to stop the process.                        |
+| Cont                                                          | Default action is to continue the process if it is currently stopped. |
+
+A process can change the disposition of a signal using `sigaction(2)` or `signal(2)`.(The latter is less portable when establishing a signal handler; see `signal(2)` for details.)  
+Using these system calls, a process can elect one of the following behaviors to occur on **delivery** of the signal: 
+
+1. perform the default action;  
+2. ignore the signal;  
+3. or catch the signal with a **signal handler**, a programmer defined function that is automatically invoked when the signal is delivered.  
+
+The signal disposition is a ***per-process*** attribute: in a multithreaded application, the disposition of a particular signal is the same for all threads.
+
+### signal handler
 
 信号是异步事件的经典实例，产生信号的事件对进程而言是随机出现的。
 进程不能简单地测试一个变量（如 errno）来判断是否发生了一个信号，而应该告诉内核在此信号发生时应该如何处理。
@@ -154,7 +233,7 @@ int sigsuspend(const sigset_t *mask);
 进程捕捉到信号时，会临时中断正在执行的正常指令序列，转而执行预先绑定的异步回调函数。
 信号处理程序返回后，继续执行之前被中断的正常指令序列，这类似硬件中断处理后的恢复现场。
 
-### [signal](http://man7.org/linux/man-pages/man2/signal.2.html)
+#### [signal](http://man7.org/linux/man-pages/man2/signal.2.html)
 
 `signal` - ANSI C signal handling
 
@@ -168,7 +247,7 @@ sighandler_t signal(int signum, sighandler_t handler);
 The behavior of `signal()` varies across UNIX versions, and has also varied historically across different versions of Linux.  
 Avoid its use: use `sigaction(2)` *instead*.
 
-### [sigaction](http://man7.org/linux/man-pages/man2/sigaction.2.html)
+#### [sigaction](http://man7.org/linux/man-pages/man2/sigaction.2.html)
 
 `sigaction`, `rt_sigaction` - examine and change a signal action
 
@@ -200,40 +279,6 @@ The `sigaction()` system call is used to change the action taken by a process on
 
 `sa_mask` specifies a mask of signals which should be blocked (i.e., added to the signal mask of the thread in which the signal handler is invoked) during execution of the signal handler.  
 In addition, the signal which triggered the handler will be blocked, unless the `SA_NODEFER` flag is used.
-
-## Synchronously accepting a signal
-
-Rather than **asynchronously** catching a signal via a signal handler, it is possible to **synchronously** accept the signal, that is, to ***block*** execution *until* the signal is delivered, at which point the kernel returns information about the signal to the caller.  
-
-There are two general ways to do this:
-
-* [sigwaitinfo(2)](http://man7.org/linux/man-pages/man2/sigwaitinfo.2.html), [sigtimedwait(2)](http://man7.org/linux/man-pages/man2/sigtimedwait.2.html), and [sigwait(3)](http://man7.org/linux/man-pages/man3/sigwait.3.html) suspend execution until one of the signals in a specified set is delivered. Each of these calls returns information about the delivered signal.
-
-* [signalfd(2)](http://man7.org/linux/man-pages/man2/signalfd.2.html) returns a file descriptor that can be used to read information about signals that are delivered to the caller. Each [read(2)](http://man7.org/linux/man-pages/man2/read.2.html) from this file descriptor blocks until one of the signals in the set specified in the signalfd(2) call is delivered to the caller. The buffer returned by read(2) contains a structure describing the signal.
-
-除了可以通过 signal、sigaction 预先安装信号处理器执行异步处理程序外，还可以调用 `sigwait` 同步阻塞等待指定信号的到来（suspends until signal set becomes *pending*）。
-
-```c
-#include <signal.h>
-int sigwait(const sigset_t *set, int *sig);
-```
-
-`sigwait()` is implemented using [sigtimedwait(2)](http://man7.org/linux/man-pages/man2/sigtimedwait.2.html).
-
-### signalfd
-
-signalfd - create a file descriptor for accepting signals
-
-```c
- #include <sys/signalfd.h>
-
- int signalfd(int fd, const sigset_t *mask, int flags);
-```
-
-`signalfd()` creates a file descriptor that can be used to accept signals targeted at the caller.  
-This provides an *alternative* to the use of a signal handler or `sigwaitinfo(2)`, and has the **advantage** that the file descriptor may be monitored by `select(2)`, `poll(2)`, and `epoll(7)`.
-
-如此一来，信号就能和其他I/O事件一样被 I/O 复用器一并等待，即统一事件源。
 
 ## Interruption by signal handler
 

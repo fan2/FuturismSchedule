@@ -215,7 +215,7 @@ lines 39-95 (20-49 %) bytes 959-2253 file /Users/faner/.oh-my-zsh/custom/scripts
        9   Kernel routines [Non standard]
 ```
 
-[Online man pages](http://man7.org/linux/man-pages/index.html):   [**by section**](http://man7.org/linux/man-pages/dir_all_by_section.html)  |  [alphabetically](http://man7.org/linux/man-pages/dir_all_alphabetic.html)  |  [by project](http://man7.org/linux/man-pages/dir_by_project.html)
+[Online man pages](http://man7.org/linux/man-pages/index.html): [by section](http://man7.org/linux/man-pages/dir_all_by_section.html)  |  [alphabetically](http://man7.org/linux/man-pages/dir_all_alphabetic.html)  |  [by project](http://man7.org/linux/man-pages/dir_by_project.html)
 
 - [1: *User commands*](http://man7.org/linux/man-pages/dir_section_1.html); man-pages includes a very few Section 1 pages that document programs supplied by the <u>GNU C library</u>.  
 - [2: *System calls*](http://man7.org/linux/man-pages/dir_section_2.html) documents the [system calls](http://man7.org/linux/man-pages/man2/syscalls.2.html) provided by the Linux kernel.  
@@ -226,7 +226,7 @@ lines 39-95 (20-49 %) bytes 959-2253 file /Users/faner/.oh-my-zsh/custom/scripts
 - [*8: Superuser and system administration commands*](http://man7.org/linux/man-pages/dir_section_8.html); man-pages includes a very few Section 8 pages, mainly documenting programs supplied by the <u>GNU C library</u>.  
 
 如果一个关键字（item keyword）出现在多个 man 手册中，则按照手册中的章节号顺序进行搜索。man 预定义的搜索章节号顺序（search available sections following a pre-defined order by default）为 `1 n l 8 3 2 5 4 9 6 7`。  
-可在 man 后面接 section 段号，指定从哪本 man 手册中搜索帮助，如 `man 2 shutdown` 或 `man shutdown 8`。  
+可在 man 后面接 section 段号，指定从哪本 man 手册中搜索帮助，如 `man 1 kill`（User commands）,`man 2 kill`（System calls）；`man 2 shutdown`（System calls）,`man shutdown 8`（Admin commands）。  
 
 `man -f` 命令可查看命令简介，默认显示第一个搜索到的；加上 `-a`(--all) 选项，则显示所有 section 匹配到的命令。
 

@@ -4,6 +4,7 @@ clang -dM -E -arch arm64
 ```
 
 ## arch
+
 ### armv7(s)
 
 ```C
@@ -31,28 +32,34 @@ clang -dM -E -arch arm64
 ```
 
 ## `__SIZEOF_INT__`
+
 ```C
 #define __SIZEOF_SHORT__ 2
 #define __SIZEOF_INT__ 4
 ```
 
 ## `__SIZEOF_LONG__`
+
 ### armv7(s)
+
 ```C
 #define __SIZEOF_LONG__ 4
 #define __SIZEOF_LONG_LONG__ 8
 ```
 
 ### arm64
+
 ```C
 #define __SIZEOF_LONG__ 8
 #define __SIZEOF_LONG_LONG__ 8
 ```
 
 ## `__SIZE_TYPE__`
+
 `__SIZE_TYPE__` 被定义为 `long unsigned int`。
 
 ### armv7(s)
+
 ```C
 #define __SIZE_TYPE__ long unsigned int
 #define __SIZE_WIDTH__ 32
@@ -60,31 +67,55 @@ clang -dM -E -arch arm64
 ```
 
 ### arm64
+
 ```C
 #define __SIZE_TYPE__ long unsigned int
 #define __SIZE_WIDTH__ 64
 #define __SIZEOF_SIZE_T__ 8
 ```
 
+### size_t
+
+stddef.h 中定义 `__SIZE_TYPE__` 为 ptrdiff_t 类型：
+
+```c
+// /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/10.0.1/include/stddef.h
+#if defined(__need_size_t)
+#if !defined(_SIZE_T) || __has_feature(modules)
+/* Always define size_t when modules are available. */
+#if !__has_feature(modules)
+#define _SIZE_T
+#endif
+typedef __SIZE_TYPE__ size_t;
+#endif
+#undef __need_size_t
+#endif /*defined(__need_size_t) */
+```
+
 ## `__SIZEOF_POINTER__`
+
 `__SIZEOF_POINTER__` = `__SIZEOF_LONG__`
 
 ### armv7(s)
+
 ```C
 #define __SIZEOF_POINTER__ 4
 #define __POINTER_WIDTH__ 32
 ```
 
 ### arm64
+
 ```C
 #define __SIZEOF_POINTER__ 8
 #define __POINTER_WIDTH__ 64
 ```
 
 ## `__UINTPTR_TYPE__`
+
 存储指针整形值。
 
 ### armv7(s)
+
 ```C
 #define __INTPTR_TYPE__ long int
 #define __INTPTR_WIDTH__ 32
@@ -94,6 +125,7 @@ clang -dM -E -arch arm64
 ```
 
 ### arm64
+
 ```C
 #define __INTPTR_TYPE__ long int
 #define __INTPTR_WIDTH__ 64
@@ -103,9 +135,11 @@ clang -dM -E -arch arm64
 ```
 
 ## `__PTRDIFF_TYPE__`
+
 用于存储指针加减（偏移）计算结果整形值。
 
 ### armv7(s)
+
 ```C
 #define __PTRDIFF_TYPE__ int
 #define __PTRDIFF_WIDTH__ 32
@@ -113,13 +147,33 @@ clang -dM -E -arch arm64
 ```
 
 ### arm64
+
 ```C
 #define __PTRDIFF_TYPE__ long int
 #define __PTRDIFF_WIDTH__ 64
 #define __SIZEOF_PTRDIFF_T__ 8
 ```
 
+### ptrdiff_t
+
+stddef.h 中定义 `__PTRDIFF_TYPE__` 为 ptrdiff_t 类型：
+
+```c
+// /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/10.0.1/include/stddef.h
+#if defined(__need_ptrdiff_t)
+#if !defined(_PTRDIFF_T) || __has_feature(modules)
+/* Always define ptrdiff_t when modules are available. */
+#if !__has_feature(modules)
+#define _PTRDIFF_T
+#endif
+typedef __PTRDIFF_TYPE__ ptrdiff_t;
+#endif
+#undef __need_ptrdiff_t
+#endif /* defined(__need_ptrdiff_t) */
+```
+
 ## `__WCHAR_TYPE__`
+
 armv7(s) 和 arm64 下的 `sizeof(wchar_t)` 均为 4。
 
 ```C

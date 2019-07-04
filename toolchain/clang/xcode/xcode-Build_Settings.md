@@ -1,60 +1,68 @@
 ## Build Options
+
 Compiler for C/C++/Objective-C：
 
 - Xcode 8.3：Default compiler(Apple LLVM 8.1)  
 - Xcode 9：Default compiler(Apple LLVM 9.0)  
+- Xcode 10：Default compiler(Apple LLVM 10.0)  
 
 ## Language Dialect
+
 [Language Standards Supported by GCC](https://gcc.gnu.org/onlinedocs/gcc/Standards.html)  
 [**Options Controlling C Dialect**](https://gcc.gnu.org/onlinedocs/gcc/C-Dialect-Options.html)  
 
 [How to get the default compiler of c++ on Mac os x](https://apple.stackexchange.com/questions/219196/how-to-get-the-default-compiler-of-c-on-mac-os-x)  
 [What is Xcode's 'Compiler Default' for C++ language settings?](https://stackoverflow.com/questions/21348606/what-is-xcodes-compiler-default-for-c-language-settings)  
 
+可以参考 [CompilerInvocation::setLangDefaults](http://clang.llvm.org/doxygen/classclang_1_1CompilerInvocation.html#a47fa12dbff423e07937492e089300877) 中的默认设置。
+
 以下为 XCode | Project | Target | Build Settings 的截图。
 
 ![xcode_9.0_language_dialect](../../images/xcode_9.0_language_dialect.png)
 
 ### [C Language Dialect](http://blog.csdn.net/letshi/article/details/70599088)
-Apple LLVM 9.0 - Language | C Language Dialect 对应 project.pbxproj 中 buildSettings 字典的 key =`GCC_C_LANGUAGE_STANDARD`。
+
+Apple LLVM 9.0 - Language | C Language Dialect 对应 project.pbxproj 中 buildSettings 字典的 key = `GCC_C_LANGUAGE_STANDARD`。
 
 Apple LLVM 8.1 & 9.0 支持的 **GCC_C_LANGUAGE_STANDARD** 有以下8种：
 
-- "ansi";                       // ANSI C[-ansi]  
-- "c89";                        // C89[-std=c89]  
-- "gnu89";                   // GNU89[-std=gnu89]  
-- "c99";                        // C99[-std=c99]  
-- "gnu99";                   // GNU99[-std=gnu99]  
-- "c11";                        // c11  
-- "gnu11";                   // gnu11  
-- "compiler-default"; // Compiler Default  
+- `ansi`				// ANSI C [-ansi]  
+- `c89`					// C89 [-std=c89]  
+- `gnu89`				// GNU89 [-std=gnu89]  
+- `c99`					// C99 [-std=c99]  
+- `gnu99`				// GNU99 [-std=gnu99]  
+- `c11`					// c11  
+- `gnu11`				// gnu11  
+- `compiler-default`	// Compiler Default  
 
- Xcode 8 默认（Compiler Default）选择 `GNU99`；最新 Xcode 9 默认选择 `gnu11`。
+ Xcode 8 默认（Compiler Default）选择 `GNU99`；最新 Xcode 9/10 默认选择 `gnu11`。
 
 #### references
+
 [Status of C99 features in GCC](https://gcc.gnu.org/c99status.html)  
 [What's the difference between GNU99 and C99 (Clang)?](https://stackoverflow.com/questions/5313536/whats-the-difference-between-gnu99-and-c99-clang)  
 [Signals - c99 vs gnu99](https://stackoverflow.com/questions/8288164/signals-c99-vs-gnu99)  
 
 ### [C++ Language Dialect](http://blog.csdn.net/letshi/article/details/70808558)
+
 Apple LLVM 9.0 - Language - C++ | C++ Language Dialect 对应 project.pbxproj 中 buildSettings 字典的 key = `CLANG_CXX_LANGUAGE_STANDARD`。
 
 Apple LLVM 8.1 支持的 **CLANG_CXX_LANGUAGE_STANDARD** 有以下7种：
 
-- "c++98";                   // C++98[-std=c++98]  
-- "gnu++98";              // GNU++98[-std=gnu++98]  
-- "c++0x";                   // C++11[-std=c++11]  
-- "gnu++0x";              // GNU++11[-std=gnu++11]  
-- "c++14";                   // C++14[-std=c++14]  
-- "gnu++14";              // GNU++14[-std=gnu++14]  
-- "compiler-default"; // Compiler Default  
+- `c++98`				// C++98 [-std=c++98]  
+- `gnu++98`				// GNU++98 [-std=gnu++98]  
+- `c++11`				// C++11 [-std=c++11]  
+- `gnu++11`				// GNU++11 [-std=gnu++11]  
+- `c++14`				// C++14 [-std=c++14]  
+- `gnu++14`				// GNU++14 [-std=gnu++14]  
+- `compiler-default`	// Compiler Default  
 
 Apple LLVM 9.0 相比 8.1 增加支持 C++17 和 gnu++17：
 
-- "c++17";                  // C++11[-std=c++17]  
-- "gnu++17";             // GNU++11[-std=gnu++17]  
+- `c++17`				// C++11[-std=c++17]  
+- `gnu++17`				// GNU++11[-std=gnu++17]  
 
-Xcode 8 默认（Compiler Default）选择 `GNU++11`；最新 Xcode 9 默认选择 `GNU++14`。
+Xcode 8 默认（Compiler Default）选择 `GNU++11`；最新 Xcode 9/10 默认选择 `GNU++14`。
 
 ---
 
@@ -65,6 +73,7 @@ C++ 版本里程碑时间线参考下图：
 C++ 各版本特性对应的编译器支持情况 ，可查表 [C++ compiler support](http://en.cppreference.com/w/cpp/compiler_support)。
 
 #### references
+
 [ANSI C, Standard C 与 GCC](http://www.jianshu.com/p/3756ccb7c0c2)  
 [C语言的各种版本：C89，AMD1，C99，C11](https://www.crifan.com/summary_c_language_version_c89_amd1_c99_c11/)  
 History of C++：[cppreference](http://en.cppreference.com/w/cpp/language/history) / [cplusplus](http://www.cplusplus.com/info/history/)  
@@ -76,28 +85,45 @@ History of C++：[cppreference](http://en.cppreference.com/w/cpp/language/histor
 
 > the difference between the two options is whether GNU extensions that violates the C++ standard are **enabled** or not. The GNU extensions are described [here](https://gcc.gnu.org/onlinedocs/gcc/C_002b_002b-Extensions.html).
 
+### GNU Extensions
+
+C/C++ Language Dialect 中的 c11 和 gnu11、c++11 和 gnu++11 有什么区别呢？
+
+[What are the differences between -std=c++11 and -std=gnu++11?](https://stackoverflow.com/questions/10613126/what-are-the-differences-between-std-c11-and-std-gnu11)
+
+the difference between the two options is whether GNU extensions that violates/extend the C++ standard are **enabled** or not.
+
+`-std=c++11`：支持C++11标准；  
+`-std=gnu++11`：支持C++11标准和GNU扩展特性；  
+
+- [6 Extensions to the C Language Family](https://gcc.gnu.org/onlinedocs/gcc/C-Extensions.html)  
+- [Extensions to the C++ Language](https://gcc.gnu.org/onlinedocs/gcc/C_002b_002b-Extensions.html)  
+
 ## C++ Standard Library
+
 Apple LLVM 9.0 - Language - C++ | C++ Standard Library 对应 project.pbxproj 中 buildSettings 字典的 key = `CLANG_CXX_LIBRARY`。
 
 Apple LLVM 8.1 & 9.0 支持的 **CLANG_CXX_LIBRARY** 有以下3种：
 
-- "libstdc++";              // libstdc++(GNU C++ standard library)  
-- "libc++";                   // libc++(LLVM C++ standard library with C++11 support)  
-- "compiler-default"; // Compiler Default  
+- `libstdc++`			// libstdc++ (GNU C++ standard library)  
+- `libc++`				// libc++ (LLVM C++ standard library with C++11 support)  
+- `compiler-default`	// Compiler Default  
 
-最新 Xcode 9 默认选择 `libc++`。
+最新 Xcode 9/10 默认选择 `libc++`。
 
 如果选择 `libstdc++`，则会发出 deprecated 警告：
 
 > clang: warning: libstdc++ is deprecated; move to libc++ [-Wdeprecated]
 
 ### libstdc++
+
 libstdc++ —— [The GNU C++ Library](https://gcc.gnu.org/onlinedocs/gcc-7.2.0/libstdc++/manual/)  
 
 libstdc++ 4.2 is the last GPL2 version.
 Mainline libstdc++ has switched to GPL3, a license which the developers of libc++ cannot use. 
 
 ### libc++
+
 libc++ —— [LLVM's C++ standard library](http://libcxx.llvm.org/), targeting C++11(the C++0x standard).  
 
 [LLVM Replaces libstdc++ Library With libc++](http://www.phoronix.com/scan.php?page=news_item&px=ODI1NQ)  
@@ -108,6 +134,7 @@ libc++ —— [LLVM's C++ standard library](http://libcxx.llvm.org/), targeting 
 [Linux下编译clang、libcxx及其相关库——C++11环境搭建](http://blog.csdn.net/vloong/article/details/19070443)  
 
 ## Header Search Paths
+
 [LLVM](https://en.wikipedia.org/wiki/LLVM) currently supports compiling of C, C++, Objective-C and Swift using various front ends, some derived from version 4.0.1 and 4.2 of the GNU Compiler Collection (GCC).  
 The LLVM project includes an implementation of the C++ Standard Library.  
 
@@ -130,6 +157,7 @@ $ echo | /usr/local/bin/clang++ -Wp,-v -stdlib=libc++ -x c++ - -fsyntax-only
 [**Include search path on Mac OSX Yosemite 10.10.1**](https://stackoverflow.com/questions/27948093/include-search-path-on-mac-osx-yosemite-10-10-1)  
 
 ### [clang](http://clang.llvm.org/docs/LanguageExtensions.html)
+
 运行 **`clang -x c -v -E /dev/null`** 可以查看 C 语言的 Header Search Paths：
 
 ```Shell
@@ -162,6 +190,7 @@ search list 顺序如下：
 以上即为选择 CLANG_CXX_LIBRARY =*`libc++`* 时的头文件搜索路径。
 
 ### [gcc](https://stackoverflow.com/questions/39829340/which-version-of-gcc-is-installed-on-mac-yosemite)
+
 LLVM allows code to be compiled statically, as it is **under** the traditional GCC system.  
 XCode gcc and clang are linked to the same binary in the SDK.  
 
@@ -195,6 +224,7 @@ InstalledDir: /Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDe
 从配置信息(**Configured with**) 中可以看出 `--with-gxx-include-dir` 目录为 SDK(MacOSX.sdk、iPhoneOS.sdk) 下的 `/usr/include/c++/4.2.1`，此即为选择 CLANG_CXX_LIBRARY =*`libstdc++`* 时的头文件搜索路径。
 
 #### tr1
+
 `/usr/include/c++/4.2.1` 下的 `tr1/` 为 TR1 扩展库头文件：
 
 > [C++ Technical Report 1](https://en.wikipedia.org/wiki/C%2B%2B_Technical_Report_1)(TR1) is the common name for ISO/IEC TR 19768, C++ Library Extensions.  

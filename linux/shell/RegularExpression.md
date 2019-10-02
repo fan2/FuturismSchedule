@@ -19,10 +19,6 @@ MSDN [.NET 正则表达式](https://docs.microsoft.com/zh-cn/dotnet/standard/bas
 
 [RegEx Reference](https://regexr.com/)  
 
-### python
-
-[re](https://docs.python.org/3/library/re.html?highlight=re#module-re) - Support for regular expressions (RE).
-
 ### perlre
 
 [perlrequick](https://perldoc.perl.org/perlrequick.html)  
@@ -39,10 +35,71 @@ MDN: [en](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Glob
 [Using Regular Expressions with JavaScript](https://www.regular-expressions.info/javascript.html)  
 [The Little Guide for Regular Expressions in JS](https://hackernoon.com/guide-for-regular-expressions-in-js-2a33620ca1cf?gi=79aab414369a)  
 
-- `String.match(RegExp)`：返回 RegExpMatchArray；  
+[String & RegExp](https://github.com/fan2/web/blob/master/javascript/notes/String%26RegExp.md):
+
+- `String.match(regexp)`：返回 RegExpMatchArray；  
+- `String.search(regexp)`：返回 number 类型，第一个满足条件的匹配结果在整个字符串中的位置或 -1。  
 - `String.replace(searchValue, replaceValue)`：替换源 searchValue 支持 RegExp 表达式；  
+- `String.split(regexp)`：按照正则规则分割字符串，返回一个由分割后的各个部分组成的子串数组（`string[]`）；  
+
 - `RegExp.test(string)`：测试字符串是否匹配模式；  
 - `RegExp.exec(string)`：返回 RegExpMatchArray；  
+
+#### expression
+
+有两种书写正则表达式的方式：
+
+1. Literal Expression: `let re = /pattern/flags`;  
+2. Class RegExp: let re = `new RegExp('pattern', 'flags')`;  
+
+- Use the **literal expression** when the regular expression is going to be ***constant***, because this way offers the immediate compilation of the regular expression when the script is loaded.  
+- Use the **RegExp** constructor when the regular expressions is going to ***change*** or maybe the user is going to determinate the pattern.  
+
+#### flags
+
+`/g` enables "global" matching. 
+
+> Is for global search. Meaning it’ll match all occurrences, not just the first.  
+> When using the replace() method, specify this modifier to replace all matches, rather than only the first one.  
+
+`/i` makes the regex match case insensitive.  
+
+`/m` enables "multi-line mode", for multi-line searching.  
+
+> In this mode, the caret and dollar match before and after newlines in the subject string.  
+
+`y`: call Sticky, matches only from the index indicated by the lastIndex property of this regular expression. (not standard yet).  
+
+**注意**：`/m` 多行匹配，将会影响 `^` 和 `$`。
+
+### python
+
+[re](https://docs.python.org/3/library/re.html?highlight=re#module-re) - Support for regular expressions (RE).
+
+The sequence
+
+```Python
+prog = re.compile(pattern)
+result = prog.match(string)
+```
+
+is equivalent to
+
+```Python
+result = re.match(pattern, string)
+```
+
+常用 API 如下：
+
+`re.search(pattern, string, flags=0)`: 扫描整个字符串并返回 **第一个** 成功的匹配。  
+`re.match(pattern, string, flags=0)`: 尝试从字符串的起始位置匹配一个模式，如果不是起始位置匹配成功的话就返回 None。  
+`re.fullmatch(pattern, string, flags=0)`: 匹配整个字符串。  
+`re.split(pattern, string, maxsplit=0, flags=0)`: 按照能够匹配的子串将字符串分割后返回列表。  
+`re.findall(pattern, string, flags=0)`:  在字符串中找到正则表达式所匹配的所有子串，并返回一个列表，如果没有找到匹配的，则返回空列表。  
+
+> 注意： match 和 search 是匹配 **一次**，findall 则是匹配 **所有**。
+
+flags 可为 re.M, re.I, re.S。
 
 ## [standards](https://en.wikipedia.org/wiki/Regular_expression)
 
@@ -115,7 +172,7 @@ OPTIONS
               Interpret the pattern as a Perl-compatible regular expression(PCRE).  This is experimental and grep -P may warn of unimplemented features.
 ```
 
-默认选项是 `-G`(`--basic-regexp`)，即 **BRE**。  
+默认选项是 `-G`(`--basic-regexp`)，即 **BRE**。  
 如果要支持 **`?`**, **`+`** 和 **`|`**，则需要显式指定 `-E` 选项，即执行 **ERE**。
 
 ### [ripgrep](https://github.com/BurntSushi/ripgrep)
@@ -124,8 +181,9 @@ ripgrep recursively searches directories for a regex pattern
 
 ## regex online
 
+[regexper](https://regexper.com/) - railroad  
 [regexr](https://regexr.com/)  
-[regexper](https://regexper.com/)  
+
 [w3cschool](https://www.w3cschool.cn/regexp/6a7w1pr0.html)  
 [chinaz](http://tool.chinaz.com/regex) / [oschina](http://tool.oschina.net/regex)  
 
@@ -135,6 +193,11 @@ ripgrep recursively searches directories for a regex pattern
 [Tables of Perl Regular Expression (PRX) Metacharacters](http://support.sas.com/documentation/cdl/en/lrdict/64316/HTML/default/viewer.htm#a003288497.htm)  
 
 <table class="cheatsheet"> <tbody><tr><th colspan="2" data-id="charclasses">Character classes</th></tr> <tr><td><a>.</a></td><td>any character except newline</td></tr> <tr><td><a>\w</a>&ensp;<a>\d</a>&ensp;<a>\s</a></td><td>word, digit, whitespace</td></tr> <tr><td><a>\W</a>&ensp;<a>\D</a>&ensp;<a>\S</a></td><td>not word, digit, whitespace</td></tr> <tr><td><a>[abc]</a></td><td>any of a, b, or c</td></tr> <tr><td><a>[^abc]</a></td><td>not a, b, or c</td></tr> <tr><td><a>[a-g]</a></td><td>character between a &amp; g</td></tr> <tr><th colspan="2" data-id="anchors">Anchors</th></tr> <tr><td><a>^abc$</a></td><td>start / end of the string</td></tr> <tr><td><a>\b</a>&ensp;<a>\B</a></td><td>word, not-word boundary</td></tr> <tr><th colspan="2" data-id="escchars">Escaped characters</th></tr> <tr><td><a>\.</a>&ensp;<a>\*</a>&ensp;<a>\\</a></td><td>escaped special characters</td></tr> <tr><td><a>\t</a>&ensp;<a>\n</a>&ensp;<a>\r</a></td><td>tab, linefeed, carriage return</td></tr> <tr><th colspan="2" data-id="groups">Groups &amp; Lookaround</th></tr> <tr><td><a>(abc)</a></td><td>capture group</td></tr> <tr><td><a>\1</a></td><td>backreference to group #1</td></tr> <tr><td><a>(?:abc)</a></td><td>non-capturing group</td></tr> <tr><td><a>(?=abc)</a></td><td>positive lookahead</td></tr> <tr><td><a>(?!abc)</a></td><td>negative lookahead</td></tr> <tr><th colspan="2" data-id="quants">Quantifiers &amp; Alternation</th></tr> <tr><td><a>a*</a>&ensp;<a>a+</a>&ensp;<a>a?</a></td><td>0 or more, 1 or more, 0 or 1</td></tr> <tr><td><a>a{5}</a>&ensp;<a>a{2,}</a></td><td>exactly five, two or more</td></tr> <tr><td><a>a{1,3}</a></td><td>between one &amp; three</td></tr> <tr><td><a>a+?</a>&ensp;<a>a{2,}?</a></td><td>match as few as possible</td></tr> <tr><td><a>ab|cd</a></td><td>match ab or cd</td></tr> </tbody></table>
+
+`(?:re)` 类似 `(…)`，匹配部分区块，但是不捕获存储为组。
+
+例1: `industr(?:y|ies)`：非捕获匹配 industry|industries。  
+例2：`/(?:^)\d{4}/m` 顶格匹配以四个数字开头的行。  
 
 ### 常用限定符
 
@@ -147,6 +210,8 @@ ripgrep recursively searches directories for a regex pattern
 | {n,}      | 重复n次或更多次 |
 | {n,m}     | 重复n到m次      |
 
+`+` is equivalent to `{1,}`
+
 ### 常用元字符
 
 | 代码 | 说明                                         |
@@ -158,6 +223,10 @@ ripgrep recursively searches directories for a regex pattern
 | \b   | 匹配单词的 `开始` 或 `结束`（word boundary） |
 | ^    | 匹配字符串的 `开始`                          |
 | $    | 匹配字符串的 `结束`                          |
+
+To match any character including newline, use a pattern such as `[.\n]`.
+
+> Python 中对应 flag 为 `re.S`。
 
 ### 常用反义词
 
@@ -181,25 +250,33 @@ vscode 默认是 `search.useRipgrep`（Deprecated），建议采用 **`search.us
 > Display railroad diagram of regex under cursor.
 >> A regular expression railroad diagram view for regular expression under cursor. This is inspired by [regex railroad diagrams](https://github.com/klorenz/atom-regex-railroad-diagrams).
 
-光标定位到正则表达式（RegExp）所在行，再在控制面板中执行 `Show RegExp preview` 命令，将在右侧新开辅助编辑器显示 `RegExp Diagram Preview`。
+光标定位到 js 文件中的正则表达式（RegExp）所在行，再在控制面板中执行 `Show RegExp preview` 命令，将在右侧新开辅助编辑器显示 `RegExp Diagram Preview`。
 
 ![RegExp-Diagram-Preview](./images/RegExp-Diagram-Preview.png)
+
+> 最新版 vscode 中不可用！
 
 ### [RegExp Preview and Editor](https://marketplace.visualstudio.com/items?itemName=le0zh.vscode-regexp-preivew)
 
 > VSCode extension based on [regexper-static](https://github.com/javallone/regexper-static). Including regexp expression preivewer and realtime preivew editor.
 
-在控制面板中执行 `RegExp Editor`，将打开左侧编辑，和右侧的 `RegExp Preview` 预览。
+在控制面板中执行 `RegExp Editor`，将打开左侧编辑器，可在其输入正则表达式，右侧的 `RegExp Preview` 将展开其匹配分解逻辑图。
 
 ![RegExp-Preview](./images/RegExp-Preview.png)
+
+> 最新版 vscode 中不可用，考虑安装 [Lulus Young](https://marketplace.visualstudio.com/items?itemName=Lulus.vscode-regexp-preivew) 或 [LouisWT](https://marketplace.visualstudio.com/items?itemName=LouisWT.regexp-preview) 适配的新版本！
 
 ### [Regex Previewer](https://marketplace.visualstudio.com/items?itemName=chrmarti.regex)
 
 > Regex matches previewer for JavaScript, TypeScript, PHP and Haxe in Visual Studio Code.
 
-对于已保存文件中的正则表达式，其上会有 `Test Regex...`，点击 `Test Regex...` 或在控制面板中执行 `Toggle Regex Preview In Side-By-Side Editors` 命令将在右侧开启测试编辑器，在其中输入测试字符串，将自动高亮匹配的部分。
+新建一个 js 文件，该插件会自动检测其中的正则表达式，并在其上浮现 `Test Regex...` 提示条。  
+点击或在控制面板中执行 `Toggle Regex Preview In Side-By-Side Editors` 命令将在右侧开启测试编辑器。  
+在测试编辑器中输入测试字符串，再将光标移动到 js 中的正则表达式所在行，右侧将高亮匹配的文本。
 
 ![Regex-Previewer](./images/Regex-Previewer.png)
+
+> `/g` 标志匹配所有行，未加则只匹配第一行。
 
 ### [Filter Line](https://marketplace.visualstudio.com/items?itemName=everettjf.filter-line)
 
@@ -211,7 +288,7 @@ vscode 默认是 `search.useRipgrep`（Deprecated），建议采用 **`search.us
 
 #### config
 
-必须在当前文件所在根目录（即 vscode 打开的文件夹）下创建过滤配置文件。
+必须在当前文件所在根目录（即 vscode 打开的文件夹）下创建过滤配置文件。
 
 1. 如果打开的是独立文件，不是以文件夹打开，则提示 `Can not locate workspace folder for current file`；  
 2. 如果是以文件夹（`~/folder`）打开文件（`~/folder/subfolder/test.log`），执行 `Filter Line By Config File`，则提示 `Can not locate config file ~/folder/.vscode/filterline.json`。  

@@ -1,9 +1,23 @@
+
+执行 xcode-select 的 `-p`(`--print-path`) 选项打印开发配置目录：
+
+```
+-p, --print-path            print the path of the active developer directory
+```
+
+```
+-> % xcdevpath=`xcode-select -p`
+-> % echo $xcdevpath
+/Applications/Xcode.app/Contents/Developer
+```
+
 ## Toolchains
-/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/
+
+$xcdevpath/Toolchains/XcodeDefault.xctoolchain/
 
 ```Shell
-faner@THOMASFAN-MB0:/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain|
-⇒  tree -L 3
+faner@FAN-MB0:
+⇒  tree -L 3 $xcdevpath/Toolchains/XcodeDefault.xctoolchain
 .
 ├── Developer
 │   └── Platforms
@@ -40,12 +54,29 @@ faner@THOMASFAN-MB0:/Applications/Xcode-beta.app/Contents/Developer/Toolchains/X
 usr/lib/clang/9.0.0/include/
 
 ## Platforms
+
+执行 `xcodebuild -showsdks` 或 `system_profiler SPDeveloperToolsDataType` 可查看安装的 sdks。
+
+执行 `ls $xcdevpath/Platforms/` 列举查看支持的所有 platform：
+
+```
+⇒  ls -1 $(xcode-select -p)/Platforms/
+AppleTVOS.platform
+AppleTVSimulator.platform
+MacOSX.platform
+WatchOS.platform
+WatchSimulator.platform
+iPhoneOS.platform
+iPhoneSimulator.platform
+```
+
 ### macOS
-/Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/
+
+$xcdevpath/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/
 
 ```Shell
-faner@THOMASFAN-MB0:/Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk|
-⇒  tree -L 3
+faner@FAN-MB0:
+⇒  tree -L 3 $xcdevpath/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
 .
 ├── SDKSettings.plist
 ├── System
@@ -62,11 +93,12 @@ faner@THOMASFAN-MB0:/Applications/Xcode-beta.app/Contents/Developer/Platforms/Ma
 ```
 
 ### iOS
-/Applications/Xcode-beta.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/
+
+$xcdevpath/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/
 
 ```Shell
-faner@THOMASFAN-MB0:/Applications/Xcode-beta.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk|
-⇒  tree -L 3
+faner@FAN-MB0:
+⇒  tree -L 3 $xcdevpath/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk
 .
 ├── Entitlements.plist
 ├── Library
@@ -84,6 +116,7 @@ faner@THOMASFAN-MB0:/Applications/Xcode-beta.app/Contents/Developer/Platforms/iP
 ```
 
 ## header
+
 忽略 iPhone Simulator、AppleTV OS 及 Simulator、Watch OS 及 Simulator 下的 `/usr/include/` 。
 
 ```
@@ -97,13 +130,16 @@ faner@THOMASFAN-MB0:/Applications/Xcode-beta.app/Contents/Developer/Platforms/iP
 ```
 
 ### search path
+
 关于 clang 编译器下的 C/C++ 头文件包含路径 search list，参考《xcode-Build_Settings.md》的 Header Search Paths 章节。
 
 ### cstddef(stddef.h)
+
 在 `./Toolchains/XcodeDefault.xctoolchain/`、`./Platforms/MacOSX.platform/`、`./Platforms/iPhoneOS.platform/` 3个路径下查找 C 标准库头文件 <stddef.h> 及其对应的 C++ 标准库头文件 <cstddef>：
 
 ```Shell
-faner@THOMASFAN-MB0:/Applications/Xcode-beta.app/Contents/Developer|
+# cd $xcdevpath
+faner@FAN-MB0:/Applications/Xcode.app/Contents/Developer|
 ⇒  find ./Toolchains/XcodeDefault.xctoolchain/ ./Platforms/MacOSX.platform/ ./Platforms/iPhoneOS.platform/ -name stddef.h
 ./Toolchains/XcodeDefault.xctoolchain//usr/include/c++/v1/stddef.h
 ./Toolchains/XcodeDefault.xctoolchain//usr/lib/clang/9.0.0/include/stddef.h
@@ -114,7 +150,7 @@ faner@THOMASFAN-MB0:/Applications/Xcode-beta.app/Contents/Developer|
 
 ./Platforms/iPhoneOS.platform//Developer/SDKs/iPhoneOS.sdk/usr/include/stddef.h
 
-faner@THOMASFAN-MB0:/Applications/Xcode-beta.app/Contents/Developer|
+faner@FAN-MB0:/Applications/Xcode.app/Contents/Developer|
 ⇒  find ./Toolchains/XcodeDefault.xctoolchain/ ./Platforms/MacOSX.platform/ ./Platforms/iPhoneOS.platform/ -name cstddef
 ./Toolchains/XcodeDefault.xctoolchain//usr/include/c++/v1/cstddef
 ./Platforms/MacOSX.platform//Developer/SDKs/MacOSX.sdk/usr/include/c++/4.2.1/cstddef
@@ -122,23 +158,28 @@ faner@THOMASFAN-MB0:/Applications/Xcode-beta.app/Contents/Developer|
 ```
 
 #### XcodeDefault.xctoolchain
+
 - usr/include/c++/v1/cstddef  
 - usr/include/c++/v1/stddef.h  
 - usr/lib/clang/9.0.0/include/stddef.h  
 
 #### MacOSX.sdk
+
 - usr/include/stddef.h  
 - usr/include/c++/4.2.1/cstddef  
 
 #### iPhoneOS.sdk
+
 - usr/include/stddef.h  
 - usr/include/c++/4.2.1/cstddef  
 
 ### cstdint(stdint.h)
+
 since C++11
 
 ```Shell
-faner@THOMASFAN-MB0:/Applications/Xcode-beta.app/Contents/Developer|
+# cd $xcdevpath
+faner@FAN-MB0:/Applications/Xcode.app/Contents/Developer|
 ⇒  find ./Toolchains/XcodeDefault.xctoolchain/ ./Platforms/MacOSX.platform/ ./Platforms/iPhoneOS.platform/ -name stdint.h
 ./Toolchains/XcodeDefault.xctoolchain//usr/include/c++/v1/stdint.h
 ./Toolchains/XcodeDefault.xctoolchain//usr/lib/clang/9.0.0/include/stdint.h
@@ -150,7 +191,7 @@ faner@THOMASFAN-MB0:/Applications/Xcode-beta.app/Contents/Developer|
 
 ./Platforms/iPhoneOS.platform//Developer/SDKs/iPhoneOS.sdk/usr/include/c++/4.2.1/tr1/stdint.h
 ./Platforms/iPhoneOS.platform//Developer/SDKs/iPhoneOS.sdk/usr/include/stdint.h
-faner@THOMASFAN-MB0:/Applications/Xcode-beta.app/Contents/Developer|
+faner@FAN-MB0:/Applications/Xcode.app/Contents/Developer|
 
 ⇒  find ./Toolchains/XcodeDefault.xctoolchain/ ./Platforms/MacOSX.platform/ ./Platforms/iPhoneOS.platform/ -name cstdint
 ./Toolchains/XcodeDefault.xctoolchain//usr/include/c++/v1/cstdint
@@ -159,11 +200,13 @@ faner@THOMASFAN-MB0:/Applications/Xcode-beta.app/Contents/Developer|
 ```
 
 #### XcodeDefault.xctoolchain
+
 - usr/include/c++/v1/cstdint  
 - usr/include/c++/v1/stdint.h  
 - usr/lib/clang/9.0.0/include/stdint.h  
 
 #### MacOSX.sdk
+
 - usr/include/stdint.h  
 - usr/include/c++/4.2.1/tr1/cstdint  
 - usr/include/c++/4.2.1/tr1/stdint.h  
@@ -177,10 +220,12 @@ faner@THOMASFAN-MB0:/Applications/Xcode-beta.app/Contents/Developer|
 - usr/include/c++/4.2.1/tr1/stdint.h  
 
 ### cstdio(stdio.h)
+
 在 `./Toolchains/XcodeDefault.xctoolchain/`、`./Platforms/MacOSX.platform/`、`./Platforms/iPhoneOS.platform/` 3个路径下查找 C 标准库头文件 <stdio.h> 及其对应的 C++ 标准库头文件 <cstdio>：
 
 ```Shell
-faner@THOMASFAN-MB0:/Applications/Xcode-beta.app/Contents/Developer|
+# cd $xcdevpath
+faner@FAN-MB0:/Applications/Xcode.app/Contents/Developer|
 ⇒  find ./Toolchains/XcodeDefault.xctoolchain/ ./Platforms/MacOSX.platform/ ./Platforms/iPhoneOS.platform/ -name stdio.h
 ./Toolchains/XcodeDefault.xctoolchain//usr/include/c++/v1/stdio.h
 
@@ -193,7 +238,7 @@ faner@THOMASFAN-MB0:/Applications/Xcode-beta.app/Contents/Developer|
 ./Platforms/iPhoneOS.platform//Developer/SDKs/iPhoneOS.sdk/usr/include/stdio.h
 ./Platforms/iPhoneOS.platform//Developer/SDKs/iPhoneOS.sdk/usr/include/sys/stdio.h
 
-faner@THOMASFAN-MB0:/Applications/Xcode-beta.app/Contents/Developer|
+faner@FAN-MB0:/Applications/Xcode.app/Contents/Developer|
 ⇒  find ./Toolchains/XcodeDefault.xctoolchain/ ./Platforms/MacOSX.platform/ ./Platforms/iPhoneOS.platform/ -name cstdio
 ./Toolchains/XcodeDefault.xctoolchain//usr/include/c++/v1/cstdio
 ./Platforms/MacOSX.platform//Developer/SDKs/MacOSX.sdk/usr/include/c++/4.2.1/cstdio
@@ -203,10 +248,12 @@ faner@THOMASFAN-MB0:/Applications/Xcode-beta.app/Contents/Developer|
 ```
 
 #### XcodeDefault.xctoolchain
+
 - usr/include/c++/v1/cstdio  
 - usr/include/c++/v1/stdio.h  
 
 #### MacOSX.sdk
+
 - usr/include/stdio.h  
 - usr/include/sys/stdio.h  
 
@@ -217,6 +264,7 @@ faner@THOMASFAN-MB0:/Applications/Xcode-beta.app/Contents/Developer|
 - System/Library/Frameworks/Kernel.framework/Versions/A/Headers/sys/stdio.h  
 
 #### iPhoneOS.sdk
+
 - usr/include/stdio.h
 - usr/include/sys/stdio.h
 
@@ -225,10 +273,12 @@ faner@THOMASFAN-MB0:/Applications/Xcode-beta.app/Contents/Developer|
 - usr/include/c++/4.2.1/tr1/stdio.h
 
 ### cstdlib(stdlib.h)
+
 在 `./Toolchains/XcodeDefault.xctoolchain/`、`./Platforms/MacOSX.platform/`、`./Platforms/iPhoneOS.platform/` 3个路径下查找 C 标准库头文件 <stdlib.h> 及其对应的 C++ 标准库头文件 <cstdlib>：
 
 ```Shell
-faner@THOMASFAN-MB0:/Applications/Xcode-beta.app/Contents/Developer|
+# cd $xcdevpath
+faner@FAN-MB0:/Applications/Xcode.app/Contents/Developer|
 ⇒  find ./Toolchains/XcodeDefault.xctoolchain/ ./Platforms/MacOSX.platform/ ./Platforms/iPhoneOS.platform/ -name stdlib.h
 ./Toolchains/XcodeDefault.xctoolchain//usr/include/c++/v1/stdlib.h
 
@@ -238,7 +288,7 @@ faner@THOMASFAN-MB0:/Applications/Xcode-beta.app/Contents/Developer|
 ./Platforms/iPhoneOS.platform//Developer/SDKs/iPhoneOS.sdk/usr/include/c++/4.2.1/tr1/stdlib.h
 ./Platforms/iPhoneOS.platform//Developer/SDKs/iPhoneOS.sdk/usr/include/stdlib.h
 
-faner@THOMASFAN-MB0:/Applications/Xcode-beta.app/Contents/Developer|
+faner@FAN-MB0:/Applications/Xcode.app/Contents/Developer|
 ⇒  find ./Toolchains/XcodeDefault.xctoolchain/ ./Platforms/MacOSX.platform/ ./Platforms/iPhoneOS.platform/ -name cstdlib 
 ./Toolchains/XcodeDefault.xctoolchain//usr/include/c++/v1/cstdlib
 ./Platforms/MacOSX.platform//Developer/SDKs/MacOSX.sdk/usr/include/c++/4.2.1/cstdlib
@@ -249,33 +299,38 @@ faner@THOMASFAN-MB0:/Applications/Xcode-beta.app/Contents/Developer|
 
 
 #### XcodeDefault.xctoolchain
+
 - usr/include/c++/v1/cstdlib  
 - usr/include/c++/v1/stdlib.h  
 
 #### MacOSX.sdk
+
 - usr/include/stdlib.h  
 - usr/include/c++/4.2.1/cstdlib  
 - usr/include/c++/4.2.1/tr1/cstdlib  
 - usr/include/c++/4.2.1/tr1/stdlib.h  
 
 #### iPhoneOS.sdk
+
 - usr/include/stdlib.h  
 - usr/include/c++/4.2.1/cstdlib  
 - usr/include/c++/4.2.1/tr1/cstdlib  
 - usr/include/c++/4.2.1/tr1/stdlib.h  
 
 ### cstring(string.h)
+
 在 `./Toolchains/XcodeDefault.xctoolchain/`、`./Platforms/MacOSX.platform/`、`./Platforms/iPhoneOS.platform/` 3个路径下查找 C 标准库头文件 <string.h> 及其对应的 C++ 标准库头文件 <cstring>：
 
 ```Shell
-faner@THOMASFAN-MB0:/Applications/Xcode-beta.app/Contents/Developer|
+# cd $xcdevpath
+faner@FAN-MB0:/Applications/Xcode.app/Contents/Developer|
 ⇒  find ./Toolchains/XcodeDefault.xctoolchain/ ./Platforms/MacOSX.platform/ ./Platforms/iPhoneOS.platform/ -name string.h
 ./Toolchains/XcodeDefault.xctoolchain//usr/include/c++/v1/string.h
 ./Platforms/MacOSX.platform//Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Kernel.framework/Versions/A/Headers/string.h
 ./Platforms/MacOSX.platform//Developer/SDKs/MacOSX.sdk/usr/include/string.h
 ./Platforms/iPhoneOS.platform//Developer/SDKs/iPhoneOS.sdk/usr/include/string.h
 
-faner@THOMASFAN-MB0:/Applications/Xcode-beta.app/Contents/Developer|
+faner@FAN-MB0:/Applications/Xcode.app/Contents/Developer|
 ⇒  find ./Toolchains/XcodeDefault.xctoolchain/ ./Platforms/MacOSX.platform/ ./Platforms/iPhoneOS.platform/ -name cstring
 ./Toolchains/XcodeDefault.xctoolchain//usr/include/c++/v1/cstring
 ./Platforms/MacOSX.platform//Developer/SDKs/MacOSX.sdk/usr/include/c++/4.2.1/cstring
@@ -283,23 +338,28 @@ faner@THOMASFAN-MB0:/Applications/Xcode-beta.app/Contents/Developer|
 ```
 
 #### XcodeDefault.xctoolchain
+
 - usr/include/c++/v1/cstring  
 - usr/include/c++/v1/string.h  
 
 #### MacOSX.sdk
+
 - usr/include/string.h  
 - usr/include/c++/4.2.1/cstring  
 - System/Library/Frameworks/Kernel.framework/Versions/A/Headers/string.h  
 
 #### iPhoneOS.sdk
+
 - usr/include/string.h  
 - usr/include/c++/4.2.1/cstring  
 
 ### climits(limits.h)
+
 在 `./Toolchains/XcodeDefault.xctoolchain/`、`./Platforms/MacOSX.platform/`、`./Platforms/iPhoneOS.platform/` 3个路径下查找 C 标准库头文件 <limits.h> 及其对应的 C++ 标准库头文件 <climits>：
 
 ```Shell
-faner@THOMASFAN-MB0:/Applications/Xcode-beta.app/Contents/Developer|
+# cd $xcdevpath
+faner@FAN-MB0:/Applications/Xcode.app/Contents/Developer|
 ⇒  find ./Toolchains/XcodeDefault.xctoolchain/ ./Platforms/MacOSX.platform/ ./Platforms/iPhoneOS.platform/ -name limits.h
 ./Toolchains/XcodeDefault.xctoolchain//usr/include/c++/v1/limits.h
 ./Toolchains/XcodeDefault.xctoolchain//usr/lib/clang/9.0.0/include/limits.h
@@ -317,7 +377,7 @@ faner@THOMASFAN-MB0:/Applications/Xcode-beta.app/Contents/Developer|
 ./Platforms/iPhoneOS.platform//Developer/SDKs/iPhoneOS.sdk/usr/include/limits.h
 ./Platforms/iPhoneOS.platform//Developer/SDKs/iPhoneOS.sdk/usr/include/machine/limits.h
 
-faner@THOMASFAN-MB0:/Applications/Xcode-beta.app/Contents/Developer|
+faner@FAN-MB0:/Applications/Xcode.app/Contents/Developer|
 ⇒  find ./Toolchains/XcodeDefault.xctoolchain/ ./Platforms/MacOSX.platform/ ./Platforms/iPhoneOS.platform/ -name climits 
 ./Toolchains/XcodeDefault.xctoolchain//usr/include/c++/v1/climits
 ./Platforms/MacOSX.platform//Developer/SDKs/MacOSX.sdk/usr/include/c++/4.2.1/climits
@@ -327,11 +387,13 @@ faner@THOMASFAN-MB0:/Applications/Xcode-beta.app/Contents/Developer|
 ```
 
 #### XcodeDefault.xctoolchain
+
 - usr/include/c++/v1/climits  
 - usr/include/c++/v1/limits.h  
 - usr/lib/clang/9.0.0/include/limits.h  
 
 #### MacOSX.sdk
+
 - usr/include/limits.h  
 - usr/include/machine/limits.h  
 - usr/include/i386/limits.h  
@@ -345,6 +407,7 @@ faner@THOMASFAN-MB0:/Applications/Xcode-beta.app/Contents/Developer|
 - System/Library/Frameworks/Kernel.framework/Versions/A/Headers/machine/limits.h  
 
 #### iPhoneOS.sdk
+
 - usr/include/limits.h  
 - usr/include/machine/limits.h  
 - usr/include/arm/limits.h  

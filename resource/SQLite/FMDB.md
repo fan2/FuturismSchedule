@@ -41,7 +41,7 @@
 [Linux sqlite3基本命令](http://blog.csdn.net/cnbloger/article/details/11596569)
 
 ```Shell
-faner@THOMASFAN-MB0:~|⇒  sqlite3
+faner@FAN-MB0:~|⇒  sqlite3
 SQLite version 3.16.0 2016-11-04 19:09:39
 Enter ".help" for usage hints.
 Connected to a transient in-memory database.

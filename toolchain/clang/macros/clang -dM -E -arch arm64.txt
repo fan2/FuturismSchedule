@@ -365,7 +365,7 @@ pi@raspberrypi:~ $
 
 
 
-faner@THOMASFAN-MB0:~|⇒  clang -dM -E -arch arm64 -x c /dev/null
+faner@FAN-MB0:~|⇒  clang -dM -E -arch arm64 -x c /dev/null
 #define OBJC_NEW_PROPERTIES 1
 #define _LP64 1
 #define __AARCH64EL__ 1

@@ -1,4 +1,4 @@
-faner@THOMASFAN-MB0:~|⇒  clang -dM -E -arch i386 -x c /dev/null  
+faner@FAN-MB0:~|⇒  clang -dM -E -arch i386 -x c /dev/null  
 #define OBJC_NEW_PROPERTIES 1
 #define _ILP32 1
 #define __APPLE_CC__ 6000

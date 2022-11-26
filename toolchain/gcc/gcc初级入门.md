@@ -31,8 +31,8 @@ gcc建立的目标代码文件默认只有一个 `.o` 的扩展名。
 ### 编译实例——coroutine
 ```Shell
 ⇒  
-faner@THOMASFAN-MB0:~/Projects/git/framework/coroutine|master⚡ 
+faner@FAN-MB0:~/Projects/git/framework/coroutine|master⚡ 
 ⇒  mkdir out
-faner@THOMASFAN-MB0:~/Projects/git/framework/coroutine|master⚡ 
+faner@FAN-MB0:~/Projects/git/framework/coroutine|master⚡ 
 ⇒  gcc coroutine.c main.c -o out/coroutine 
 ```
